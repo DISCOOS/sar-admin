@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <title>SAR-Admin</title>
+  <base href="/">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.2.0/jquery.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/js/bootstrap.js"></script>
+  <!-- Polyfill(s) for older browsers -->
+  <script src="node_modules/core-js/client/shim.min.js"></script>
+
+  <script src="node_modules/zone.js/dist/zone.js"></script>
+  <script src="node_modules/systemjs/dist/system.src.js"></script>
+
+  <script src="systemjs.config.js"></script>
+  <link rel="stylesheet" href="app/assets/styles.css">
+
+
+
+  <script>
+    System.config({
+      defaultJSExtensions: true,
+      map: {
+        'ng2-bs3-modal': 'node_modules/ng2-bs3-modal',
+        'ng2-spin-kit': 'node_modules/ng2-spin-kit',
+      }
+    });
+    System.import('main.js').catch(function (err) { console.error(err); });
+  </script>
+</head>
+
+<body>
+  <app>Laster...</app>
+
+
+
+  <script type="text/javascript" src="app/assets/js/scripts.js"></script>
+</body>
+</html>

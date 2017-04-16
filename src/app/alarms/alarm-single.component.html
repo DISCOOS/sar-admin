@@ -1,0 +1,72 @@
+<article>
+    <div *ngIf="alarm"  class="animated fadeIn">
+        <h2>{{alarm.name}}</h2>
+        <form>
+            <div class="form-sub-heading" data-number="1">
+                <h3>Info</h3>
+            </div>
+            <div class="form-group">
+                <label for="name" class="control-label">Navn</label>
+                <input [(ngModel)]="alarm.name" class="formcontrol" type="text" name="name" placeholder="">
+            </div>
+            <div class="form-group">
+                <label for="name" class="control-label">Oppmøtested</label>
+                <input class="formcontrol" type="text" name="meetingpoint" placeholder="">
+            </div>
+            <div class="form-group">
+                <input id="emergency" type="checkbox" name="emergencty">
+                <label for="emergency">Nødsituasjon? </label>
+                <div class="helper-text">Ved nødsituasjonerer vil alle bli varslet uavhengig av tilgjengelighet</div>
+            </div>
+            <div class="form-group">
+                <label for="description" class="control-label">Beskrivelse</label>
+                <textarea class="form-control" name="description"></textarea>
+            </div>
+            <div class="form-sub-heading" data-number="2">
+                <h3>Medlemmer som skal varsles</h3>
+            </div>
+            <table>
+                <thead>
+                    <th>Velg</th>
+                    <th>Tilgjengelig</th>
+                    <th>Rolle</th>
+                    <th>Navn</th>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>
+                            <input id="c1" type="checkbox" name="ola-normann">
+                            <label for="c1"></label>
+                        </td>
+                        <td>Ja</td>
+                        <td>Lorem ipsum</td>
+                        <td>Ola Normann</td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <input id="c2" type="checkbox" name="ola-normann">
+                            <label for="c2"></label>
+                        </td>
+                        <td>Ja</td>
+                        <td>Lorem ipsum</td>
+                        <td>Ola Normann</td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <input id="c3" type="checkbox" name="ola-normann">
+                            <label for="c3"></label>
+                        </td>
+                        <td>Ja</td>
+                        <td>Lorem ipsum</td>
+                        <td>Ola Normann</td>
+                    </tr>
+                </tbody>
+            </table>
+            <div class="form-group">
+                <button type="submit" (click)="save()">Opprett aksjon</button>
+                <button (click)="cancel()">Avbryt</button>
+                <!--    <button (click)="modal.open()" [class.hidden]="isAddMode()">Slett</button> -->
+            </div>
+        </form>
+    </div>
+</article>

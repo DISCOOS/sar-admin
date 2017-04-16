@@ -1,0 +1,36 @@
+<toast></toast>
+
+<div id="maske" class="animated fadeIn" [class.show]="showMenu"></div>
+<div id="wrapper">
+    <header id="top">
+        <div class="container">
+            <a class="col-xs-6 col-md-2" [routerLink]="['/alarms']" id="logo"><img src="app/assets/img/logo.svg"></a>
+            <div class="col-xs-6 col-md-10">
+                <button id="menu-toggle" (click)="toggleMenu()">&#8801; Meny </button>
+                <ul id="menu" class="animated fadeInDown" [class.show]="showMenu">
+                    <a id="close" (click)="toggleMenu()"><span class="pe-7s-close-circle"></span></a>
+                    <li>
+                        <a [routerLink]="['/alarms']" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}">
+                            <span class="pe-7s-map"></span>
+                            <span>Aksjoner</span></a>
+                    </li>
+                    <li>
+                        <a [routerLink]="['/alarms', 'add']" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}">
+                            <span class="pe-7s-bell"></span>
+                            <span>Opprett aksjon</span></a>
+                    </li>
+                   <!-- <li><a href="#"><span class="pe-7s-config"></span>
+                        <span>Innstillinger</span></a>
+                    </li>
+                   -->
+                </ul>
+            </div>
+        </div>
+    </header>
+    <div class="container" id="content">
+        <router-outlet></router-outlet>
+    </div>
+</div>
+
+
+<footer id="footer"></footer>
