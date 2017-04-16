@@ -11,10 +11,7 @@ export class ToastComponent implements OnInit {
 	private _toastElement: any;
 
 	constructor(toastService: ToastService) {
-		console.log("ToastComp constr")
 		toastService.activate = this.activate.bind(this);
-		
-		console.log(toastService)
 		this.success = true;
 	}
 

@@ -2,7 +2,7 @@ import { ViewChild, Component, OnInit } from '@angular/core';
 import { Observable, Subscription } from 'rxjs/Rx';
 import { Alarm } from './alarm';
 import { FilterService, FilterTextComponent } from '../blocks/blocks';
-import { SARService } from './sar.service';
+import { SARService } from '../services/sar.service';
 /**
  * 
  * Component for handling list of alarms

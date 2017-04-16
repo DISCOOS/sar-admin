@@ -3,12 +3,14 @@ import { Routes, RouterModule } from '@angular/router';
 import { AlarmListComponent} from './alarms/alarm-list.component';
 import { AlarmSingleComponent } from './alarms/alarm-single.component';
 import { PageNotFoundComponent} from './page-not-found.component';
-
+import { LoginComponent } from './login/login.component';
+import { AuthGuard } from './blocks/guard/auth.gard';
 
 const routes: Routes = [
-    { path: '', pathMatch: 'full', redirectTo: 'alarms'},
-    { path: 'alarms', component: AlarmListComponent},
-    { path: 'alarms/:id', component: AlarmSingleComponent},
+    { path: '', component: AlarmListComponent, canActivate: [AuthGuard]},
+    { path: 'login', component: LoginComponent},
+    { path: 'alarms', component: AlarmListComponent, canActivate: [AuthGuard]},
+    { path: 'alarms/:id', component: AlarmSingleComponent, canActivate: [AuthGuard]},
     { path: '**', pathMatch: 'full', component: PageNotFoundComponent}
 ]
 

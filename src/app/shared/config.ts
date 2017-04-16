@@ -3,5 +3,6 @@ export let CONFIG = {
         token: ''
     },
     urls: {
+    	baseUrl: 'http://api.kova.no/api'
   }
 }

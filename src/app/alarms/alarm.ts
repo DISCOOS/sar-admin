@@ -1,8 +1,3 @@
-/**
- * Models.
- * 
- */
-
  export class Alarm {
  	constructor(
  		public ID : number,
