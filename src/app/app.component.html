@@ -1,5 +1,4 @@
 <toast></toast>
-
 <div id="maske" class="animated fadeIn" [class.show]="showMenu"></div>
 <div id="wrapper">
     <header id="top">
@@ -10,6 +9,13 @@
                 <ul id="menu" class="animated fadeInDown" [class.show]="showMenu">
                     <a id="close" (click)="toggleMenu()"><span class="pe-7s-close-circle"></span></a>
                     <li>
+                        <a [routerLink]="['/login']">
+                            <span class="pe-7s-user"></span>
+                            <span>Logg ut</span>
+                        </a>
+
+                    </li>
+                    <li>
                         <a [routerLink]="['/missions']" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}">
                             <span class="pe-7s-map"></span>
                             <span>Aksjoner</span></a>
@@ -19,11 +25,11 @@
                             <span class="pe-7s-bell"></span>
                             <span>Opprett aksjon</span></a>
                     </li>
-                   <!-- <li>{{currentUser.name}}<a href="#">Logg ut</a></li>
+                    <!--
                     <li><a href="#"><span class="pe-7s-config"></span>
                         <span>Innstillinger</span></a>
                     </li>
-                   -->
+                    -->
                 </ul>
             </div>
         </div>
@@ -32,6 +38,4 @@
         <router-outlet></router-outlet>
     </div>
 </div>
-
-
 <footer id="footer"></footer>
