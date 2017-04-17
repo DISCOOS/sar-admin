@@ -1,4 +1,4 @@
-<div id="login-box">
+<div class="animated fadeIn" id="login-box">
     <img src="app/assets/img/logo.svg">
     <form (ngSubmit)="f.form.valid && login()" #f="ngForm" novalidate>
         <div class="form-group"  [ngClass]="{ 'has-error': f.submitted && !username.valid }">

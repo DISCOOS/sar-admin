@@ -13,6 +13,7 @@ body { background:#f7f7f7; font-family: "MyriadPro-Regular";}
 .show { display: block;}
 .green {background-color: rgba(196, 224, 181,1); color: #232323;}
 .red { background-color: rgba(237, 28, 36,1); color: #fff;}
+.emergency { font-size: 2em; font-weight: bold;color: rgba(237, 28, 36,1); }
 /* top */
 
 #top { background: #f1f2f3; height: 100px;}

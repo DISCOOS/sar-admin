@@ -28,10 +28,10 @@ export class MissionListComponent implements OnInit {
 	constructor(private sarService: SARService,
 		private filterService: FilterService) {
 		this.missions = [];
-		this.missions.push(new Mission(1,"Lipsum"))
-		this.missions.push(new Mission(2,"Dipsum"))
-		this.missions.push(new Mission(2,"Missionsum"))
-		this.missions.push(new Mission(2,"Testerum"))
+		this.missions.push(new Mission(1,"Lipsum", true))
+		this.missions.push(new Mission(2,"Dipsum", false))
+		this.missions.push(new Mission(2,"Missionsum",false))
+		this.missions.push(new Mission(2,"Testerum", true))
 
 		this.filteredMissions = this.missions;
 		//this.isLoading = true;
