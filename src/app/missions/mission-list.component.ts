@@ -1,60 +1,60 @@
 import { ViewChild, Component, OnInit } from '@angular/core';
 import { Observable, Subscription } from 'rxjs/Rx';
-import { Alarm } from './alarm';
+import { Mission } from './mission';
 import { FilterService, FilterTextComponent } from '../blocks/blocks';
 import { SARService } from '../services/sar.service';
 /**
  * 
- * Component for handling list of alarms
+ * Component for handling list of missions
  * 
  */
 
 
 @Component({
 	moduleId: module.id,
-	selector: 'alarms',
-	templateUrl: 'alarm-list.component.html',
+	selector: 'missions',
+	templateUrl: 'mission-list.component.html',
 	providers: [FilterService],
 })
-export class AlarmListComponent implements OnInit {
+export class MissionListComponent implements OnInit {
 	name: string;
 	errorMsg: string;
 	isLoading: boolean;
-	alarms: Alarm[];
-	filteredAlarms = this.alarms;
+	missions: Mission[];
+	filteredMissions = this.missions;
 	@ViewChild(FilterTextComponent) filterComponent: FilterTextComponent;
-	//alarms : Array<Alarm>;
+	//missions : Array<Mission>;
 
 	constructor(private sarService: SARService,
 		private filterService: FilterService) {
-		this.alarms = [];
-		this.alarms.push(new Alarm(1,"Lipsum"))
-		this.alarms.push(new Alarm(2,"Dipsum"))
-		this.alarms.push(new Alarm(2,"Alarmsum"))
-		this.alarms.push(new Alarm(2,"Testerum"))
+		this.missions = [];
+		this.missions.push(new Mission(1,"Lipsum"))
+		this.missions.push(new Mission(2,"Dipsum"))
+		this.missions.push(new Mission(2,"Missionsum"))
+		this.missions.push(new Mission(2,"Testerum"))
 
-		this.filteredAlarms = this.alarms;
+		this.filteredMissions = this.missions;
 		//this.isLoading = true;
 
 	}
 
 
 	filterChanged(searchText: string) {
-		this.filteredAlarms = this.filterService.filter(searchText, this.alarms)
+		this.filteredMissions = this.filterService.filter(searchText, this.missions)
 	}
 
 	/**
 	 *
 	 */
-	getAlarms() {
+	getMissions() {
 
 		this.isLoading = true;
 		
 /*
-		this.alarmService.getAlarms(limit)
+		this.missionService.getMissions(limit)
 			.subscribe(
-			(alarms) => {
-				this.alarms = this.filteredAlarms = alarms;
+			(missions) => {
+				this.missions = this.filteredMissions = missions;
 				this.filterComponent.clear();
 			},
 			() => this.stopRefreshing(),
@@ -70,7 +70,7 @@ export class AlarmListComponent implements OnInit {
 	ngOnInit() {
 
 		
-		//this.getAlarms();
+		//this.getMissions();
 
 	}
 }

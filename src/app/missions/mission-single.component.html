@@ -1,13 +1,13 @@
 <article>
-    <div *ngIf="alarm"  class="animated fadeIn">
-        <h2>{{alarm.name}}</h2>
+    <div *ngIf="mission"  class="animated fadeIn">
+        <h2>{{mission.name}}</h2>
         <form>
             <div class="form-sub-heading" data-number="1">
                 <h3>Info</h3>
             </div>
             <div class="form-group">
                 <label for="name" class="control-label">Navn</label>
-                <input [(ngModel)]="alarm.name" class="formcontrol" type="text" name="name" placeholder="">
+                <input [(ngModel)]="mission.name" class="formcontrol" type="text" name="name" placeholder="">
             </div>
             <div class="form-group">
                 <label for="name" class="control-label">Oppmøtested</label>

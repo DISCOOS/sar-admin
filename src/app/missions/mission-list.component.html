@@ -10,15 +10,15 @@
         <th></th>
     </thead>
     <tbody>
-        <tr *ngFor="let alarm of filteredAlarms" class="animated fadeIn">
+        <tr *ngFor="let mission of filteredMissions" class="animated fadeIn">
             <td>
-                {{alarm.name}}
+                {{mission.name}}
             </td>
             <td>01/01/01</td>
             <td>Lorem ipsum dolor sit amet</td>
             <td><span style="color: green;">Ja</span></td>
             <td>
-                <button [routerLink]="['/alarms', alarm.ID]">Vis</button>
+                <button [routerLink]="['/missions', mission.ID]">Vis</button>
             </td>
         </tr>
     </tbody>

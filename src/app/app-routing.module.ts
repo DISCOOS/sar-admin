@@ -1,16 +1,16 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
-import { AlarmListComponent} from './alarms/alarm-list.component';
-import { AlarmSingleComponent } from './alarms/alarm-single.component';
+import { MissionListComponent} from './missions/mission-list.component';
+import { MissionSingleComponent } from './missions/mission-single.component';
 import { PageNotFoundComponent} from './page-not-found.component';
 import { LoginComponent } from './login/login.component';
 import { AuthGuard } from './blocks/guard/auth.gard';
 
 const routes: Routes = [
-    { path: '', component: AlarmListComponent, canActivate: [AuthGuard]},
+    { path: '', component: MissionListComponent, canActivate: [AuthGuard]},
     { path: 'login', component: LoginComponent},
-    { path: 'alarms', component: AlarmListComponent, canActivate: [AuthGuard]},
-    { path: 'alarms/:id', component: AlarmSingleComponent, canActivate: [AuthGuard]},
+    { path: 'missions', component: MissionListComponent, canActivate: [AuthGuard]},
+    { path: 'missions/:id', component: MissionSingleComponent, canActivate: [AuthGuard]},
     { path: '**', pathMatch: 'full', component: PageNotFoundComponent}
 ]
 
@@ -25,7 +25,7 @@ const routes: Routes = [
 export class AppRoutingModule {}
 
 export const routableComponents = [
-    AlarmListComponent,
-    AlarmSingleComponent,
+    MissionListComponent,
+    MissionSingleComponent,
     PageNotFoundComponent
 ];

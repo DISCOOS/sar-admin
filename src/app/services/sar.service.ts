@@ -62,7 +62,7 @@ export class SARService {
 	/**
 	 * Get alarms 
 	 */
-	getAlarms() {
+	getMissions() {
 
 	}
 
