@@ -1,9 +1,9 @@
 <filter-text (changed)="filterChanged($event)">
 </filter-text>
 <sk-three-bounce [isRunning]="isLoading"></sk-three-bounce>
-<table class="animated fadeIn">
+<table class="missions animated fadeIn">
     <thead>
-        <th style="width:10px;"></th>
+        <th></th>
         <th>Navn</th>
         <th>Dato</th>
         <th>Beskrivelse</th>
@@ -12,7 +12,7 @@
     </thead>
     <tbody>
         <tr *ngFor="let mission of filteredMissions" class="animated fadeIn">
-            <td style="width:10px;"><a title="Nødsituasjon"><span *ngIf="mission.isEmergency" class="pe-7s-attention emergency"></span></a></td>
+            <td><a title="Nødsituasjon"><span *ngIf="mission.isEmergency" class="pe-7s-attention emergency"></span></a></td>
             <td>{{mission.name}}</td>
             <td>01/01/01</td>
             <td>Lorem ipsum dolor sit amet</td>

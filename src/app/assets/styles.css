@@ -13,7 +13,7 @@ body { background:#f7f7f7; font-family: "MyriadPro-Regular";}
 .show { display: block;}
 .green {background-color: rgba(196, 224, 181,1); color: #232323;}
 .red { background-color: rgba(237, 28, 36,1); color: #fff;}
-.emergency { font-size: 2em; font-weight: bold;color: rgba(237, 28, 36,1); }
+.emergency { font-size: 2em; font-weight: bold; color: rgba(237, 28, 36,1); }
 /* top */
 
 #top { background: #f1f2f3; height: 100px;}
@@ -88,6 +88,8 @@ table tr { border-bottom: 1px solid #ccc;}
 table tr:hover { background: #fff;}
 table td, table th { padding: 1em; width: 150px;}
 
+/* Set width for emergency icon in first cell */
+table.missions th:nth-child(1), table.missions td:nth-child(1) { width: 10px;}
 
 
 

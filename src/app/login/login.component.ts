@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 
 import { SARService } from '../services/sar.service';
+import { UserService } from '../services/user.service';
 import { ToastService } from '../blocks/blocks';
 
 @Component({
@@ -18,7 +19,8 @@ export class LoginComponent implements OnInit {
         private route: ActivatedRoute,
         private router: Router,
         private SARService: SARService,
-        private toastService: ToastService) { }
+        private toastService: ToastService,
+        private userService: UserService) { }
 
     ngOnInit() {
         // reset login status
@@ -34,6 +36,8 @@ export class LoginComponent implements OnInit {
             .subscribe(
                 data => {
                     this.router.navigate([this.returnUrl]);
+                    let user = JSON.parse(localStorage.getItem('currentUser'));
+                    this.userService.setUser(user);
                 },
                 error => {
                   

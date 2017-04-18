@@ -1,7 +1,7 @@
 <toast></toast>
 <div id="maske" class="animated fadeIn" [class.show]="showMenu"></div>
 <div id="wrapper">
-    <header id="top">
+    <header *ngIf="currentUser" id="top">
         <div class="container">
             <a class="col-xs-6 col-md-2" [routerLink]="['/missions']" id="logo"><img src="app/assets/img/logo.svg"></a>
             <div class="col-xs-6 col-md-10">
