@@ -1,15 +1,15 @@
 <toast></toast>
-<div id="maske" class="animated fadeIn" [class.show]="showMenu"></div>
+<div id="maske" class="animated fadeIn" [class.show]="showMobileMenu"></div>
 <div id="wrapper">
-    <header *ngIf="currentUser" id="top">
+    <header *ngIf="showNav" id="top">
         <div class="container">
             <a class="col-xs-6 col-md-2" [routerLink]="['/missions']" id="logo"><img src="app/assets/img/logo.svg"></a>
             <div class="col-xs-6 col-md-10">
-                <button id="menu-toggle" (click)="toggleMenu()">&#8801; Meny </button>
-                <ul id="menu" class="animated fadeInDown" [class.show]="showMenu">
-                    <a id="close" (click)="toggleMenu()"><span class="pe-7s-close-circle"></span></a>
+                <button id="menu-toggle" (click)="toggleMobileMenu()">&#8801; Meny </button>
+                <ul id="menu" class="animated fadeInDown" [class.show]="showMobileMenu">
+                    <a id="close" (click)="toggleMobileMenu()"><span class="pe-7s-close-circle"></span></a>
                     <li>
-                        <a [routerLink]="['/login']">
+                        <a (click)="unsubscribe()"[routerLink]="['/login']">
                             <span class="pe-7s-user"></span>
                             <span>Logg ut</span>
                         </a>

@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 
-import { SARService } from '../services/sar.service';
 import { UserService } from '../services/user.service';
 import { ToastService } from '../blocks/blocks';
 
@@ -18,13 +17,12 @@ export class LoginComponent implements OnInit {
     constructor(
         private route: ActivatedRoute,
         private router: Router,
-        private SARService: SARService,
         private toastService: ToastService,
         private userService: UserService) { }
 
     ngOnInit() {
         // reset login status
-        this.SARService.logout();
+        this.userService.logout();
 
         // get return url from route parameters or default to '/'
         this.returnUrl = this.route.snapshot.queryParams['returnUrl'] || '/';
@@ -32,12 +30,10 @@ export class LoginComponent implements OnInit {
 
     login() {
         this.loading = true;
-        this.SARService.login(this.model.username, this.model.password)
+        this.userService.login(this.model.username, this.model.password)
             .subscribe(
                 data => {
                     this.router.navigate([this.returnUrl]);
-                    let user = JSON.parse(localStorage.getItem('currentUser'));
-                    this.userService.setUser(user);
                 },
                 error => {
                   
