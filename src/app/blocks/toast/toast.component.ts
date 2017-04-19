@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { ToastService } from './toast.service';
 
+
+
 @Component({
   selector: 'toast',
   templateUrl: 'app/blocks/toast/toast.component.html'
@@ -31,14 +33,26 @@ export class ToastComponent implements OnInit {
 	}
 
 	private _show() {
+		this._toastElement.style.display = 'block'
 		this._toastElement.style.opacity = 1;
 		window.setTimeout(() => this._hide(), 2500);
+
 	}
 
 
 	private _hide() {
 		this._toastElement.style.opacity = 0;
-		window.setTimeout(() => this._toastElement.style.zIndex = 0, 400);
+		window.setTimeout(() => this._toastElement.style.zIndex = 0, 400)
+		this.delay(400).then(() => this._toastElement.style.display = 'none');
+		
 	}
+
+	private delay(ms){
+    var ctr, rej, p = new Promise(function (resolve, reject) {
+        ctr = setTimeout(resolve, ms);
+        rej = reject;
+    });
+    return p; 
+}
 
 }

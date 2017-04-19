@@ -9,25 +9,23 @@ import {Subscription} from 'rxjs/Subscription';
   providers: [ToastService]
   
 })
-export class AppComponent implements OnInit  { 
+export class AppComponent  { 
+	// Only mobile nav
 	showMobileMenu : boolean;
+	
+	// Toggles header after login
 	showNav : boolean;
-	subscription: Subscription;
 
 	constructor(
 		private userService : UserService,
 		private toastService : ToastService)
 	{
-
+	// Subscribes to Subject in UserService so we can update nav-view after login
 	this.userService.isLoggedIn.subscribe((value) => {
-           console.log("Show nav? " + value); 
+           //console.log("Show nav " + value); 
            this.showNav = value;
          });
 		
-	}
-
-	ngOnInit() {
-
 	}
 
 	/**
