@@ -1,4 +1,4 @@
-<div id="toast" class="toast-container {{success ? 'green' : 'red' }}">
+<div id="toast" class="toast-container {{success ? 'green' : 'red' }}" (click)="_hide()">
 <span class="{{success ? 'pe-7s-like2' : 'pe-7s-close'}}" ></span>
 {{message}}
 </div>

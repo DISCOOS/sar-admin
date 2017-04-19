@@ -37,7 +37,7 @@ export class LoginComponent implements OnInit {
                 },
                 error => {
                   
-                  this.toastService.activate("Innlogging mislyktes", false);
+                  this.toastService.activate("Innlogging mislyktes", false, false);
                   this.loading = false;
                 });
     }

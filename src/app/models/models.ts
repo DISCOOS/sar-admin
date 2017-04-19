@@ -3,4 +3,6 @@ export class User {
 	email : string;
 	name : string;
 	organization : string;
+	token : string;
 }
+

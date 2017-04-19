@@ -1,6 +1,6 @@
 import { Component, ViewChild, OnInit } from '@angular/core';
 import { ToastComponent, ToastService } from './blocks/blocks';
-import { User } from './models/user';
+import { User } from './models/models';
 import { UserService } from './services/user.service';
 import {Subscription} from 'rxjs/Subscription';
 @Component({

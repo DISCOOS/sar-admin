@@ -1,4 +1,4 @@
-import { User } from '../models/user';
+import { User } from '../models/models';
 import {Injectable}      from '@angular/core'
 import { Observable } from 'rxjs/Observable';
  import { URLSearchParams } from "@angular/http"

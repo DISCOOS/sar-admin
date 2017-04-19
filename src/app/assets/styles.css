@@ -21,7 +21,7 @@ body { background:#f7f7f7; font-family: "MyriadPro-Regular";}
 #logo > img { width: 150px;}
 #maske {display: none; background-color: rgba(255,255,255, 0.85); left: 0; bottom: 0; right: 0; top: 0; margin: auto; overflow-y: scroll; position: fixed; z-index: 10; }
 
-.toast-container {display: none; opacity: 0; transition: opacity 400ms ease-in; width: 100%; position: fixed; left: 0; bottom: 0; right: 0; z-index: 9999; text-align: center; padding: 2em 0; font-size: 1.1em;}
+.toast-container {display: none; cursor: pointer; opacity: 0; transition: opacity 400ms ease-in; width: 100%; position: fixed; left: 0; bottom: 0; right: 0; z-index: 9999; text-align: center; padding: 2em 0; font-size: 1.1em;}
 .toast-container span { font-size:3em; display:block;   padding-bottom: .2em; }
 
 /* menu */

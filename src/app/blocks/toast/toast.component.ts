@@ -21,10 +21,10 @@ export class ToastComponent implements OnInit {
 	/**
 	@param success : Use true for successmessage and false for error message
 	**/
-	 activate(message: string, success : boolean) {
+	 activate(message: string, success : boolean, autoHide ?: boolean) {
 	    this.message = message;
 	    this.success = success; 
-	    this._show();
+	    this._show(autoHide);
   	}
 
 
@@ -32,11 +32,11 @@ export class ToastComponent implements OnInit {
 		this._toastElement = document.getElementById('toast');
 	}
 
-	private _show() {
+	private _show(autoHide ?: boolean) {
 		this._toastElement.style.display = 'block'
 		this._toastElement.style.opacity = 1;
-		window.setTimeout(() => this._hide(), 2500);
-
+		if(autoHide)
+			window.setTimeout(() => this._hide(), 2500);
 	}
 
 
@@ -44,7 +44,7 @@ export class ToastComponent implements OnInit {
 		this._toastElement.style.opacity = 0;
 		window.setTimeout(() => this._toastElement.style.zIndex = 0, 400)
 		this.delay(400).then(() => this._toastElement.style.display = 'none');
-		
+		 
 	}
 
 	private delay(ms){
