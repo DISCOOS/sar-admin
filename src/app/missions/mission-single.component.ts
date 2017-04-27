@@ -4,9 +4,10 @@ import 'rxjs/add/operator/switchMap';
 
 import { Component, Input, OnInit, ViewChild } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { Mission } from './mission';
+import { Mission } from '../models/models';
 import { ModalComponent } from 'ng2-bs3-modal/ng2-bs3-modal';
 import { ToastComponent, ToastService } from '../blocks/blocks';
+import { SARService } from '../services/sar.service';
 
 /**
  * Component for handling a single mission
@@ -29,7 +30,8 @@ export class MissionSingleComponent implements OnInit {
   constructor(
     private route: ActivatedRoute,
     private router: Router,
-    private toastService: ToastService
+    private toastService: ToastService,
+    private SARService : SARService
 
   ) { }
 
@@ -95,7 +97,7 @@ export class MissionSingleComponent implements OnInit {
    */
   cancel() {
      
-    this.toastService.activate('Ingen endringer ble lagret', false);
+    this.toastService.activate('Ingen endringer ble lagret', false, true);
     this.gotoMissions();
   }
 
@@ -109,16 +111,17 @@ export class MissionSingleComponent implements OnInit {
 
 
     // Add new mission
-    if (mission.ID == null) {
-     /* this.missionService.addMission(mission)
-        .subscribe(con => {
-          this.setEditMission(con);
+    if (mission.id == null) {
+      this.SARService.addMission(mission)
+        .subscribe(miss => {
+          this.setEditMission(miss);
           // Route back to mission-list.
+          this.toastService.activate(`Opprettet aksjon: "${this.mission.name}"`, true, true);
           this.gotoMissions();
         });
 
       return;
-      */
+      
     }
 
     // .. Or update exisiting
@@ -129,7 +132,7 @@ export class MissionSingleComponent implements OnInit {
         this.gotoMissions();
       });
 */
-      this.toastService.activate(`Opprettet aksjon: "${this.mission.name}"`, true);
+      
       this.gotoMissions();
 
   }
@@ -151,7 +154,8 @@ export class MissionSingleComponent implements OnInit {
 
 
   private _createEmptyMission() {
-      return new Mission(null,'')
+      return new Mission(null, true, '',null,null,null,'',null,null);
+      
   }
 
 }

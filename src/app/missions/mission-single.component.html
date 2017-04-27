@@ -11,20 +11,26 @@
             </div>
             <div class="form-group">
                 <label for="name" class="control-label">Oppmøtested</label>
-                <input class="formcontrol" type="text" name="meetingpoint" placeholder="">
+                <input  [(ngModel)]="mission.meetingpoint" class="formcontrol" type="text" name="meetingpoint" placeholder="">
             </div>
             <div class="form-group">
-                <input id="emergency" type="checkbox" name="emergencty">
+                <input  [(ngModel)]="mission.isEmergency" id="emergency" type="checkbox" name="emergency">
                 <label for="emergency">Nødsituasjon? </label>
                 <div class="helper-text">Ved nødsituasjonerer vil alle bli varslet uavhengig av tilgjengelighet</div>
             </div>
             <div class="form-group">
                 <label for="description" class="control-label">Beskrivelse</label>
-                <textarea class="form-control" name="description"></textarea>
+                <textarea  [(ngModel)]="mission.description" class="form-control" name="description"></textarea>
             </div>
             <div class="form-sub-heading" data-number="2">
-                <h3>Medlemmer som skal varsles</h3>
+                <h3>Varsling</h3>
             </div>
+        <div class="form-group">
+                <input id="ums" type="checkbox" name="ums">
+                <label for="ums">Varsling via UMS? </label>
+                <div class="helper-text"></div>
+            </div>
+            <p>Velg medlemmer som skal varsles</p>
             <table>
                 <thead>
                     <th>Velg</th>

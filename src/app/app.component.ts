@@ -1,7 +1,7 @@
 import { Component, ViewChild, OnInit } from '@angular/core';
 import { ToastComponent, ToastService } from './blocks/blocks';
 import { User } from './models/models';
-import { UserService } from './services/user.service';
+import { SARService } from './services/sar.service';
 import {Subscription} from 'rxjs/Subscription';
 @Component({
   selector: 'app',
@@ -17,11 +17,11 @@ export class AppComponent  {
 	showNav : boolean;
 
 	constructor(
-		private userService : UserService,
+		private SARService : SARService,
 		private toastService : ToastService)
 	{
 	// Subscribes to Subject in UserService so we can update nav-view after login
-	this.userService.isLoggedIn.subscribe((value) => {
+	this.SARService.isLoggedIn.subscribe((value) => {
            //console.log("Show nav " + value); 
            this.showNav = value;
          });
