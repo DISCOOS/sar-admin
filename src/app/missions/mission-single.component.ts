@@ -31,8 +31,7 @@ export class MissionSingleComponent implements OnInit {
     private route: ActivatedRoute,
     private router: Router,
     private toastService: ToastService,
-    private SARService : SARService
-
+    private SARService: SARService
   ) { }
 
 
@@ -58,13 +57,19 @@ export class MissionSingleComponent implements OnInit {
    */
   private getMission() {
     if (this.isAddMode()) {
+     
+      
       this.mission = this._createEmptyMission();
+      
+      
       return;
     }
     // Edit mode, fetch mission from service
     this.id = +this.route.snapshot.paramMap.get('id');
-    this.setEditMission(new Mission(1, "Navnet på en aksjon"))
-   // this.missionService.getMission(this.id)
+    //this.setEditMission(new Mission(1, "Navnet på en aksjon"))
+
+    this.setEditMission(this._createEmptyMission())
+    // this.missionService.getMission(this.id)
     //    .subscribe(mission => this.setEditMission(mission));
   }
 
@@ -96,7 +101,7 @@ export class MissionSingleComponent implements OnInit {
    * Cancels changes and sends back to mission-list
    */
   cancel() {
-     
+
     this.toastService.activate('Ingen endringer ble lagret', false, true);
     this.gotoMissions();
   }
@@ -108,32 +113,31 @@ export class MissionSingleComponent implements OnInit {
    */
   save() {
     let mission = this.mission
-
-
+    mission.isActive = true;
     // Add new mission
     if (mission.id == null) {
       this.SARService.addMission(mission)
         .subscribe(miss => {
           this.setEditMission(miss);
           // Route back to mission-list.
-          this.toastService.activate(`Opprettet aksjon: "${this.mission.name}"`, true, true);
+          this.toastService.activate(`Opprettet aksjon: "${this.mission.title}"`, true, true);
           this.gotoMissions();
         });
 
       return;
-      
+
     }
 
     // .. Or update exisiting
-   /* this.missionService.updateMission(mission)
-      .subscribe(() => {
-        console.log("updated")
-        // Route back to mission-list.
-        this.gotoMissions();
-      });
-*/
-      
-      this.gotoMissions();
+    /* this.missionService.updateMission(mission)
+       .subscribe(() => {
+         console.log("updated")
+         // Route back to mission-list.
+         this.gotoMissions();
+       });
+ */
+
+    this.gotoMissions();
 
   }
 
@@ -149,13 +153,27 @@ export class MissionSingleComponent implements OnInit {
         this.gotoMissions();
       });
 */
-      this.gotoMissions();
+    this.gotoMissions();
   }
 
 
   private _createEmptyMission() {
-      return new Mission(null, true, '',null,null,null,'',null,null);
-      
+    console.log("create empty mission");
+    
+    return new Mission(
+      null, // id
+      true,  // isActive 
+      null, // isEmergency
+      '', // title
+      '', // desc 
+      new Date(), // datestart
+      new Date(), // dateEnd
+      null, // Alarms[]
+      null, // meetingPoint
+      null, // SarAdmin
+      null // Expence[]
+    );
+
   }
 
 }

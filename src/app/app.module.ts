@@ -27,7 +27,7 @@ import * as spinner from 'ng2-spin-kit/dist/spinners'
     ReactiveFormsModule,
     HttpModule,
     AppRoutingModule,
-    Ng2Bs3ModalModule,
+    Ng2Bs3ModalModule
   ],
 
   declarations: [AppComponent,
@@ -36,6 +36,7 @@ import * as spinner from 'ng2-spin-kit/dist/spinners'
     spinner.ThreeBounceComponent,
     ToastComponent,
     LoginComponent
+
 
   ],
   //globale providers
