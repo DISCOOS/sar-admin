@@ -7,7 +7,7 @@ import { CONFIG } from '../shared/config';
 import { Mission } from '../models/models';
 import { Subject } from 'rxjs/Subject';
 import { User } from '../models/models';
-import {Router } from '@angular/router';
+import { Router } from '@angular/router';
 let baseUrl = CONFIG.urls.baseUrl;
 let token = CONFIG.headers.token;
 
@@ -24,8 +24,8 @@ export class SARService {
 	constructor(
 		private http: Http,
 		private router: Router
-		) {
-		
+	) {
+
 	}
 
 
@@ -76,7 +76,7 @@ export class SARService {
 	 * @param error 
 	 */
 	private handleError(error: Response) {
-		if(error.status == 401) {
+		if (error.status == 401) {
 			this.router.navigate(['/login']);
 		}
 		let msg = `Status ${error.status}, url: ${error.url}`;
@@ -91,8 +91,8 @@ export class SARService {
 
 		let body = JSON.stringify(mission, this._replacer);
 
-	console.log(body);
-	
+		console.log(body);
+
 
 		return this.http
 			.post(baseUrl + '/missions', body, { headers: headers })
@@ -102,13 +102,52 @@ export class SARService {
 
 	}
 
-	/**
-	 * Get alarms 
-	 */
-	getMissions() {
+
+	_mapSingleMissionFromJSON(o: any) {
+		if (o == null || o.Info == null) return;
+		/*
+				let address = new InvoiceAddress(o.Info.InvoiceAddress.ID, o.Info.InvoiceAddress.AddressLine1, o.Info.InvoiceAddress.AddressLine2, o.Info.InvoiceAddress.AddressLine3, o.Info.InvoiceAddress.PostalCode, o.Info.InvoiceAddress.City, o.Info.InvoiceAddress.Country, o.Info.InvoiceAddress.CountryCode, o.Info.InvoiceAddress.Region)
+				let phone = new DefaultPhone(o.Info.DefaultPhone.ID, o.Info.DefaultPhone.Number, o.Info.DefaultPhone.ID.Description, o.Info.DefaultPhone.CountryCode)
+				let email = new DefaultEmail(o.Info.DefaultEmail.ID, o.Info.DefaultEmail.EmailAddress, o.Info.DefaultEmail.Description)
+				let info = new Info(o.Info.ID, o.Info.Name, address, email, phone)
+				*/
+		return new Mission(...);
+
 
 	}
 
+	_mapMissionsFromJSON(result: any) {
+
+
+		let missions = <Mission[]>[];
+		result.forEach(
+			(o: any) => {
+				let mission = this._mapSingleMissionFromJSON(o);
+				if (mission != undefined)
+					missions.push(mission)
+			}
+		)
+		return missions;
+	}
+
+
+
+	/**
+	 * Get missions 
+	 */
+
+	getMissions(limit?: number) {
+		let headers = new Headers();
+		this._createAuthHeaders(headers);
+
+		let url = baseUrl + '/missions';
+		//this._spinnerService.show();
+
+		return this.http.get(url, { headers: headers })
+			.map((response: Response) => <Mission[]>response.json())
+			.catch(this.handleError)
+		//  .finally(() => this._spinnerService.hide());
+	}
 
 
 

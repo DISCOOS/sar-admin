@@ -17,11 +17,11 @@
         <tr *ngFor="let mission of filteredMissions" class="animated fadeIn">
             
             <td><a title="Nødsituasjon"><span *ngIf="mission.isEmergency" class="pe-7s-attention emergency"></span></a></td>
-            <td>Nei</td>
-            <td>{{mission.name}}</td>
-            <td>01/01/01</td>
-            <td>Lorem ipsum dolor sit amet</td>
-            <td>Ola Normann</td>
+            <td>{{mission.isActive}}</td>
+            <td>{{mission.title}}</td>
+            <td>{{mission.startDate}} - {{mission.endDate}}</td>
+            <td>{{mission.description}}</td>
+            <td>{{mission.creator}}</td>
             <td>
                 <button [routerLink]="['/missions', mission.ID]">Vis</button>
             </td>

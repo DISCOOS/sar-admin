@@ -1,6 +1,6 @@
 import { ViewChild, Component, OnInit } from '@angular/core';
 import { Observable, Subscription } from 'rxjs/Rx';
-import { Mission } from './mission';
+import { Mission } from '../models/models';
 import { FilterService, FilterTextComponent } from '../blocks/blocks';
 import { SARService } from '../services/sar.service';
 /**
@@ -25,13 +25,13 @@ export class MissionListComponent implements OnInit {
 	@ViewChild(FilterTextComponent) filterComponent: FilterTextComponent;
 	//missions : Array<Mission>;
 
-	constructor(private sarService: SARService,
+	constructor(private SARService: SARService,
 		private filterService: FilterService) {
 		this.missions = [];
-		this.missions.push(new Mission(1,"Lipsum", true))
-		this.missions.push(new Mission(2,"Dipsum", false))
-		this.missions.push(new Mission(2,"Missionsum",false))
-		this.missions.push(new Mission(2,"Testerum", true))
+		// this.missions.push(new Mission(1,"Lipsum", true))
+		// this.missions.push(new Mission(2,"Dipsum", false))
+		// this.missions.push(new Mission(2,"Missionsum",false))
+		// this.missions.push(new Mission(2,"Testerum", true))
 
 		this.filteredMissions = this.missions;
 		//this.isLoading = true;
@@ -50,8 +50,8 @@ export class MissionListComponent implements OnInit {
 
 		this.isLoading = true;
 		
-/*
-		this.missionService.getMissions(limit)
+
+		this.SARService.getMissions()
 			.subscribe(
 			(missions) => {
 				this.missions = this.filteredMissions = missions;
@@ -59,7 +59,7 @@ export class MissionListComponent implements OnInit {
 			},
 			() => this.stopRefreshing(),
 			() => this.stopRefreshing());
-*/
+
 
 	}
 
@@ -70,7 +70,7 @@ export class MissionListComponent implements OnInit {
 	ngOnInit() {
 
 		
-		//this.getMissions();
+		this.getMissions();
 
 	}
 }
