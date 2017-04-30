@@ -21,13 +21,13 @@ import {PeopleListComponent} from '../people/people-list.component';
 export class MissionSingleComponent implements OnInit {
 
   @Input() mission: Mission;
-
+  @ViewChild(PeopleListComponent) peopleList: PeopleListComponent;
   editMission: Mission = <Mission>{};
 
   private id: any;
   private sub: any;
 
-  @ViewChild(PeopleListComponent) peopleList: PeopleListComponent;
+  
 
   constructor(
     private route: ActivatedRoute,
