@@ -13,6 +13,7 @@ import { SARService } from './services/sar.service';
 import { AppRoutingModule, routableComponents } from './app-routing.module';
 import { PageNotFoundComponent } from './page-not-found.component';
 import { ToastComponent, ToastService } from './blocks/blocks';
+import { PeopleListComponent } from './people/people-list.component';
 
 import { Ng2Bs3ModalModule } from 'ng2-bs3-modal/ng2-bs3-modal';
 import { FilterTextComponent } from './blocks/filter-text/filter-text.component';
@@ -35,7 +36,8 @@ import * as spinner from 'ng2-spin-kit/dist/spinners'
     FilterTextComponent,
     spinner.ThreeBounceComponent,
     ToastComponent,
-    LoginComponent
+    LoginComponent,
+    PeopleListComponent
 
 
   ],
