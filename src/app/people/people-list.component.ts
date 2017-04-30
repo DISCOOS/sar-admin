@@ -1,60 +1,55 @@
 import { ViewChild, Component, OnInit } from '@angular/core';
 import { Observable, Subscription } from 'rxjs/Rx';
-import { Mission } from '../models/models';
+import { SARUser } from '../models/models';
 import { FilterService, FilterTextComponent } from '../blocks/blocks';
 import { SARService } from '../services/sar.service';
 /**
  * 
- * Component for handling list of missions
+ * Component for handling list of people
  * 
  */
 
 
 @Component({
 	moduleId: module.id,
-	selector: 'missions',
-	templateUrl: 'mission-list.component.html',
+	selector: 'people',
+	templateUrl: 'people-list.component.html',
 	providers: [FilterService],
 })
-export class MissionListComponent implements OnInit {
+export class PeopleListComponent implements OnInit {
 	name: string;
 	errorMsg: string;
 	isLoading: boolean;
-	missions: Mission[];
-	filteredMissions = this.missions;
+	people: SARUser[];
+	filteredPeople = this.people;
 	@ViewChild(FilterTextComponent) filterComponent: FilterTextComponent;
-	//missions : Array<Mission>;
+	
 
 	constructor(private SARService: SARService,
 		private filterService: FilterService) {
-		this.missions = [];
-		// this.missions.push(new Mission(1,"Lipsum", true))
-		// this.missions.push(new Mission(2,"Dipsum", false))
-		// this.missions.push(new Mission(2,"Missionsum",false))
-		// this.missions.push(new Mission(2,"Testerum", true))
-
-		this.filteredMissions = this.missions;
+		this.people = [];
+		this.filteredPeople = this.people;
 		//this.isLoading = true;
 
 	}
 
 
 	filterChanged(searchText: string) {
-		this.filteredMissions = this.filterService.filter(searchText,["title", "creator"],this.missions)
+		this.filteredPeople = this.filterService.filter(searchText, this.people)
 	}
 
 	/**
 	 *
 	 */
-	getMissions() {
+	getPeople() {
 
 		this.isLoading = true;
 		
 
-		this.SARService.getMissions()
+		this.SARService.getPeople()
 			.subscribe(
-			(missions) => {
-				this.missions = this.filteredMissions = missions;
+			(people) => {
+				this.people = this.filteredPeople = people;
 				this.filterComponent.clear();
 			},
 			() => this.stopRefreshing(),
@@ -70,7 +65,7 @@ export class MissionListComponent implements OnInit {
 	ngOnInit() {
 
 		
-		this.getMissions();
+		this.getPeople();
 
 	}
 }

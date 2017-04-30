@@ -9,7 +9,6 @@
         <th>Aktiv?</th>
         <th>Navn</th>
         <th>Dato</th>
-        <th>Beskrivelse</th>
         <th>Opprettet av</th>
         <th></th>
     </thead>
@@ -19,8 +18,7 @@
             <td><a title="Nødsituasjon"><span *ngIf="mission.isEmergency" class="pe-7s-attention emergency"></span></a></td>
             <td>{{mission.isActive}}</td>
             <td>{{mission.title}}</td>
-            <td>{{mission.startDate}} - {{mission.endDate}}</td>
-            <td>{{mission.description}}</td>
+            <td>{{mission.dateStart | date: 'dd/MM/yyyy H:mm' }} - {{mission.dateEnd | date: 'dd/MM/yyyy H:mm'}}</td>  
             <td>{{mission.creator}}</td>
             <td>
                 <button [routerLink]="['/missions', mission.ID]">Vis</button>

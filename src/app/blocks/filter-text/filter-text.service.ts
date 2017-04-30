@@ -3,35 +3,13 @@ import { Injectable } from '@angular/core';
 @Injectable()
 export class FilterService {
   constructor() { }
-  /**
-   * Filters contact by name and returns a filtered list.. 
-   * @param data : title of mission to be filtered
-   * @param originalList 
-   */
-  filter(data: string, originalList: Array<any>) {
-    let filteredList: any[];
-    if (data && originalList) {
-      data = data.toLowerCase();
-      let filtered = originalList.filter(item => {
-        let match = false;
-        
-        if (item.title && item.title.toString().toLowerCase().indexOf(data) > -1) {
-          match = true;
-        }
-
-        return match;
-      });
-      filteredList = filtered;
-    }
-    else {
-      filteredList = originalList;
-    }
-    return filteredList;
-  }
-}
-
-
-/*
+  
+/**
+ * 
+ * @param data searchstring
+ * @param props properties of object to filter on
+ * @param originalList 
+ */
   filter(data: string, props: Array<string>, originalList: Array<any>) {
     let filteredList: any[];
     if (data && props && originalList) {
@@ -39,7 +17,7 @@ export class FilterService {
       let filtered = originalList.filter(item => {
         let match = false;
         for (let prop of props) {
-          if (item[prop].toString().toLowerCase().indexOf(data) > -1) {
+          if (item[prop] && item[prop].toString().toLowerCase().indexOf(data) > -1) {
             match = true;
             break;
           }
@@ -54,4 +32,5 @@ export class FilterService {
     return filteredList;
   }
 
-*/
+  
+

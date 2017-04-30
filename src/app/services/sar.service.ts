@@ -7,6 +7,7 @@ import { CONFIG } from '../shared/config';
 import { Mission } from '../models/models';
 import { Subject } from 'rxjs/Subject';
 import { User } from '../models/models';
+import { SARUser } from '../models/models';
 import { Router } from '@angular/router';
 let baseUrl = CONFIG.urls.baseUrl;
 let token = CONFIG.headers.token;
@@ -84,23 +85,6 @@ export class SARService {
 		return Observable.throw(msg || 'Server error');
 	}
 
-	addMission(mission: Mission) {
-
-		let headers = new Headers();
-		this._createAuthHeaders(headers);
-
-		let body = JSON.stringify(mission, this._replacer);
-
-		console.log(body);
-
-
-		return this.http
-			.post(baseUrl + '/missions', body, { headers: headers })
-			.map(res => res.json().data)
-			.catch(this.handleError)
-
-
-	}
 
 
 	_mapSingleMissionFromJSON(o: any) {
@@ -112,7 +96,6 @@ export class SARService {
 				let info = new Info(o.Info.ID, o.Info.Name, address, email, phone)
 				*/
 		return new Mission(...);
-
 
 	}
 
@@ -133,6 +116,43 @@ export class SARService {
 
 
 	/**
+	 * Filter out ID from JSON-object. 
+	 * @param key 
+	 * @param value 
+	 */
+	private _replacer(key, value) {
+		if (key == "id") return undefined;
+		else return value;
+	}
+
+
+
+
+
+
+
+
+
+
+
+
+	addMission(mission: Mission) {
+
+		let headers = new Headers();
+		this._createAuthHeaders(headers);
+
+		let body = JSON.stringify(mission, this._replacer);
+
+		console.log(body);
+
+
+		return this.http
+			.post(baseUrl + '/missions', body, { headers: headers })
+			.map(res => res.json().data)
+			.catch(this.handleError)
+	}
+
+	/**
 	 * Get missions 
 	 */
 
@@ -151,15 +171,41 @@ export class SARService {
 
 
 
-	/**
-	 * Filter out ID from JSON-object. 
-	 * @param key 
-	 * @param value 
-	 */
-	private _replacer(key, value) {
-		if (key == "id") return undefined;
-		else return value;
+
+	/*
+	Get single mission by Id
+	*/
+
+	getMission(id: number) {
+		let headers = new Headers();
+		this._createAuthHeaders(headers);
+		let url = baseUrl + "/missions/" + id;
+
+		return this.http.get(url, { headers: headers })
+			.map((response: Response) => response.json())
+			.catch(this.handleError);
 	}
+
+
+
+
+
+
+
+	getPeople(limit?: number) {
+		let headers = new Headers();
+		this._createAuthHeaders(headers);
+
+		let url = baseUrl + '/kova/persons';
+		//this._spinnerService.show();
+
+		return this.http.get(url, { headers: headers })
+			.map((response: Response) => <SARUser[]>response.json())
+			.catch(this.handleError)
+		//  .finally(() => this._spinnerService.hide());
+	}
+
+
 
 
 

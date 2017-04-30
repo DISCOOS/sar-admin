@@ -9,6 +9,7 @@ export class User {
 export class SARUser {
 	id: number;
 	email: string;
+	phone : number;
 	name: string;
 	organization: string;
 	isAvailable: boolean;
@@ -40,9 +41,14 @@ export class Mission {
 
 export class Alarm {
 	id: number;
-	date: number;
+	
+	// datestamp at creation
+	date: Date;
+
+
 	message: string;
 	mission: Mission;
+	
 	// Persons to be alarmed
 	persons: SARUser[];
 	alarmResponses: AlarmResponse[];
