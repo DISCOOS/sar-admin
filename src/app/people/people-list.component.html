@@ -1,22 +1,27 @@
+<filter-text (changed)="filterChanged($event)">
+</filter-text>
+
 <table>
-                <thead>
-                    <th>Velg</th>
-                    <th>Tilgjengelig</th>
-                    <th>Navn</th>
-                    <th>E-post</th>
-                </thead>
-                <tbody>
+    <thead>
+        <th>Velg</th>
+        <th>Tilgjengelig</th>
+        <th>Navn</th>
+        <th>E-post</th>
+        <th>Telefon</th>
+    </thead>
+    <tbody>
 
 
-                    <tr *ngFor="let SARUser of people">
-                        <td>
-                            <input id="c1" type="checkbox" name="ola-normann">
-                            <label for="c1"></label>
-                        </td>
-                        <td>-</td>
-                        <td>{{SARUser.name}}</td>
-                        <td>{{SARUser.email}}</td>
-                    </tr>
-                   
-                </tbody>
-            </table>
+        <tr *ngFor="let SARUser of filteredPeople">
+            <td>
+                <input id="{{SARUser.Email}}" type="checkbox" name="ola-normann">
+                <label for="{{SARUser.Email}}"></label>
+            </td>
+            <td>-</td>
+            <td>{{SARUser.Name}}</td>
+            <td>{{SARUser.Email}}</td>
+            <td>{{SARUser.PhoneMobile}}</td>
+        </tr>
+
+    </tbody>
+</table>

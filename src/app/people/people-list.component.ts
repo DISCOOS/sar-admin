@@ -23,7 +23,7 @@ export class PeopleListComponent implements OnInit {
 	people: SARUser[];
 	filteredPeople = this.people;
 	@ViewChild(FilterTextComponent) filterComponent: FilterTextComponent;
-	
+
 
 	constructor(private SARService: SARService,
 		private filterService: FilterService) {
@@ -35,7 +35,12 @@ export class PeopleListComponent implements OnInit {
 
 
 	filterChanged(searchText: string) {
-		this.filteredPeople = this.filterService.filter(searchText, this.people)
+		console.log("filter hangd");
+		
+		this.filteredPeople = this.filterService.filter(searchText, ["Name", "Email"], this.people)
+
+		console.log(this.filteredPeople);
+		
 	}
 
 	/**
@@ -44,12 +49,14 @@ export class PeopleListComponent implements OnInit {
 	getPeople() {
 
 		this.isLoading = true;
-		
+
 
 		this.SARService.getPeople()
 			.subscribe(
 			(people) => {
 				this.people = this.filteredPeople = people;
+				console.log(this.people);
+
 				this.filterComponent.clear();
 			},
 			() => this.stopRefreshing(),
@@ -58,13 +65,13 @@ export class PeopleListComponent implements OnInit {
 
 	}
 
-	
+
 	private stopRefreshing() {
 		this.isLoading = false;
 	}
 	ngOnInit() {
 
-		
+
 		this.getPeople();
 
 	}

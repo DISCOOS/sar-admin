@@ -7,13 +7,16 @@ export class User {
 
 
 export class SARUser {
-	id: number;
-	email: string;
-	phone : number;
-	name: string;
-	organization: string;
-	isAvailable: boolean;
-	isTrackable: boolean;
+	constructor(
+		id: number,
+		email: string,
+		phone: number,
+		name: string,
+		organization: string,
+		isAvailable: boolean,
+		isTrackable: boolean
+	) { }
+
 }
 
 export class SARAdmin {
@@ -35,20 +38,20 @@ export class Mission {
 		meetingPoint: string,
 		creator: SARAdmin,
 		expences: Expence[]
-	) {}
+	) { }
 
 }
 
 export class Alarm {
 	id: number;
-	
+
 	// datestamp at creation
 	date: Date;
 
 
 	message: string;
 	mission: Mission;
-	
+
 	// Persons to be alarmed
 	persons: SARUser[];
 	alarmResponses: AlarmResponse[];

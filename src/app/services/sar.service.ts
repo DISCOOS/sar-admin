@@ -87,7 +87,7 @@ export class SARService {
 
 
 
-	_mapSingleMissionFromJSON(o: any) {
+	_mapSinglePersonFromJSON(o: any) {
 		if (o == null || o.Info == null) return;
 		/*
 				let address = new InvoiceAddress(o.Info.InvoiceAddress.ID, o.Info.InvoiceAddress.AddressLine1, o.Info.InvoiceAddress.AddressLine2, o.Info.InvoiceAddress.AddressLine3, o.Info.InvoiceAddress.PostalCode, o.Info.InvoiceAddress.City, o.Info.InvoiceAddress.Country, o.Info.InvoiceAddress.CountryCode, o.Info.InvoiceAddress.Region)
@@ -99,18 +99,18 @@ export class SARService {
 
 	}
 
-	_mapMissionsFromJSON(result: any) {
+	_mapPeopleFromJSON(result: any) {
 
 
-		let missions = <Mission[]>[];
+		let sarUsers = <SARUser[]>[];
 		result.forEach(
 			(o: any) => {
-				let mission = this._mapSingleMissionFromJSON(o);
-				if (mission != undefined)
-					missions.push(mission)
+				let s_user = this._mapSinglePersonFromJSON(o);
+				if (s_user != undefined)
+					sarUsers.push(s_user)
 			}
 		)
-		return missions;
+		return sarUsers;
 	}
 
 
@@ -196,13 +196,15 @@ export class SARService {
 		let headers = new Headers();
 		this._createAuthHeaders(headers);
 
-		let url = baseUrl + '/kova/persons';
+		let url = baseUrl + '/sarusers';
 		//this._spinnerService.show();
 
 		return this.http.get(url, { headers: headers })
 			.map((response: Response) => <SARUser[]>response.json())
+		//	.map((response: Response) => this._mapPeopleFromJSON(response.json()))
 			.catch(this.handleError)
 		//  .finally(() => this._spinnerService.hide());
+
 	}
 
 
