@@ -8,7 +8,7 @@ import { Mission } from '../models/models';
 import { ModalComponent } from 'ng2-bs3-modal/ng2-bs3-modal';
 import { ToastComponent, ToastService } from '../blocks/blocks';
 import { SARService } from '../services/sar.service';
-
+import {PeopleListComponent} from '../people/people-list.component';
 /**
  * Component for handling a single mission
  * 
@@ -26,6 +26,8 @@ export class MissionSingleComponent implements OnInit {
 
   private id: any;
   private sub: any;
+
+  @ViewChild(PeopleListComponent) peopleList: PeopleListComponent;
 
   constructor(
     private route: ActivatedRoute,

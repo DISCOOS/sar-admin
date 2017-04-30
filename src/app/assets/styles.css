@@ -94,7 +94,7 @@ table.missions th:nth-child(1), table.missions td:nth-child(1) { width: 10px;}
 
 
 /* filter input */
-#filterText {width: 100%; font-size: 2.6em; border: 0; padding-bottom: 2px; border-bottom: 2px solid #333; background-color: transparent; margin: 1em 0; }
+#filterText {width: 100%; font-size: 2em; border: 0; padding-bottom: 2px; border-bottom: 2px solid #333; background-color: transparent; margin: 1em 0; }
 #filterText:focus {outline: none; border: none; border-bottom:2px solid #333; -webkit-box-shadow: none !important;-moz-box-shadow: none !important; box-shadow: none !important; }
 
 
