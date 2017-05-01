@@ -35,12 +35,7 @@ export class PeopleListComponent implements OnInit {
 
 
 	filterChanged(searchText: string) {
-		console.log("filter hangd");
-		
-		this.filteredPeople = this.filterService.filter(searchText, ["Name", "Email"], this.people)
-
-		console.log(this.filteredPeople);
-		
+		this.filteredPeople = this.filterService.filter(searchText, ["Name", "Email"], this.people)		
 	}
 
 	/**

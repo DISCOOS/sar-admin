@@ -112,6 +112,17 @@ table.missions th:nth-child(1), table.missions td:nth-child(1) { width: 10px;}
 
 
 
+/*** Mission-list ***/
+.mission { background: #fff; border-radius: 3px; padding: 1.65em; width: 30%; float: left; margin: 1em 1em 1em 0; position: relative; transition: 0.2s ease all; cursor: pointer; }
+.mission:hover { /*background: rgba(237, 28, 36, 0.75);*/ background: #333; color: #fefefe; transform: scale(1.03,1.03); }
+.mission:active { transform:scale(0.95,0.95) }
+.mission:hover >.emergency { }
+.mission h2 { font-size: 1.8em; }
+.mission h3 { font-size: 1.1em; line-height: 1em; padding-bottom: 0; margin: 0; margin-bottom: 1em; }
+.mission  > .emergency { position: absolute; top: 15px; right: 15px; }
+.mission .description { margin-top: 2.2em; text-align: justify; text-justify: inter-word; }
+.mission h3 > span { font-size: 2em; margin-right: .5em; }
+
 
 
 /* media queries */
@@ -122,6 +133,7 @@ table.missions th:nth-child(1), table.missions td:nth-child(1) { width: 10px;}
 	#menu > li { width: 100%;}
 	#menu > li > a { border-bottom: 2px solid #fff; font-size: 2em; width: 100%; padding: 1em;}
 	#menu > li > a:hover { }
+	.mission { width: 100%}
 }
 
 @media (min-width: 1025px) { 
