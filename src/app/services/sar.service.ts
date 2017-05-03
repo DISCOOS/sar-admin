@@ -13,6 +13,8 @@ let baseUrl = CONFIG.urls.baseUrl;
 let token = CONFIG.headers.token;
 
 
+declare var google: any;
+
 @Injectable()
 export class SARService {
 
@@ -78,7 +80,7 @@ export class SARService {
 	 */
 	private handleError(error: Response) {
 		if (error.status == 401) {
-			this.router.navigate(['/login']);
+			
 		}
 		let msg = `Status ${error.status}, url: ${error.url}`;
 		console.error(msg);
@@ -87,31 +89,8 @@ export class SARService {
 
 
 
-	_mapSinglePersonFromJSON(o: any) {
-		if (o == null || o.Info == null) return;
-		/*
-				let address = new InvoiceAddress(o.Info.InvoiceAddress.ID, o.Info.InvoiceAddress.AddressLine1, o.Info.InvoiceAddress.AddressLine2, o.Info.InvoiceAddress.AddressLine3, o.Info.InvoiceAddress.PostalCode, o.Info.InvoiceAddress.City, o.Info.InvoiceAddress.Country, o.Info.InvoiceAddress.CountryCode, o.Info.InvoiceAddress.Region)
-				let phone = new DefaultPhone(o.Info.DefaultPhone.ID, o.Info.DefaultPhone.Number, o.Info.DefaultPhone.ID.Description, o.Info.DefaultPhone.CountryCode)
-				let email = new DefaultEmail(o.Info.DefaultEmail.ID, o.Info.DefaultEmail.EmailAddress, o.Info.DefaultEmail.Description)
-				let info = new Info(o.Info.ID, o.Info.Name, address, email, phone)
-				*/
-		return new Mission(...);
 
-	}
-
-	_mapPeopleFromJSON(result: any) {
-
-
-		let sarUsers = <SARUser[]>[];
-		result.forEach(
-			(o: any) => {
-				let s_user = this._mapSinglePersonFromJSON(o);
-				if (s_user != undefined)
-					sarUsers.push(s_user)
-			}
-		)
-		return sarUsers;
-	}
+	
 
 
 
@@ -196,12 +175,12 @@ export class SARService {
 		let headers = new Headers();
 		this._createAuthHeaders(headers);
 
-		let url = baseUrl + '/sarusers';
+		let url = baseUrl + '/kova/persons';
 		//this._spinnerService.show();
 
 		return this.http.get(url, { headers: headers })
 			.map((response: Response) => <SARUser[]>response.json())
-		//	.map((response: Response) => this._mapPeopleFromJSON(response.json()))
+			//	.map((response: Response) => this._mapPeopleFromJSON(response.json()))
 			.catch(this.handleError)
 		//  .finally(() => this._spinnerService.hide());
 

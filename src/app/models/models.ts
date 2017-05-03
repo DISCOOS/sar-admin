@@ -35,12 +35,14 @@ export class Mission {
 		dateStart: Date,
 		dateEnd: Date,
 		alarms: Alarm[],
-		meetingPoint: string,
+		meetingPoint: string, // geolocation { lat, lng }
+		meetingPointNicename : string, // converted geolocation to nicename
 		creator: SARAdmin,
 		expences: Expence[]
 	) { }
 
 }
+
 
 export class Alarm {
 	id: number;

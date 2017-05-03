@@ -9,6 +9,8 @@ import { ModalComponent } from 'ng2-bs3-modal/ng2-bs3-modal';
 import { ToastComponent, ToastService } from '../blocks/blocks';
 import { SARService } from '../services/sar.service';
 import {PeopleListComponent} from '../people/people-list.component';
+import { MapComponent } from '../map/map.component';
+
 /**
  * Component for handling a single mission
  * 
@@ -22,6 +24,8 @@ export class MissionSingleComponent implements OnInit {
 
   @Input() mission: Mission;
   @ViewChild(PeopleListComponent) peopleList: PeopleListComponent;
+  @ViewChild(MapComponent) mapPicker: MapComponent;
+  
   editMission: Mission = <Mission>{};
 
   private id: any;
@@ -114,8 +118,10 @@ export class MissionSingleComponent implements OnInit {
    * Save new or update exisiting mission
    */
   save() {
+    
     let mission = this.mission
     mission.isActive = true;
+    
     // Add new mission
     if (mission.id == null) {
       this.SARService.addMission(mission)
@@ -128,16 +134,20 @@ export class MissionSingleComponent implements OnInit {
 
       return;
 
+      
+
     }
 
+
+
     // .. Or update exisiting
-    /* this.missionService.updateMission(mission)
+     this.missionService.updateMission(mission)
        .subscribe(() => {
          console.log("updated")
          // Route back to mission-list.
          this.gotoMissions();
        });
- */
+ 
 
     this.gotoMissions();
 
@@ -171,7 +181,8 @@ export class MissionSingleComponent implements OnInit {
       new Date(), // datestart
       new Date(), // dateEnd
       null, // Alarms[]
-      null, // meetingPoint
+      '', // meetingPoint
+      '', // meetingPointNicename
       null, // SarAdmin
       null // Expence[]
     );

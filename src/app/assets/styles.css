@@ -71,13 +71,12 @@ button { border-radius: 3px; font-size: 1.1em; transition: 0.2s ease all; paddin
 button:hover { background: none; border: 2px solid rgba(237, 28, 36,1); color: rgba(237, 28, 36,1); }
 .helper-text { font-size: .95em; padding:1em 0;}
 input[type="checkbox"] {display: none; }
-label {cursor: pointer; } 
+label {cursor: pointer; font-family: "MyriadPro-SemiBold"; } 
 input[type="checkbox"] + label { }
 input[type="checkbox"] + label:before { border: 2px solid rgb(237, 28, 36); border-radius:999px; content: ""; display: inline-block; font: 32px/.7em sans-serif; height: 20px; margin: -.2em .7em 0 0; padding:0; vertical-align: middle; width: 20px; }
 input[type="checkbox"] + label:hover::before {background: #fff; }
 input[type="checkbox"]:checked + label:before {background: rgb(237, 28, 36); border:3px solid #fff; box-shadow: 0 0 0 1px rgb(237, 28, 36); padding: .1em; text-align: center; }
 input[type="checkbox"]:checked + label:after {font-weight: bold; }
-
 
 
 
@@ -94,8 +93,8 @@ table.missions th:nth-child(1), table.missions td:nth-child(1) { width: 10px;}
 
 
 /* filter input */
-#filterText {width: 100%; font-size: 2em; border: 0; padding-bottom: 2px; border-bottom: 2px solid #333; background-color: transparent; margin: 1em 0; }
-#filterText:focus {outline: none; border: none; border-bottom:2px solid #333; -webkit-box-shadow: none !important;-moz-box-shadow: none !important; box-shadow: none !important; }
+.searchinput {width: 100%; font-size: 2em; border: 0; padding-bottom: 2px; border-bottom: 2px solid #333; background-color: transparent; margin: 1em 0; }
+.searchinput:focus {outline: none; border: none; border-bottom:2px solid #333; -webkit-box-shadow: none !important;-moz-box-shadow: none !important; box-shadow: none !important; }
 
 
 
@@ -123,6 +122,11 @@ table.missions th:nth-child(1), table.missions td:nth-child(1) { width: 10px;}
 .mission .description { margin-top: 2.2em; text-align: justify; text-justify: inter-word; }
 .mission h3 > span { font-size: 2em; margin-right: .5em; }
 
+
+
+/** map **/
+
+#map { height: 250px; border-radius:5px; border:2px solid #ccc; }
 
 
 /* media queries */

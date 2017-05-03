@@ -31,6 +31,7 @@ export class FilterService {
     }
     return filteredList;
   }
+}
 
   
 

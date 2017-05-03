@@ -20,9 +20,12 @@
                 <input [(ngModel)]="mission.dateEnd" id="date-end" name="date-end" type="datetime-local">
             </div>
             <div class="form-group">
-                <label for="name" class="control-label">Oppmøtested</label>
-                <input [(ngModel)]="mission.meetingPoint" class="formcontrol" type="text" name="meetingpoint" placeholder="">
+                <label for="meetingpoint" class="control-label">Oppmøtested</label>
+                <input [(ngModel)]="mission.meetingPointNicename" name="meetingPointNicename" id="geo_search" class="controls" type="text" placeholder="Skriv inn et sted...">
             </div>
+            <map-picker [mission]="mission"></map-picker>
+
+
             <div class="form-group">
                 <input [(ngModel)]="mission.isEmergency" id="emergency" type="checkbox" name="emergency">
                 <label for="emergency">Nødsituasjon? </label>
@@ -41,6 +44,7 @@
                 <div class="helper-text"></div>
             </div>
             <p>Velg medlemmer som skal varsles</p>
+
             <people></people>
 
             <div class="form-group">
