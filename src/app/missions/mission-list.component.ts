@@ -22,8 +22,8 @@ export class MissionListComponent implements OnInit {
 	errorMsg: string;
 	isLoading: boolean;
 	
-	//missions: Mission[];
-	missions : Observable<Mission[]>;
+	missions: Mission[];
+	//missions : Observable<Mission[]>;
 	filteredMissions = this.missions;
 	@ViewChild(FilterTextComponent) filterComponent: FilterTextComponent;
 	
@@ -37,14 +37,14 @@ export class MissionListComponent implements OnInit {
 
 
 	filterChanged(searchText: string) {
-		//this.filteredMissions = this.filterService.filter(searchText, ["title", "creator", "description"], this.missions)
+		this.filteredMissions = this.filterService.filter(searchText, ["title", "creator", "description", "meetingPointNicename"], this.missions)
 	}
 
 	/**
 	 *
 	 */
 	getMissions() {
-		/*
+		
 			this.isLoading = true;
 			this.SARService.getMissions()
 				.subscribe(
@@ -55,9 +55,9 @@ export class MissionListComponent implements OnInit {
 				},
 				() => this.stopRefreshing(),
 				() => this.stopRefreshing());
-		*/
+		
 
-		this.missions = this.SARService.getMissions();
+		//this.missions = this.SARService.getMissions();
 		
 		
 		

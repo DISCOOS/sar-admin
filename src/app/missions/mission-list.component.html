@@ -4,7 +4,7 @@
 </filter-text>
 <sk-three-bounce [isRunning]="isLoading"></sk-three-bounce>
 
-<div *ngFor="let mission of missions | async" class="mission animated fadeInUp">
+<div *ngFor="let mission of filteredMissions" class="mission animated fadeInUp" [routerLink]="['/mission-active', mission.id]">
     <div *ngIf="mission.isEmergency" class="emergency" title="Nødsituasjon"><span class="pe-7s-attention"></span></div>
     <h2>{{mission.title}}</h2>
     <h3><span class="pe-7s-user"></span> {{mission.creator}}</h3>
@@ -13,4 +13,3 @@
     <h3><span class="pe-7s-date"></span>{{mission.dateStart | date: 'dd/MM/yyyy H:mm' }} - {{mission.dateEnd | date: 'dd/MM/yyyy H:mm' }} </h3>
     <p class="description">{{mission.description}}</p>
 </div>
-

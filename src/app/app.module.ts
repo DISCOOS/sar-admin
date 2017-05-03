@@ -14,6 +14,7 @@ import { AppRoutingModule, routableComponents } from './app-routing.module';
 import { PageNotFoundComponent } from './page-not-found.component';
 import { ToastComponent, ToastService } from './blocks/blocks';
 import { PeopleListComponent } from './people/people-list.component';
+import { MissionActiveComponent } from './missions/mission-active.component';
 import { MapComponent } from './map/map.component';
 
 import { Ng2Bs3ModalModule } from 'ng2-bs3-modal/ng2-bs3-modal';
@@ -42,7 +43,8 @@ import * as spinner from 'ng2-spin-kit/dist/spinners'
     ToastComponent,
     LoginComponent,
     PeopleListComponent,
-    MapComponent
+    MapComponent,
+    MissionActiveComponent
   ],
   //globale providers
   providers: [

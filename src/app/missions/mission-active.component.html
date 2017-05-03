@@ -1,0 +1,33 @@
+<h1>Aksjon: {{mission.title}}</h1>
+
+
+    <p *ngIf="mission.isEmergency"><span class="pe-7s-attention"></span> Nødsituasjon</p>
+    
+    <p><span class="pe-7s-user"></span> {{mission.creator}}</p>
+    <p><span class="pe-7s-map-marker"></span>{{mission.meetingPointNicename}}</p>
+    
+    <p><span class="pe-7s-date"></span>{{mission.dateStart | date: 'dd/MM/yyyy H:mm' }} - {{mission.dateEnd | date: 'dd/MM/yyyy H:mm' }} </p>
+    <p class="description">{{mission.description}}</p>
+
+<h2>Status for mannskap</h2>
+
+<table>
+    <thead>
+        <th>Navn</th>
+        <th>Stiller</th>
+        <th>Dato besvart</th>
+        <th>Beskjed</th>
+        <th>Lokaliserbar?</th>
+    </thead>
+    <tbody>
+        <tr>
+            <td></td>
+            <td>-</td>
+            <td></td>
+            <td></td>
+            <td></td>
+        </tr>
+
+    </tbody>
+</table>
+

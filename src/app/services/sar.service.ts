@@ -124,7 +124,6 @@ export class SARService {
 
 		console.log(body);
 
-
 		return this.http
 			.post(baseUrl + '/missions', body, { headers: headers })
 			.map(res => res.json().data)
@@ -163,6 +162,11 @@ export class SARService {
 		return this.http.get(url, { headers: headers })
 			.map((response: Response) => response.json())
 			.catch(this.handleError);
+	}
+
+
+	updateMission(mission: Mission) {
+			return Observable.of("")
 	}
 
 
