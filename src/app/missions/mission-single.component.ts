@@ -40,16 +40,6 @@ export class MissionSingleComponent implements OnInit {
     private SARService: SARService
   ) { }
 
-
-  /**
-   * Checks params to see if we're in "add" or "edit"-mode
-   */
-  isAddMode() {
-
-    let id = +this.route.snapshot.paramMap.get('id');
-    return isNaN(id);
-  }
-
   ngOnInit() {
     // Recreate component if we're allready in mission-single
     this.sub = this.route.params.subscribe(params => {
@@ -62,21 +52,7 @@ export class MissionSingleComponent implements OnInit {
    * 
    */
   private getMission() {
-    if (this.isAddMode()) {
-     
-      
       this.mission = this._createEmptyMission();
-      
-      
-      return;
-    }
-    // Edit mode, fetch mission from service
-    this.id = +this.route.snapshot.paramMap.get('id');
-    //this.setEditMission(new Mission(1, "Navnet på en aksjon"))
-
-    this.setEditMission(this._createEmptyMission())
-    // this.missionService.getMission(this.id)
-    //    .subscribe(mission => this.setEditMission(mission));
   }
 
 
@@ -88,19 +64,6 @@ export class MissionSingleComponent implements OnInit {
     this.router.navigate(route);
   }
 
-
-  /**
-   * Set this mission, else go to list-screen
-   * @param mission 
-   */
-  private setEditMission(mission: Mission) {
-    if (mission) {
-      this.mission = mission;
-
-    } else {
-      this.gotoMissions();
-    }
-  }
 
   /**
    * Event-bind from DOM-button
@@ -117,57 +80,23 @@ export class MissionSingleComponent implements OnInit {
    * Event-bind from DOM-button
    * Save new or update exisiting mission
    */
-  save() {
-    
+  save() {  
     let mission = this.mission
     mission.isActive = true;
-    
+  
     // Add new mission
     if (mission.id == null) {
       this.SARService.addMission(mission)
         .subscribe(miss => {
-          this.setEditMission(miss);
+          this.mission = miss;
           // Route back to mission-list.
-          this.toastService.activate(`Opprettet aksjon: "${this.mission.title}"`, true, true);
+          this.toastService.activate(`Opprettet aksjon: "${mission.title}"`, true, true);
           this.gotoMissions();
         });
 
       return;
-
-      
-
     }
-
-
-
-    // .. Or update exisiting
-     this.missionService.updateMission(mission)
-       .subscribe(() => {
-         console.log("updated")
-         // Route back to mission-list.
-         this.gotoMissions();
-       });
- 
-
-    this.gotoMissions();
-
   }
-
-  /**
-   * Event-bind from DOM-button
-   * Deletes an mission.
-   */
-  delete() {
-    /*
-    this.modal.close();
-    this.missionService.deleteMission(this.mission.ID)
-      .subscribe(() => {
-        this.gotoMissions();
-      });
-*/
-    this.gotoMissions();
-  }
-
 
   private _createEmptyMission() {
     console.log("create empty mission");
