@@ -22,11 +22,11 @@ import { MapComponent } from '../map/map.component';
 })
 export class MissionActiveComponent implements OnInit {
 
-    @Input() mission: Mission;
+    //@Input() mission: Mission;
     @ViewChild(PeopleListComponent) peopleList: PeopleListComponent;
     @ViewChild(MapComponent) mapPicker: MapComponent;
 
-    mission: Mission = <Mission>{};
+    @Input() mission: Mission = <Mission>{};
 
     private id: any;
     private sub: any;
