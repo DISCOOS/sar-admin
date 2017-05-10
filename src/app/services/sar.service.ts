@@ -33,8 +33,8 @@ export class SARService {
 
 
 	private _createAuthHeaders(headers: Headers) {
-		console.log("create auth headers")
-		headers.append('Authorization', localStorage.getItem("token"));
+		
+		//headers.append('Authorization', localStorage.getItem("token"));
 		//console.log(localStorage.getItem("token"))
 		headers.append('Content-Type', 'application/json');
 	}
@@ -49,7 +49,7 @@ export class SARService {
 
 		let options = new RequestOptions({withCredentials : true})
 		return this.http
-			.post(baseUrl + '/kova/login', data, options)
+			.post(baseUrl + '/sarusers/login', data, options)
 			.map((response: Response) => {
 
 				// login successful if there's a token in the response
@@ -181,19 +181,45 @@ export class SARService {
 
 
 
+	_mapSinglePersonFromJSON(o: any) {
+		if (o == null) return;
+		return new SARUser(null, o.Email, o.PhoneMobile, o.Name, '', false, false);
+
+	}
+
+	_mapPeopleFromJSON(result: any) {
+		console.log(result)
+		let sarusers = <SARUser[]>[];
+		result.forEach(
+			(o: any) => {
+				let saruser = this._mapSinglePersonFromJSON(o);
+				if (saruser != undefined)
+					sarusers.push(saruser)
+			}
+		)
+
+		
+		return sarusers;
+	}
+
 
 
 	getPeople(limit?: number) {
 		let headers = new Headers();
 		this._createAuthHeaders(headers);
 
-		let url = baseUrl + '/kova/persons';
+		let url = baseUrl + '/sarusers/persons';
 		//this._spinnerService.show();
 
-		return this.http.get(url, { headers: headers })
-			.map((response: Response) => <SARUser[]>response.json())
-			//	.map((response: Response) => this._mapPeopleFromJSON(response.json()))
-			.catch(this.handleError)
+		// COOKIE NOT SENT IF THIS IS NOT SET
+		let options = new RequestOptions({withCredentials : true})
+		options.headers = headers;
+		//.post(baseUrl + '/sarusers/login', data, options)
+
+		return this.http.get(url, options)
+			.map((response: Response) => <SARUser[]>response.json().persons)
+			//.map((response: Response) => this._mapPeopleFromJSON(response.json()))
+			//.catch(this.handleError)
 		//  .finally(() => this._spinnerService.hide());
 
 	}
