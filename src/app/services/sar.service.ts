@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs/Observable';
-import { Http, Response } from '@angular/http';
+import { Http, Response, RequestOptions } from '@angular/http';
 import { Headers } from '@angular/http';
 import { URLSearchParams } from "@angular/http"
 import { CONFIG } from '../shared/config';
@@ -33,7 +33,9 @@ export class SARService {
 
 
 	private _createAuthHeaders(headers: Headers) {
-		headers.append('Authorization', 'Bearer ' + this.token);
+		console.log("create auth headers")
+		headers.append('Authorization', localStorage.getItem("token"));
+		//console.log(localStorage.getItem("token"))
 		headers.append('Content-Type', 'application/json');
 	}
 
@@ -44,30 +46,36 @@ export class SARService {
 		data.append('username', username);
 		data.append('password', password);
 
+
+		let options = new RequestOptions({withCredentials : true})
 		return this.http
-			.post(baseUrl + '/kova/login', data)
+			.post(baseUrl + '/kova/login', data, options)
 			.map((response: Response) => {
 
 				// login successful if there's a token in the response
-				let user = response.json();
+				let res = response.json();
+				//console.log(response.headers)
 
-				if (user.user && user.access_token) {
+				if (res.user.user && res.user.access_token) {
 					// store user details and token in local storage to keep user logged in between page refreshes
-					localStorage.setItem('currentUser', JSON.stringify(user.user));
+					localStorage.setItem('currentUser', JSON.stringify(res.user.user));
+					localStorage.setItem('token', "Bearer " + res.user.access_token);
 					this.loggedIn = true;
 					this.isLoggedIn.next(this.loggedIn);
-					this.token = user.access_token;
-					console.log("new token set")
+
 				}
 
 
 			})
+			
 			.catch(this.handleError)
+			
 	}
 
 	logout() {
 		// remove user from local storage to log user out
 		localStorage.removeItem('currentUser');
+		localStorage.removeItem('token');
 		this.loggedIn = false;
 		this.isLoggedIn.next(this.loggedIn);
 	}
@@ -80,7 +88,7 @@ export class SARService {
 	 */
 	private handleError(error: Response) {
 		if (error.status == 401) {
-			
+
 		}
 		let msg = `Status ${error.status}, url: ${error.url}`;
 		console.error(msg);
@@ -90,7 +98,7 @@ export class SARService {
 
 
 
-	
+
 
 
 
@@ -166,7 +174,7 @@ export class SARService {
 
 
 	updateMission(mission: Mission) {
-			return Observable.of("")
+		return Observable.of("")
 	}
 
 
