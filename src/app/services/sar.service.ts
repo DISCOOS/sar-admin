@@ -56,22 +56,19 @@ export class SARService {
 
 				// login successful if there's a token in the response
 				let res = response.json();
-				//console.log(response.headers)
 
-				if (res.user.user && res.user.isAdmin && res.user.access_token) {
+				let isAdmin = (res.user.user.privileges & 256) == 256;
+				
+
+				if (res.user.user && isAdmin && res.user.access_token) {
 					// store user details and token in local storage to keep user logged in between page refreshes
 					localStorage.setItem('currentUser', JSON.stringify(res.user.user));
-					localStorage.setItem('token', "Bearer " + res.user.access_token);
 					this.loggedIn = true;
 					this.isLoggedIn.next(this.loggedIn);
-
 				}
-
-
 			})
 
 			.catch(this.handleError)
-
 	}
 
 	logout() {

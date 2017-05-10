@@ -7,8 +7,9 @@ export class User {
 
 
 export class SARUser {
+	
 	constructor(
-		id: number, // string
+		id: number, 
 		hasApp : boolean,
 		isAdmin : boolean,
 		email: string,

@@ -43,7 +43,7 @@ export class MapComponent implements OnInit, OnChanges {
 
 
         // Create the search box and link it to the UI element.
-        var input = document.getElementById('geo_search');
+        var input = <HTMLInputElement>document.getElementById('geo_search');
         var searchBox = new google.maps.places.SearchBox(input);
         //map.controls[google.maps.ControlPosition.TOP_LEFT].push(input);
 
@@ -165,7 +165,7 @@ export class MapComponent implements OnInit, OnChanges {
                 (error) => console.log(error)
                 ,
                 () => {
-                    input.nodeValue = nicename
+                    input.value = nicename
                     this.mission.meetingPointNicename = nicename;
                 }
                 );

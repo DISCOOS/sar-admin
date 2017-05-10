@@ -8,9 +8,9 @@ import { Mission } from '../models/models';
 import { ModalComponent } from 'ng2-bs3-modal/ng2-bs3-modal';
 import { ToastComponent, ToastService } from '../blocks/blocks';
 import { SARService } from '../services/sar.service';
-import {PeopleListComponent} from '../people/people-list.component';
+import { PeopleListComponent } from '../people/people-list.component';
 import { MapComponent } from '../map/map.component';
-
+import { SARUser } from '../models/models';
 /**
  * Component for handling a single mission
  * 
@@ -25,13 +25,13 @@ export class MissionSingleComponent implements OnInit {
   @Input() mission: Mission;
   @ViewChild(PeopleListComponent) peopleList: PeopleListComponent;
   @ViewChild(MapComponent) mapPicker: MapComponent;
-  
+
   editMission: Mission = <Mission>{};
 
   private id: any;
   private sub: any;
 
-  
+
 
   constructor(
     private route: ActivatedRoute,
@@ -52,7 +52,7 @@ export class MissionSingleComponent implements OnInit {
    * 
    */
   private getMission() {
-      this.mission = this._createEmptyMission();
+    this.mission = this._createEmptyMission();
   }
 
 
@@ -80,15 +80,20 @@ export class MissionSingleComponent implements OnInit {
    * Event-bind from DOM-button
    * Save new or update exisiting mission
    */
-  save() {  
+  save() {
     let mission = this.mission
     mission.isActive = true;
-  
+
+
+
     // Add new mission
     if (mission.id == null) {
+      console.log("-----------mission-----------")
+      )
       this.SARService.addMission(mission)
         .subscribe(miss => {
           this.mission = miss;
+
           // Route back to mission-list.
           this.toastService.activate(`Opprettet aksjon: "${mission.title}"`, true, true);
           this.gotoMissions();
@@ -100,8 +105,8 @@ export class MissionSingleComponent implements OnInit {
 
   private _createEmptyMission() {
     console.log("create empty mission");
-    
-    return new Mission(
+
+    let miss = new Mission(
       null, // id
       true,  // isActive 
       null, // isEmergency
@@ -112,9 +117,11 @@ export class MissionSingleComponent implements OnInit {
       null, // Alarms[]
       '', // meetingPoint
       '', // meetingPointNicename
-      null, // SarAdmin
+      null, // 
       null // Expence[]
     );
+
+    return miss
 
   }
 
