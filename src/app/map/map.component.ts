@@ -127,7 +127,8 @@ export class MapComponent implements OnInit, OnChanges {
                 });
                 //Listen for drag events!
                 google.maps.event.addListener(marker, 'dragend', function (event) {
-                    markerLocation();
+                    //Setter false her, for parameter var tom. Usiker på om gir riktig resultat.
+                    markerLocation(false);
                 });
             } else {
                 //Marker has already been added, so just change its location.
@@ -164,7 +165,7 @@ export class MapComponent implements OnInit, OnChanges {
                 (error) => console.log(error)
                 ,
                 () => {
-                    input.value = nicename
+                    input.nodeValue = nicename
                     this.mission.meetingPointNicename = nicename;
                 }
                 );
@@ -172,6 +173,7 @@ export class MapComponent implements OnInit, OnChanges {
 
     } // onInit()
 
+    ngOnChanges(){ };
 
 
 }
