@@ -3,25 +3,38 @@
 <article>
     <div *ngIf="mission" class="animated fadeIn">
         <h2>{{mission.title}}</h2>
-        <form>
+
+        <form (ngSubmit)="f.form.valid && save()" #f="ngForm" novalidate>
             <div class="form-sub-heading" data-number="1">
                 <h3>Info</h3>
             </div>
-            <div class="form-group">
-                <label for="name" class="control-label">Navn</label>
-                <input [(ngModel)]="mission.title" class="formcontrol" type="text" name="name" placeholder="">
+            <div class="form-group" [ngClass]="{ 'has-error': f.submitted && !title.valid }">
+                <label for="name" class="control-label">Tittel</label>
+                <input [(ngModel)]="mission.title" class="formcontrol" type="text" name="title" id="title" placeholder="" required #title="ngModel">
+                <div *ngIf="f.submitted && !title.valid" class="help-block">Tittel må fylles ut</div>
             </div>
-            <div class="form-group">
-                <label for="date-start" class="control-label">Startdato</label>
-                <input [(ngModel)]="mission.dateStart" id="date-start" name="date-start" type="datetime-local">
+
+
+
+            <div class="form-group" [ngClass]="{ 'has-error': f.submitted && !dateStart.valid }">
+                <label for="dateStart" class="control-label">Startdato</label>
+                <input [(ngModel)]="mission.dateStart" id="date-start" name="dateStart" type="datetime-local" required #dateStart="ngModel">
+                <div *ngIf="f.submitted && !dateStart.valid" class="help-block">Startdato/klokkeslett må fylles ut</div>
             </div>
-            <div class="form-group">
-                <label for="date-end" class="control-label">Sluttdato</label>
-                <input [(ngModel)]="mission.dateEnd" id="date-end" name="date-end" type="datetime-local">
+
+
+
+            <div class="form-group" [ngClass]="{ 'has-error': f.submitted && !dateEnd.valid }">
+                <label for="dateEnd" class="control-label">Sluttdato</label>
+                <input [(ngModel)]="mission.dateEnd" id="dateEnd" name="dateEnd" type="datetime-local" required #dateEnd="ngModel">
+                <div *ngIf="f.submitted && !dateEnd.valid" class="help-block">Sluttdato/klokkeslett må fylles ut</div>
             </div>
-            <div class="form-group">
-                <label for="meetingpoint" class="control-label">Oppmøtested</label>
-                <input [(ngModel)]="mission.meetingPointNicename" name="meetingPointNicename" id="geo_search" class="controls" type="text" placeholder="Skriv inn et sted...">
+
+            <div class="form-group" [ngClass]="{ 'has-error': f.submitted && !meetingPoint.valid }">
+                <label for="meetingPoint" class="control-label">Oppmøtested</label>
+                <input [(ngModel)]="mission.meetingPointNicename" name="meetingPointNicename" id="geo_search" class="controls" type="text"
+                    placeholder="Skriv inn et sted..." required #meetingPoint="ngModel">
+                <div *ngIf="f.submitted && !meetingPoint.valid" class="help-block">Oppmøtested må velges</div>
             </div>
             <map-picker [mission]="mission"></map-picker>
 
@@ -31,9 +44,11 @@
                 <label for="emergency">Nødsituasjon? </label>
                 <div class="helper-text">Ved nødsituasjonerer vil alle bli varslet uavhengig av tilgjengelighet</div>
             </div>
-            <div class="form-group">
+
+            <div class="form-group" [ngClass]="{ 'has-error': f.submitted && !description.valid }">
                 <label for="description" class="control-label">Beskrivelse</label>
-                <textarea [(ngModel)]="mission.description" class="form-control" name="description"></textarea>
+                <textarea [(ngModel)]="mission.description" class="form-control" name="description" required #description="ngModel"></textarea>
+                 <div *ngIf="f.submitted && !description.valid" class="help-block">Oppmøtested må velges</div>
             </div>
             <div class="form-sub-heading" data-number="2">
                 <h3>Varsling</h3>
@@ -43,14 +58,21 @@
                 <label for="ums">Varsling via UMS? </label>
                 <div class="helper-text"></div>
             </div>
-            <p>Velg medlemmer som skal varsles</p>
+            <h4>Velg medlemmer som skal varsles</h4>
+            <p>Medlemmer som ikke har SAR-status vil bli varslet via UMS</p>
 
             <people></people>
 
             <div class="form-group">
-                <button type="submit" (click)="save()">Opprett aksjon</button>
+                <!--<button type="submit" (click)="save()">Opprett aksjon</button> -->
+                <button type="submit" name="save">Opprett aksjon</button>
                 <button (click)="cancel()">Avbryt</button>
                 <!--    <button (click)="modal.open()" [class.hidden]="isAddMode()">Slett</button> -->
+            </div>
+
+            <div *ngIf="f.submitted" class="form-group error" [ngClass]="{ 'has-error': f.submitted }">
+                Noen av feltene er ikke riktig fylt ut. Se gjennom skjemaet
+
             </div>
         </form>
     </div>

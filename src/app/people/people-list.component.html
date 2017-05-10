@@ -4,6 +4,7 @@
 <table>
     <thead>
         <th>Velg</th>
+        <th>Har app?</th>
         <th>Tilgjengelig</th>
         <th>Navn</th>
         <th>E-post</th>
@@ -15,7 +16,8 @@
                 <input id="{{SARUser.Email}}" type="checkbox" name="ola-normann">
                 <label for="{{SARUser.Email}}"></label>
             </td>
-            <td>-</td>
+            <td>{{SARUser.hasApp ? "Ja" : "Nei"}}</td>
+            <td>{{ (SARUser.hasApp && SARUser.isAvailable) ? "Ja" : "Nei" }}</td>
             <td>{{SARUser.Name}}</td>
             <td>{{SARUser.Email}}</td>
             <td>{{SARUser.PhoneMobile}}</td>

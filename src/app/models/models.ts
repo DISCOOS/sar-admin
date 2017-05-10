@@ -8,7 +8,9 @@ export class User {
 
 export class SARUser {
 	constructor(
-		id: number,
+		id: number, // string
+		hasApp : boolean,
+		isAdmin : boolean,
 		email: string,
 		phone: number,
 		name: string,
@@ -19,25 +21,9 @@ export class SARUser {
 
 }
 
-export class SARAdmin {
-	id: number;
-	email: string;
-	missions: Mission[];
-}
+
 
 export class Mission {
-	id: number
-		isActive: boolean
-		isEmergency: boolean
-		title: string
-		description: string
-		dateStart: Date
-		dateEnd: Date
-		alarms: Alarm[]
-		meetingPoint: string // geolocation { lat, lng }
-		meetingPointNicename : string // converted geolocation to nicename
-		creator: SARAdmin
-		expences: Expence[]
 	constructor(
 		id: number,
 		isActive: boolean,
@@ -48,8 +34,8 @@ export class Mission {
 		dateEnd: Date,
 		alarms: Alarm[],
 		meetingPoint: string, // geolocation { lat, lng }
-		meetingPointNicename : string, // converted geolocation to nicename
-		creator: SARAdmin,
+		meetingPointNicename: string, // converted geolocation to nicename
+		creator: SARUser,
 		expences: Expence[]
 	) { }
 

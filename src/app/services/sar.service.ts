@@ -58,7 +58,7 @@ export class SARService {
 				let res = response.json();
 				//console.log(response.headers)
 
-				if (res.user.user && res.user.access_token) {
+				if (res.user.user && res.user.isAdmin && res.user.access_token) {
 					// store user details and token in local storage to keep user logged in between page refreshes
 					localStorage.setItem('currentUser', JSON.stringify(res.user.user));
 					localStorage.setItem('token', "Bearer " + res.user.access_token);
@@ -187,7 +187,9 @@ export class SARService {
 
 
 
-
+	/**
+	 * Gets people associated with this user
+	 */
 	getPeople(limit?: number) {
 		// COOKIE NOT SENT IF THIS IS NOT SET
 		let options = new RequestOptions({ withCredentials: true })
@@ -199,11 +201,14 @@ export class SARService {
 
 		return this.http.get(url, options)
 			.map((response: Response) => <SARUser[]>response.json().persons)
-		
+
 		//.catch(this.handleError)
 		//  .finally(() => this._spinnerService.hide());
 
 	}
+
+
+
 
 
 
