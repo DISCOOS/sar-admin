@@ -22,7 +22,7 @@ import { SARUser } from '../models/models';
 })
 export class MissionSingleComponent implements OnInit {
 
-  @Input() mission: Mission;
+  @Input() mission: Mission = <any>{};
   @ViewChild(PeopleListComponent) peopleList: PeopleListComponent;
   @ViewChild(MapComponent) mapPicker: MapComponent;
 
