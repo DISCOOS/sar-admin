@@ -50,7 +50,6 @@ export class PeopleListComponent implements OnInit {
 			.subscribe(
 			(people) => {
 				this.people = this.filteredPeople = people;
-				console.log(this.people);
 
 				this.filterComponent.clear();
 			},

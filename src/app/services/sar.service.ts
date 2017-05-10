@@ -32,11 +32,13 @@ export class SARService {
 	}
 
 
-	private _createAuthHeaders(headers: Headers) {
-		
+	private _configureOptions(options: RequestOptions) {
+
+		let headers = new Headers();
 		//headers.append('Authorization', localStorage.getItem("token"));
 		//console.log(localStorage.getItem("token"))
 		headers.append('Content-Type', 'application/json');
+		options.headers = headers;
 	}
 
 
@@ -47,7 +49,7 @@ export class SARService {
 		data.append('password', password);
 
 
-		let options = new RequestOptions({withCredentials : true})
+		let options = new RequestOptions({ withCredentials: true })
 		return this.http
 			.post(baseUrl + '/sarusers/login', data, options)
 			.map((response: Response) => {
@@ -67,15 +69,15 @@ export class SARService {
 
 
 			})
-			
+
 			.catch(this.handleError)
-			
+
 	}
 
 	logout() {
 		// remove user from local storage to log user out
 		localStorage.removeItem('currentUser');
-		localStorage.removeItem('token');
+		//localStorage.removeItem('token');
 		this.loggedIn = false;
 		this.isLoggedIn.next(this.loggedIn);
 	}
@@ -125,15 +127,15 @@ export class SARService {
 
 	addMission(mission: Mission) {
 
-		let headers = new Headers();
-		this._createAuthHeaders(headers);
+		let options = new RequestOptions({ withCredentials: true })
+		this._configureOptions(options);
 
 		let body = JSON.stringify(mission, this._replacer);
 
 		console.log(body);
 
 		return this.http
-			.post(baseUrl + '/missions', body, { headers: headers })
+			.post(baseUrl + '/missions', body, options)
 			.map(res => res.json().data)
 			.catch(this.handleError)
 	}
@@ -143,13 +145,13 @@ export class SARService {
 	 */
 
 	getMissions(limit?: number) {
-		let headers = new Headers();
-		this._createAuthHeaders(headers);
+		let options = new RequestOptions({ withCredentials: true })
+		this._configureOptions(options);
 
 		let url = baseUrl + '/missions';
 		//this._spinnerService.show();
 
-		return this.http.get(url, { headers: headers })
+		return this.http.get(url, options)
 			.map((response: Response) => <Mission[]>response.json())
 			.catch(this.handleError)
 		//  .finally(() => this._spinnerService.hide());
@@ -163,11 +165,12 @@ export class SARService {
 	*/
 
 	getMission(id: number) {
-		let headers = new Headers();
-		this._createAuthHeaders(headers);
+		let options = new RequestOptions({ withCredentials: true })
+		this._configureOptions(options);
+
 		let url = baseUrl + "/missions/" + id;
 
-		return this.http.get(url, { headers: headers })
+		return this.http.get(url, options)
 			.map((response: Response) => response.json())
 			.catch(this.handleError);
 	}
@@ -181,45 +184,23 @@ export class SARService {
 
 
 
-	_mapSinglePersonFromJSON(o: any) {
-		if (o == null) return;
-		return new SARUser(null, o.Email, o.PhoneMobile, o.Name, '', false, false);
 
-	}
-
-	_mapPeopleFromJSON(result: any) {
-		console.log(result)
-		let sarusers = <SARUser[]>[];
-		result.forEach(
-			(o: any) => {
-				let saruser = this._mapSinglePersonFromJSON(o);
-				if (saruser != undefined)
-					sarusers.push(saruser)
-			}
-		)
-
-		
-		return sarusers;
-	}
 
 
 
 	getPeople(limit?: number) {
-		let headers = new Headers();
-		this._createAuthHeaders(headers);
+		// COOKIE NOT SENT IF THIS IS NOT SET
+		let options = new RequestOptions({ withCredentials: true })
+
+		this._configureOptions(options);
 
 		let url = baseUrl + '/sarusers/persons';
 		//this._spinnerService.show();
 
-		// COOKIE NOT SENT IF THIS IS NOT SET
-		let options = new RequestOptions({withCredentials : true})
-		options.headers = headers;
-		//.post(baseUrl + '/sarusers/login', data, options)
-
 		return this.http.get(url, options)
 			.map((response: Response) => <SARUser[]>response.json().persons)
-			//.map((response: Response) => this._mapPeopleFromJSON(response.json()))
-			//.catch(this.handleError)
+		
+		//.catch(this.handleError)
 		//  .finally(() => this._spinnerService.hide());
 
 	}
