@@ -7,17 +7,17 @@ export class User {
 
 
 export class SARUser {
-	
+
 	constructor(
-		id: number, 
-		hasApp : boolean,
-		isAdmin : boolean,
-		email: string,
-		phone: number,
-		name: string,
-		organization: string,
-		isAvailable: boolean,
-		isTrackable: boolean
+		public id: number,
+		public hasApp: boolean,
+		public isAdmin: boolean,
+		public email: string,
+		public phone: number,
+		public name: string,
+		public organization: string,
+		public isAvailable: boolean,
+		public isTrackable: boolean
 	) { }
 
 }
@@ -26,18 +26,18 @@ export class SARUser {
 
 export class Mission {
 	constructor(
-		id: number,
-		isActive: boolean,
-		isEmergency: boolean,
-		title: string,
-		description: string,
-		dateStart: Date,
-		dateEnd: Date,
-		alarms: Alarm[],
-		meetingPoint: string, // geolocation { lat, lng }
-		meetingPointNicename: string, // converted geolocation to nicename
-		creator: SARUser,
-		expences: Expence[]
+		public id: number,
+		public isActive: boolean,
+		public isEmergency: boolean,
+		public title: string,
+		public description: string,
+		public dateStart: Date,
+		public dateEnd: Date,
+		public alarms: Alarm[],
+		public meetingPoint: string, // geolocation { lat, lng }
+		public meetingPointNicename: string, // converted geolocation to nicename
+		public creator: SARUser,
+		public expences: Expence[]
 	) { }
 
 }

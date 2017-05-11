@@ -1,15 +1,15 @@
-<h1>Aksjon: {{mission.title}}</h1>
+<h1>{{mission.title}}</h1>
 
-
-    <p *ngIf="mission.isEmergency"><span class="pe-7s-attention"></span> Nødsituasjon</p>
+<div class="mission-active-info">
+    <p *ngIf="mission.isEmergency"><span class="icon pe-7s-attention"></span> Nødsituasjon</p>
     
-    <p><span class="pe-7s-user"></span> {{mission.creator}}</p>
-    <p><span class="pe-7s-map-marker"></span>{{mission.meetingPointNicename}}</p>
+    <h3 *ngIf="mission.creator"><span class="helpertxt">Opprettet av:</span> {{mission.creator.name}}</h3><br>
+    <h3><span class="helpertxt">Oppmøtested:</span> {{mission.meetingPointNicename}}</h3>
     
-    <p><span class="pe-7s-date"></span>{{mission.dateStart | date: 'dd/MM/yyyy H:mm' }} - {{mission.dateEnd | date: 'dd/MM/yyyy H:mm' }} </p>
+    <h3><span class="helpertxt">Varighet:</span> {{mission.dateStart | date: 'dd/MM/yyyy H:mm' }} - {{mission.dateEnd | date: 'dd/MM/yyyy H:mm' }} </h3><br>
     <p class="description">{{mission.description}}</p>
-
-<h2>Status for mannskap</h2>
+</div>
+<h2 style="margin-top: 2em; border-bottom: 2px solid #acacac">Status for mannskap</h2>
 
 <table>
     <thead>
@@ -31,3 +31,4 @@
     </tbody>
 </table>
 
+<button (click)="delete()" class="red">Slett aksjon</button>

@@ -22,16 +22,12 @@ import { SARUser } from '../models/models';
 })
 export class MissionSingleComponent implements OnInit {
 
-  @Input() mission: Mission = <any>{};
+  @Input() mission: Mission = <Mission>{};
   @ViewChild(PeopleListComponent) peopleList: PeopleListComponent;
   @ViewChild(MapComponent) mapPicker: MapComponent;
 
-  editMission: Mission = <Mission>{};
-
   private id: any;
   private sub: any;
-
-
 
   constructor(
     private route: ActivatedRoute,
@@ -54,6 +50,8 @@ export class MissionSingleComponent implements OnInit {
   private getMission() {
     this.mission = this._createEmptyMission();
   }
+
+ 
 
 
   /**
@@ -89,10 +87,11 @@ export class MissionSingleComponent implements OnInit {
     // Add new mission
     if (mission.id == null) {
       console.log("-----------mission-----------")
-      )
+      
       this.SARService.addMission(mission)
         .subscribe(miss => {
           this.mission = miss;
+          console.log(mission)
 
           // Route back to mission-list.
           this.toastService.activate(`Opprettet aksjon: "${mission.title}"`, true, true);
@@ -106,6 +105,22 @@ export class MissionSingleComponent implements OnInit {
   private _createEmptyMission() {
     console.log("create empty mission");
 
+    let user = JSON.parse(localStorage.getItem('currentUser'))
+    
+ /*   let saruser = new SARUser(
+      user.id,//id, 
+      user.hasApp,//hasApp : ,
+      user.isAdmin,//isAdmin :,
+      user.email,//email: ,
+      null,//phone: ,
+      user.name,//name: ,
+      user.organization,//organization: ,
+      user.isAvailable,//isAvailable: ,
+      user.isTrackable//isTrackable: 
+    )
+
+*/
+
     let miss = new Mission(
       null, // id
       true,  // isActive 
@@ -117,9 +132,10 @@ export class MissionSingleComponent implements OnInit {
       null, // Alarms[]
       '', // meetingPoint
       '', // meetingPointNicename
-      null, // 
+      user.id, // creator
       null // Expence[]
     );
+
 
     return miss
 

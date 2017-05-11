@@ -8,7 +8,8 @@ import { Mission } from '../models/models';
 import { Subject } from 'rxjs/Subject';
 import { User } from '../models/models';
 import { SARUser } from '../models/models';
-import { Router } from '@angular/router';
+
+import 'rxjs/add/operator/mergeMap';
 let baseUrl = CONFIG.urls.baseUrl;
 let token = CONFIG.headers.token;
 
@@ -25,8 +26,7 @@ export class SARService {
 	public isLoggedIn: Subject<boolean> = new Subject();
 
 	constructor(
-		private http: Http,
-		private router: Router
+		private http: Http
 	) {
 
 	}
@@ -49,6 +49,8 @@ export class SARService {
 		data.append('password', password);
 
 
+
+
 		let options = new RequestOptions({ withCredentials: true })
 		return this.http
 			.post(baseUrl + '/sarusers/login', data, options)
@@ -58,10 +60,15 @@ export class SARService {
 				let res = response.json();
 
 				let isAdmin = (res.user.user.privileges & 256) == 256;
-				
+
+
+
+
 
 				if (res.user.user && isAdmin && res.user.access_token) {
 					// store user details and token in local storage to keep user logged in between page refreshes
+
+					console.log(res.user.user)
 					localStorage.setItem('currentUser', JSON.stringify(res.user.user));
 					this.loggedIn = true;
 					this.isLoggedIn.next(this.loggedIn);
@@ -78,6 +85,8 @@ export class SARService {
 		this.loggedIn = false;
 		this.isLoggedIn.next(this.loggedIn);
 	}
+
+
 
 
 
@@ -146,19 +155,44 @@ export class SARService {
 		this._configureOptions(options);
 
 		let url = baseUrl + '/missions';
-		//this._spinnerService.show();
 
-		return this.http.get(url, options)
-			.map((response: Response) => <Mission[]>response.json())
-			.catch(this.handleError)
+		let returnMissions: any;
+		//this._spinnerService.show();
+		
+				return this.http.get(url, options)
+					.map((response: Response) => <Mission[]>response.json())
+					.catch(this.handleError)
+					
 		//  .finally(() => this._spinnerService.hide());
+		
+		
+		/*
+				return this.http.get(url, options)
+					.map((res: Response) => {
+						returnMissions = res.json()
+						console.log(returnMissions)
+						return returnMissions
+					})
+					.flatMap((returnMissions) =>
+		
+		
+						this.http.get(url + '/1/sARUser'))
+					.map((saruser: Response) => {
+		
+		
+						returnMissions.forEach(miss => {
+							miss.creator = saruser.json()
+						});
+		
+						return returnMissions
+		
+					})
+					*/
 	}
 
-
-
-
 	/*
-	Get single mission by Id
+	Get single mission by Id.
+	Map SAR-user to this mission as well.
 	*/
 
 	getMission(id: number) {
@@ -166,15 +200,38 @@ export class SARService {
 		this._configureOptions(options);
 
 		let url = baseUrl + "/missions/" + id;
+		let mission: any;
 
-		return this.http.get(url, options)
-			.map((response: Response) => response.json())
-			.catch(this.handleError);
+		return this.http.get(url, options).map((res: Response) => {
+			mission = res.json()
+			return mission
+		})
+			.flatMap((mission) => this.http.get(url + '/sARUser'))
+			.map((saruser: Response) => {
+				mission.creator = saruser.json()
+				return mission
+			})
+
 	}
 
 
 	updateMission(mission: Mission) {
 		return Observable.of("")
+	}
+
+	/*
+	Deletes a mission by ID
+	*/
+	deleteMissionById(id: number) {
+		if (!id) return;
+
+		let options = new RequestOptions({ withCredentials: true })
+		let url = baseUrl + '/missions/' + id;
+		this._configureOptions(options);
+		return this.http
+			.delete(url, options)
+			.catch(this.handleError)
+
 	}
 
 

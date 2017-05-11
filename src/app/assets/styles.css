@@ -12,7 +12,7 @@ body { background:#f7f7f7; font-family: "MyriadPro-Regular";}
 ::selection {color: #fff; background: #333; } 
 .show { display: block;}
 .green {background-color: rgba(196, 224, 181,1); color: #232323;}
-.red { background-color: rgba(237, 28, 36,1); color: #fff;}
+.red { background-color: rgba(237, 28, 36,1); color: #fff; border-color: #fff;}
 .error { color: rgba(237, 28, 36,1);}
 .emergency { font-size: 2em; font-weight: bold; color: rgba(237, 28, 36,1); }
 /* top */
@@ -41,8 +41,8 @@ body { background:#f7f7f7; font-family: "MyriadPro-Regular";}
 
 /* typography */
 
-h1,h2,h3,h4,h5 { font-family: "MyriadPro-Semibold"; padding-bottom: 1em;}
-
+h1,h2,h3,h4,h5 { font-family: "MyriadPro-Semibold"; margin-bottom: 1em;}
+h1 { border-bottom: 2px solid #acacac;}
 
 /* content */
 
@@ -112,6 +112,9 @@ table.missions th:nth-child(1), table.missions td:nth-child(1) { width: 10px;}
 
 
 
+
+
+
 /*** Mission-list ***/
 .mission { min-height: 350px; background: #fff; border-radius: 3px; padding: 1.65em; width: 30%; float: left; margin: 1em 1em 1em 0; position: relative; transition: 0.2s ease all; cursor: pointer; }
 .mission:hover { /*background: rgba(237, 28, 36, 0.75);*/ background: #333; color: #fefefe; transform: scale(1.03,1.03); }
@@ -123,6 +126,13 @@ table.missions th:nth-child(1), table.missions td:nth-child(1) { width: 10px;}
 .mission .description { margin-top: 2.2em; text-align: justify; text-justify: inter-word; }
 .mission h3 > span { font-size: 2em; margin-right: .5em; }
 
+
+
+
+/* Active mission */
+.mission-active-info h3 { font-size: 1.3em; }
+.mission-active-info h3 > span.icon {   font-size: 1.7em; margin-right: .5em; }
+.mission-active-info h3 > span.helpertxt { text-transform: uppercase; font-size: .75em; margin-right: 1em; color: #333; width: 200px; display: inline-block; float: left;}
 
 
 /** map **/

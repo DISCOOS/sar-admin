@@ -105,17 +105,17 @@ export class MissionActiveComponent implements OnInit {
     }
 
     /**
-     * Event-bind from DOM-button
+     * TODO: Event-bind from DOM-button
      * Deletes an mission.
      */
     delete() {
-        /*
-        this.modal.close();
-        this.missionService.deleteMission(this.mission.ID)
+        
+        //this.modal.close();
+        this.SARService.deleteMissionById(this.mission.id)
           .subscribe(() => {
             this.gotoMissions();
           });
-    */
+    
         this.gotoMissions();
     }
 
