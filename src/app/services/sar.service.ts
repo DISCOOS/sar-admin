@@ -221,9 +221,17 @@ export class SARService {
 
 	/*
 	Deletes a mission by ID
+	TOdo: Throw error if invalid user
 	*/
 	deleteMissionById(id: number) {
 		if (!id) return;
+
+		// Check if user is same as the one who created this mission
+		let currentUser = JSON.parse(localStorage.getItem('currentUser'))
+		if(currentUser.id != id) 
+		return;
+		// throw error
+
 
 		let options = new RequestOptions({ withCredentials: true })
 		let url = baseUrl + '/missions/' + id;
