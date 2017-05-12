@@ -3,6 +3,7 @@ import { Observable, Subscription } from 'rxjs/Rx';
 import { Mission } from '../models/models';
 import { FilterService, FilterTextComponent } from '../blocks/blocks';
 import { SARService } from '../services/sar.service';
+import { UserService} from '../services/user.service';
 
 /**
  * 
@@ -28,8 +29,11 @@ export class MissionListComponent implements OnInit {
 	@ViewChild(FilterTextComponent) filterComponent: FilterTextComponent;
 
 
-	constructor(private SARService: SARService,
-		private filterService: FilterService) {
+	constructor(
+		private SARService: SARService,
+		private filterService: FilterService,
+		private userService : UserService
+		) {
 		//
 		this.filteredMissions = this.missions;
 		//this.isLoading = true;

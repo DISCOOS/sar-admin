@@ -1,13 +1,20 @@
+<h3 *ngIf="userService.user">Hei, {{userService.user.name}} </h3>
+
+
 <h1>Aksjoner</h1>
+
+
 
 <filter-text (changed)="filterChanged($event)">
 </filter-text>
 <sk-three-bounce [isRunning]="isLoading"></sk-three-bounce>
 
 <div *ngFor="let mission of filteredMissions" class="mission animated fadeInUp" [routerLink]="['/mission-active', mission.id]">
+
+
     <div *ngIf="mission.isEmergency" class="emergency" title="Nødsituasjon"><span class="pe-7s-attention"></span></div>
     <h2>{{mission.title}}</h2>
-    <h3 *ngIf="mission.creator"><span class="pe-7s-user"></span>{{mission.creator.name}}</h3>
+    <h3 *ngIf="1 == 2"><span class="pe-7s-user"></span>{{mission.creator.name}}</h3>
     <h3><span class="pe-7s-map-marker"></span>{{mission.meetingPointNicename}}</h3>
     
     <h3><span class="pe-7s-date"></span>{{mission.dateStart | date: 'dd/MM/yyyy H:mm' }} - {{mission.dateEnd | date: 'dd/MM/yyyy H:mm' }} </h3>

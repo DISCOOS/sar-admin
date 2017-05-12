@@ -48,8 +48,8 @@ export class MissionActiveComponent implements OnInit {
         // Recreate component if we're allready in contact-single
         this.sub = this.route.params.subscribe(params => {
             this.id = +params['id'];
-            
-            
+
+
             this.getMission();
         });
 
@@ -57,8 +57,10 @@ export class MissionActiveComponent implements OnInit {
 
     getMission() {
 
-     this.SARService.getMission(this.id)
-        .subscribe(mission => this.mission = mission);
+        this.SARService.getMission(this.id)
+            .subscribe(mission => this.mission = mission);
+
+
     }
 
 
@@ -109,13 +111,13 @@ export class MissionActiveComponent implements OnInit {
      * Deletes an mission.
      */
     delete() {
-        
+
         //this.modal.close();
         this.SARService.deleteMissionById(this.mission)
-          .subscribe(() => {
-            this.gotoMissions();
-          });
-    
+            .subscribe(() => {
+                this.gotoMissions();
+            });
+
         this.gotoMissions();
     }
 

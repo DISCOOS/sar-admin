@@ -8,7 +8,7 @@ import { Mission } from '../models/models';
 import { Subject } from 'rxjs/Subject';
 import { User } from '../models/models';
 import { SARUser } from '../models/models';
-
+import { UserService } from '../services/user.service';
 import 'rxjs/add/operator/mergeMap';
 let baseUrl = CONFIG.urls.baseUrl;
 let token = CONFIG.headers.token;
@@ -26,7 +26,8 @@ export class SARService {
 	public isLoggedIn: Subject<boolean> = new Subject();
 
 	constructor(
-		private http: Http
+		private http: Http,
+		private userService : UserService
 	) {
 
 	}
@@ -70,6 +71,8 @@ export class SARService {
 
 					console.log(res.user.user)
 					localStorage.setItem('currentUser', JSON.stringify(res.user.user));
+					this.userService.user = res.user.user;
+				
 					this.loggedIn = true;
 					this.isLoggedIn.next(this.loggedIn);
 				}
