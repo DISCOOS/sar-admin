@@ -111,7 +111,7 @@ export class MapComponent implements OnInit, OnChanges {
 
 
 
-
+/*
         //Listen for any clicks on the map.
         google.maps.event.addListener(map, 'click', function (event) {
             //Get the location that the user clicked.
@@ -137,14 +137,14 @@ export class MapComponent implements OnInit, OnChanges {
             markerLocation(true);
         });
 
-
+*/
         //This function will get the marker's current location and then add the lat/long
         //values to our textfields so that we can save the location.
         let markerLocation = (clicked: boolean) => {
             //Get location.
             let currentLocation = marker.getPosition();
             this.mission.meetingPoint = currentLocation.lat() + ", " + currentLocation.lng();
-
+            this.mission.meetingPointNicename = input.value;
             // Convert coordinates to nicename and set on input
             let geopoint = {
                 lat: currentLocation.lat(),
@@ -152,22 +152,6 @@ export class MapComponent implements OnInit, OnChanges {
             }
 
 
-            // Dont set nicename if user typed in address
-            if (!clicked) return;
-            let nicename = "";
-            this.mapService.coordsToAddress(geopoint)
-                .subscribe(
-                (result) => {
-                    if (result)
-                        nicename = result;
-                },
-                (error) => console.log(error)
-                ,
-                () => {
-                    input.value = nicename
-                    this.mission.meetingPointNicename = nicename;
-                }
-                );
         }
 
     } // onInit()
