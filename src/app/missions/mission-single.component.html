@@ -21,7 +21,8 @@
             </div>
             <div class="form-group">
                 <label for="meetingpoint" class="control-label">Oppmøtested</label>
-                <input [(ngModel)]="mission.meetingPointNicename" name="meetingPointNicename" id="geo_search" class="controls" type="text" placeholder="Skriv inn et sted...">
+                <input [(ngModel)]="mission.meetingPointNicename" name="meetingPointNicename" id="geo_search" class="controls" type="text"
+                    placeholder="Skriv inn et sted...">
             </div>
             <map-picker [mission]="mission"></map-picker>
 
@@ -37,14 +38,23 @@
             </div>
             <div class="form-sub-heading" data-number="2">
                 <h3>Varsling</h3>
+                <h4 style="font-style:italic; padding: 1.5em 0; font-family: 'MyriadPro-Regular'; line-height: 1.8em;">En aksjon kan ha flere varslinger. Disse vil dukke opp som push-varslinger hos de som har SAR-Status innstallert.
+                    Flere varslinger kan sendes mens aksjonen pågår</h4>
             </div>
-            <div class="form-group">
+
+            <div class="form-group" *ngIf="alarm">
+                <label for="description" class="control-label">Melding</label>
+                <textarea [(ngModel)]="alarm.message" class="form-control" name="message"></textarea>
+                <div class="helper-text">Denne beskjeden sendes som push-varsling sammen med varslingen.</div>
+            </div>
+
+            <!-- <div class="form-group">
                 <input id="ums" type="checkbox" name="ums">
                 <label for="ums">Varsling via UMS? </label>
                 <div class="helper-text"></div>
-            </div>
-            <h4>Velg medlemmer som skal varsles</h4>
-            <p>Medlemmer som ikke har SAR-status vil bli varslet via UMS</p>
+            </div> -->
+            <h3>Velg medlemmer som skal varsles</h3>
+            <!-- <p>Medlemmer som ikke har SAR-status vil bli varslet via UMS</p> -->
 
             <people></people>
 

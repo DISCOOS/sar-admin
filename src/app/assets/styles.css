@@ -15,6 +15,11 @@ body { background:#f7f7f7; font-family: "MyriadPro-Regular";}
 .red { background-color: rgba(237, 28, 36,1); color: #fff; border-color: #fff;}
 .error { color: rgba(237, 28, 36,1);}
 .emergency { font-size: 2em; font-weight: bold; color: rgba(237, 28, 36,1); }
+
+
+#content a { color: rgba(237, 28, 36,1); border-bottom: 2px solid rgba(237, 28, 36,1); }
+#content a:hover, #content a:active, #content a:visited { text-decoration: none; border-bottom: 0; }
+#content a:active { transform:scale(0.95,0.95); }
 /* top */
 
 #top { background: #f1f2f3; height: 100px;}
@@ -68,11 +73,12 @@ textarea { min-height: 150px;}
 .form-sub-heading::before {content: attr(data-number);  background: #ed1c24; color: #fff; display: block; float: left; border-radius:50px; border:2px solid #ed1c24; padding: 1em; width: 50px; height: 50px; text-align:center; font-size:1.3em; line-height:.7em; margin-right: 1em; }
 textarea:focus, input[type="text"]:focus, input[type="password"]:focus, input[type="datetime"]:focus, input[type="datetime-local"]:focus, input[type="date"]:focus, input[type="month"]:focus, input[type="time"]:focus, input[type="week"]:focus, input[type="number"]:focus, input[type="email"]:focus, input[type="url"]:focus, input[type="search"]:focus, input[type="tel"]:focus, input[type="color"]:focus, .uneditable-input:focus, .form-control:focus
 { border: 2px solid rgba(237, 28, 36,1); box-shadow:none; outline:none; }
-button { border-radius: 3px; font-size: 1.1em; transition: 0.2s ease all; padding: .5em 1.7em; background: #232323; color: #fff; border:2px solid #232323;}
-button:hover { background: none; border: 2px solid rgba(237, 28, 36,1); color: rgba(237, 28, 36,1); }
+button { border-radius: 3px; font-size: 1.1em; transition: 0.2s ease all; padding: .5em 1.7em;  background: transparent; color: rgba(237, 28, 36,1);  border: 2px solid rgba(237, 28, 36,1); }
+button:hover { background: rgba(237, 28, 36,1); color: rgba(237, 28, 36,1); color: #fff;}
 .helper-text { font-size: .95em; padding:1em 0;}
 input[type="checkbox"] {display: none; }
 label {cursor: pointer; font-family: "MyriadPro-SemiBold"; } 
+input[type="checkbox"][disabled] + label:before { border: 2px solid #ccc; }
 input[type="checkbox"] + label { }
 input[type="checkbox"] + label:before { border: 2px solid rgb(237, 28, 36); border-radius:999px; content: ""; display: inline-block; font: 32px/.7em sans-serif; height: 20px; margin: -.2em .7em 0 0; padding:0; vertical-align: middle; width: 20px; }
 input[type="checkbox"] + label:hover::before {background: #fff; }
@@ -82,7 +88,7 @@ input[type="checkbox"]:checked + label:after {font-weight: bold; }
 
 
 /* table */
-table { border-collapse: collapse; width: 100%; }
+table { border-collapse: collapse; width: 100%; margin: 1em 0; }
 table th { background: rgba(0,0,0,0.035); font-family: "MyriadPro-Semibold";}
 table tr { border-bottom: 1px solid #ccc;}
 table tr:hover { background: #fff;}
@@ -132,7 +138,8 @@ table.missions th:nth-child(1), table.missions td:nth-child(1) { width: 10px;}
 /* Active mission */
 .mission-active-info h3 { font-size: 1.3em; }
 .mission-active-info h3 > span.icon {   font-size: 1.7em; margin-right: .5em; }
-.mission-active-info h3 > span.helpertxt { text-transform: uppercase; font-size: .75em; margin-right: 1em; color: #333; width: 200px; display: inline-block; float: left;}
+.mission-active-info h3 > span.helpertxt { text-transform: uppercase; font-size: .75em; margin-right: 1em; color: #333; width: 200px; display: inline-block; }
+.mission-active-info p.description { font-size: 1.2em; font-style:italic; padding-top:1em;	}
 
 
 /** map **/

@@ -1,4 +1,4 @@
-import { ViewChild, Component, OnInit } from '@angular/core';
+import { ViewChild, Component, OnInit, Input } from '@angular/core';
 import { Observable, Subscription } from 'rxjs/Rx';
 import { SARUser } from '../models/models';
 import { FilterService, FilterTextComponent } from '../blocks/blocks';
@@ -20,8 +20,10 @@ export class PeopleListComponent implements OnInit {
 	name: string;
 	errorMsg: string;
 	isLoading: boolean;
+	//@Input() 
 	people: SARUser[];
 	filteredPeople = this.people;
+	//selectedPeople: SARUser[];
 	@ViewChild(FilterTextComponent) filterComponent: FilterTextComponent;
 
 
@@ -33,16 +35,21 @@ export class PeopleListComponent implements OnInit {
 
 	}
 
+	get selectedPeople() {
+		return this.people
+			.filter(p => p.checked)
+			.map(p => { return p})
+	}
+
 
 	filterChanged(searchText: string) {
-		this.filteredPeople = this.filterService.filter(searchText, ["Name", "Email"], this.people)		
+		this.filteredPeople = this.filterService.filter(searchText, ["Name", "Email"], this.people)
 	}
 
 	/**
 	 *
 	 */
 	getPeople() {
-
 		this.isLoading = true;
 
 
@@ -50,7 +57,7 @@ export class PeopleListComponent implements OnInit {
 			.subscribe(
 			(people) => {
 				this.people = this.filteredPeople = people;
-
+				console.log(this.people)
 				this.filterComponent.clear();
 			},
 			() => this.stopRefreshing(),

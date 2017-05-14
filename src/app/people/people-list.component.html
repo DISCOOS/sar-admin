@@ -13,7 +13,7 @@
     <tbody>
         <tr *ngFor="let SARUser of filteredPeople">
             <td>
-                <input id="{{SARUser.Email}}" type="checkbox" name="{{SARUser.Email}}" disabled="{{SARUser.hasApp ? '' : 'disabled'}}">
+                <input [(ngModel)]="SARUser.checked" id="{{SARUser.Email}}" type="checkbox" name="{{SARUser.Email}}" disabled="{{SARUser.hasApp ? 'false' : 'disabled'}}" >
                 <label for="{{SARUser.Email}}"></label>
             </td>
             <td>{{SARUser.hasApp ? "Ja" : "Nei"}}</td>

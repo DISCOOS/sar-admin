@@ -4,13 +4,14 @@ import 'rxjs/add/operator/switchMap';
 
 import { Component, Input, OnInit, ViewChild } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { Mission } from '../models/models';
+import { Mission, Alarm } from '../models/models';
 import { ModalComponent } from 'ng2-bs3-modal/ng2-bs3-modal';
 import { ToastComponent, ToastService } from '../blocks/blocks';
 import { SARService } from '../services/sar.service';
 import { PeopleListComponent } from '../people/people-list.component';
 import { MapComponent } from '../map/map.component';
 import { SARUser } from '../models/models';
+
 /**
  * Component for handling a single mission
  * 
@@ -23,8 +24,10 @@ import { SARUser } from '../models/models';
 export class MissionSingleComponent implements OnInit {
 
   @Input() mission: Mission = <Mission>{};
+  @Input() alarm: Alarm = <Alarm>{};
   @ViewChild(PeopleListComponent) peopleList: PeopleListComponent;
   @ViewChild(MapComponent) mapPicker: MapComponent;
+
 
   private id: any;
   private sub: any;
@@ -40,18 +43,17 @@ export class MissionSingleComponent implements OnInit {
     // Recreate component if we're allready in mission-single
     this.sub = this.route.params.subscribe(params => {
       this.id = +params['id'];
-      this.getMission();
+
+
     });
-  }
 
-  /**
-   * 
-   */
-  private getMission() {
     this.mission = this._createEmptyMission();
+    this.alarm = this._createEmptyAlarm();
   }
 
- 
+
+
+
 
 
   /**
@@ -85,41 +87,69 @@ export class MissionSingleComponent implements OnInit {
 
 
     // Add new mission
-    if (mission.id == null) {
-      console.log("-----------mission-----------")
-      
-      this.SARService.addMission(mission)
-        .subscribe(miss => {
-          this.mission = miss;
-          console.log(mission)
 
-          // Route back to mission-list.
-          this.toastService.activate(`Opprettet aksjon: "${mission.title}"`, true, true);
+    console.log("-----------mission-----------")
+
+    // first add mission
+    this.SARService.addMission(mission)
+      .subscribe(miss => {
+        this.mission = miss;
+        mission = miss;
+
+        // Route back to mission-list.
+        this.toastService.activate(`Opprettet aksjon: "${mission.title}"`, true, true);
+        //this.gotoMissions();
+      });
+
+
+    // This should be a promise; add new alarm when mission is added (200)
+    setTimeout(() => {
+
+      this.SARService.addAlarm(this.alarm, mission.id)
+        .subscribe(al => {
+          this.alarm = al;
+          this.toastService.activate(`Opprettet ny varsling for aksjonen`, true, true);
+          //this.gotoMissions();
+        });
+    }, 3000);
+
+
+    setTimeout(() => {
+      
+      
+
+      // POST an array of selected people to alarm.
+      this.SARService.addAlarmUsers(this.alarm.id, this.peopleList.selectedPeople)
+        .subscribe(al => {
+          //this.alarm = al;
+          this.toastService.activate(`Sendte ut varsling`, true, true);
           this.gotoMissions();
         });
 
-      return;
-    }
+    }, 4000);
+
+
+
+  }
+
+  private _createEmptyAlarm() {
+    //       let alarms = [];
+    let alarm = new Alarm(
+      null, //id
+      new Date(), // date
+      '', // message
+      this.mission, // mission
+      null, //persons
+      null, //alarmrespones
+    )
+    return alarm
   }
 
   private _createEmptyMission() {
     console.log("create empty mission");
 
     let user = JSON.parse(localStorage.getItem('currentUser'))
-    
- /*   let saruser = new SARUser(
-      user.id,//id, 
-      user.hasApp,//hasApp : ,
-      user.isAdmin,//isAdmin :,
-      user.email,//email: ,
-      null,//phone: ,
-      user.name,//name: ,
-      user.organization,//organization: ,
-      user.isAvailable,//isAvailable: ,
-      user.isTrackable//isTrackable: 
-    )
 
-*/
 
     let miss = new Mission(
       null, // id
@@ -135,6 +165,7 @@ export class MissionSingleComponent implements OnInit {
       user.id, // creator
       null // Expence[]
     );
+
 
 
     return miss
