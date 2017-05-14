@@ -36,6 +36,7 @@
         <th>Beskjed</th>
         <th>Lokaliserbar?</th>
     </thead>
+    <p *ngIf="missionResponses && missionResponses.length == 0" style="font-style:italic; padding: 1em 0;">Ingen har respondert på utkallingen enda</p>
     <tbody>
         <tr *ngFor="let response of (missionResponses)">
             <td>{{response.saruser.name}}</td>
