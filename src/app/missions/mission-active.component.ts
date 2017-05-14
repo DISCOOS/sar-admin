@@ -1,10 +1,11 @@
 
 import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/switchMap';
-
-import { Component, Input, OnInit, ViewChild } from '@angular/core';
+import 'rxjs/add/observable/timer';
+import { Observable } from 'rxjs/Observable';
+import { Component, Input, OnInit, ViewChild, NgZone } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { Mission } from '../models/models';
+import { Mission, MissionResponse } from '../models/models';
 import { ModalComponent } from 'ng2-bs3-modal/ng2-bs3-modal';
 import { ToastComponent, ToastService } from '../blocks/blocks';
 import { SARService } from '../services/sar.service';
@@ -28,6 +29,8 @@ export class MissionActiveComponent implements OnInit {
 
     @Input() mission: Mission = <Mission>{};
 
+    //missionResponses: Observable<MissionResponse[]>;
+    missionResponses: MissionResponse[];
     private id: any;
     private sub: any;
 
@@ -37,10 +40,9 @@ export class MissionActiveComponent implements OnInit {
         private route: ActivatedRoute,
         private router: Router,
         private toastService: ToastService,
-        private SARService: SARService
+        private SARService: SARService,
+        private zone: NgZone
     ) { }
-
-
 
 
 
@@ -53,15 +55,35 @@ export class MissionActiveComponent implements OnInit {
             this.getMission();
         });
 
+        setTimeout(() => {
+            this.getMissionResponses()
+            let timer = Observable.timer(2000, 5000);
+            timer.subscribe(() => this.getMissionResponses());
+        }, 2000);
+
+
+
     }
 
     getMission() {
 
         this.SARService.getMission(this.id)
             .subscribe(mission => this.mission = mission);
+    }
 
+    getMissionResponses() {
+
+        console.log("getmissionresponses")
+        this.SARService.getMissionResponses(this.mission.id)
+            .subscribe(mr => {
+                this.zone.run(() => {
+                    this.missionResponses = mr;
+                })
+            })
 
     }
+
+
 
 
 

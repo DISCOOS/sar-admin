@@ -115,8 +115,8 @@ export class MissionSingleComponent implements OnInit {
 
 
     setTimeout(() => {
-      
-      
+
+
 
       // POST an array of selected people to alarm.
       this.SARService.addAlarmUsers(this.alarm.id, this.peopleList.selectedPeople)
@@ -139,8 +139,7 @@ export class MissionSingleComponent implements OnInit {
       new Date(), // date
       '', // message
       this.mission, // mission
-      null, //persons
-      null, //alarmrespones
+      null//persons
     )
     return alarm
   }
@@ -163,7 +162,8 @@ export class MissionSingleComponent implements OnInit {
       '', // meetingPoint
       '', // meetingPointNicename
       user.id, // creator
-      null // Expence[]
+      null, // Expence[],
+      null
     );
 
 

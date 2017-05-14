@@ -4,7 +4,7 @@ import { Http, Response, RequestOptions } from '@angular/http';
 import { Headers } from '@angular/http';
 import { URLSearchParams } from "@angular/http"
 import { CONFIG } from '../shared/config';
-import { Mission, Alarm } from '../models/models';
+import { Mission, Alarm, MissionResponse } from '../models/models';
 import { Subject } from 'rxjs/Subject';
 import { User } from '../models/models';
 import { SARUser } from '../models/models';
@@ -186,10 +186,10 @@ export class SARService {
 		this._configureOptions(options);
 
 		let body = [];
-		users.forEach(u => {		
+		users.forEach(u => {
 			let user = {
-				sarUserId : u.id,
-				alarmId : alarmId
+				sarUserId: u.id,
+				alarmId: alarmId
 			}
 			body.push(user)
 		});
@@ -244,6 +244,27 @@ export class SARService {
 					*/
 	}
 
+
+	getMissionResponses(missionId: number) {
+		// http://0.0.0.0:3000/api/MissionResponses?filter[where][missionId]=1&filter[include]=saruser
+
+		let options = new RequestOptions({ withCredentials: true })
+		this._configureOptions(options);
+
+		let url = baseUrl + '/MissionResponses?filter[where][missionId]=' + missionId + '&filter[include]=saruser';
+		//this._spinnerService.show();
+
+		return this.http.get(url, options)
+			.map((response: Response) => {
+				//				console.log(<SARUser[]>response.json().persons)
+				return <MissionResponse[]>response.json()
+			})
+
+			//.catch(this.handleError)
+		//  .finally(() => this._spinnerService.hide());
+
+
+	}
 	/*
 	Get single mission by Id.
 	Map SAR-user to this mission as well.

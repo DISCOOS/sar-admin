@@ -38,7 +38,8 @@ export class Mission {
 		public meetingPoint: string, // geolocation { lat, lng }
 		public meetingPointNicename: string, // converted geolocation to nicename
 		public creator: SARUser,
-		public expences: Expence[]
+		public expences: Expence[],
+		public missionResponses : MissionResponse[]
 	) { }
 
 }
@@ -51,14 +52,13 @@ export class Alarm {
 		public date?: Date, // datestamp at creation
 		public message?: string,
 		public mission?: Mission,
-		public persons?: SARUser[], // Persons to be alarmed
-		public alarmResponses?: AlarmResponse[]
+		public persons?: SARUser[] // Persons to be alarmed
 	) { }
 
 }
 
 
-export class AlarmResponse {
+export class MissionResponse {
 	constructor(
 		public alarm: Alarm,
 		public person: SARUser,
@@ -71,7 +71,7 @@ export class AlarmResponse {
 
 export class Tracking {
 	constructor(
-		public alarmResponse: AlarmResponse,
+		public missionresponse: MissionResponse,
 		public positionLat: string,
 		public positionLong: string,
 		public date: number
