@@ -24,6 +24,9 @@ export class ExceptionService {
 
         if(statusCode == '401') { 
             emsg = 'Ingen tilgang. Forsøk å logge inn på nytt'
+        } 
+        else if(statusCode == '500') {
+            emsg = 'Det har oppstått en ubehandlet feil i SAR-API. '
         }
         
         this.toastService.activate(`Error ${statusCode} : ${emsg}`, false, false);
