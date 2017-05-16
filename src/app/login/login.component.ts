@@ -17,7 +17,7 @@ export class LoginComponent implements OnInit {
     constructor(
         private route: ActivatedRoute,
         private router: Router,
-        private toastService: ToastService,
+       // private toastService: ToastService,
         private SARService: SARService) { }
 
     ngOnInit() {
@@ -38,7 +38,7 @@ export class LoginComponent implements OnInit {
                 },
                 error => {
                   
-                  this.toastService.activate("Innlogging mislyktes", false, false);
+                  //this.toastService.activate("Innlogging mislyktes", false, false);
                   this.loading = false;
                 });
     }

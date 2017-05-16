@@ -266,7 +266,7 @@ export class SARService {
 				return <MissionResponse[]>response.json()
 			})
 
-		//.catch(this.exceptionService.catchBadResponse)
+		.catch(this.exceptionService.catchBadResponse)
 		//  .finally(() => this._spinnerService.hide());
 
 
