@@ -22,6 +22,7 @@ import { FilterTextComponent } from './blocks/filter-text/filter-text.component'
 import { LoginComponent } from './login/login.component';
 import { MapService } from './services/map.service';
 import { UserService } from './services/user.service';
+import { ExceptionService } from './services/exception.service';
 
 
 
@@ -53,7 +54,8 @@ import * as spinner from 'ng2-spin-kit/dist/spinners'
   MapService,
   ToastService,
   AuthGuard,
-  UserService
+  UserService,
+  ExceptionService
   ],
   bootstrap: [AppComponent]
 

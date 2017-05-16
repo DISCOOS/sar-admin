@@ -9,6 +9,7 @@ import { Subject } from 'rxjs/Subject';
 import { User } from '../models/models';
 import { SARUser } from '../models/models';
 import { UserService } from '../services/user.service';
+import { ExceptionService } from '../services/exception.service';
 import 'rxjs/add/operator/mergeMap';
 let baseUrl = CONFIG.urls.baseUrl;
 let token = CONFIG.headers.token;
@@ -27,7 +28,9 @@ export class SARService {
 
 	constructor(
 		private http: Http,
-		private userService: UserService
+		private userService: UserService,
+		private exceptionService : ExceptionService
+		
 	) {
 
 	}
@@ -62,11 +65,11 @@ export class SARService {
 
 				let isAdmin = (res.user.user.privileges & 256) == 256;
 
-
-
-
-
-				if (res.user.user && isAdmin && res.user.access_token) {
+				if (
+					res.user.user
+					&& isAdmin
+					&& res.user.access_token
+				) {
 					// store user details and token in local storage to keep user logged in between page refreshes
 
 					console.log(res.user.user)
@@ -75,10 +78,13 @@ export class SARService {
 
 					this.loggedIn = true;
 					this.isLoggedIn.next(this.loggedIn);
+				} else {
+					console.log("Innlogging feilet")
+					return Observable.throw(new Error("error"))
 				}
 			})
 
-			.catch(this.handleError)
+			.catch(this.exceptionService.catchBadResponse)
 	}
 
 	logout() {
@@ -148,7 +154,7 @@ export class SARService {
 			.map(res => {
 				return res.json()
 			})
-			.catch(this.handleError)
+			.catch(this.exceptionService.catchBadResponse)
 	}
 
 
@@ -173,7 +179,7 @@ export class SARService {
 		return this.http
 			.post(baseUrl + '/alarms', body, options)
 			.map(res => res.json())
-			.catch(this.handleError)
+			.catch(this.exceptionService.catchBadResponse)
 	}
 	/**
 	
@@ -197,7 +203,7 @@ export class SARService {
 		return this.http
 			.post(baseUrl + '/AlarmUsers', body, options)
 			.map(res => res.json().data)
-			.catch(this.handleError)
+			.catch(this.exceptionService.catchBadResponse)
 	}
 
 	/**
@@ -215,7 +221,7 @@ export class SARService {
 
 		return this.http.get(url, options)
 			.map((response: Response) => <Mission[]>response.json())
-			.catch(this.handleError)
+			.catch(this.exceptionService.catchBadResponse)
 
 		//  .finally(() => this._spinnerService.hide());
 
@@ -260,7 +266,7 @@ export class SARService {
 				return <MissionResponse[]>response.json()
 			})
 
-			//.catch(this.handleError)
+		//.catch(this.exceptionService.catchBadResponse)
 		//  .finally(() => this._spinnerService.hide());
 
 
@@ -315,7 +321,7 @@ export class SARService {
 		this._configureOptions(options);
 		return this.http
 			.delete(url, options)
-			.catch(this.handleError)
+			.catch(this.exceptionService.catchBadResponse)
 
 	}
 
@@ -345,7 +351,7 @@ export class SARService {
 				return <SARUser[]>response.json().persons
 			})
 
-			.catch(this.handleError)
+			.catch(this.exceptionService.catchBadResponse)
 		//  .finally(() => this._spinnerService.hide());
 
 	}
