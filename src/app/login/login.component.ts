@@ -17,7 +17,7 @@ export class LoginComponent implements OnInit {
     constructor(
         private route: ActivatedRoute,
         private router: Router,
-       // private toastService: ToastService,
+        private toastService: ToastService,
         private SARService: SARService) { }
 
     ngOnInit() {
@@ -32,14 +32,15 @@ export class LoginComponent implements OnInit {
         this.loading = true;
         this.SARService.login(this.model.username, this.model.password)
             .subscribe(
-                data => {
-                    this.router.navigate([this.returnUrl]);
-                    console.log(data)
-                },
-                error => {
-                  
-                  //this.toastService.activate("Innlogging mislyktes", false, false);
-                  this.loading = false;
-                });
+            data => {
+                this.router.navigate([this.returnUrl]);
+                this.toastService.activate(`Velkommen!`, true, true);
+                console.log(data)
+            },
+            error => {
+
+
+                this.loading = false;
+            });
     }
 }

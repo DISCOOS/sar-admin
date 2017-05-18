@@ -22,14 +22,14 @@ export class ExceptionService {
         let statusCode = err ?
             (err.error ? err.error.statusCode : '') : '';
 
-        if(statusCode == '401') { 
+        if (statusCode == '401') {
             emsg = 'Ingen tilgang. Forsøk å logge inn på nytt'
-        } 
-        else if(statusCode == '500') {
-            emsg = 'Det har oppstått en ubehandlet feil i SAR-API. '
         }
-        
-        this.toastService.activate(`Error ${statusCode} : ${emsg}`, false, false);
+        else if (statusCode == '500') {
+            emsg = 'Intern serverfeil i SAR-API '
+        }
+
+        this.toastService.activate(`Error ${statusCode} : ${emsg}`, false, true);
         return Observable.of(false);
     }
 

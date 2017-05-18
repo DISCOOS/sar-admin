@@ -29,8 +29,8 @@ export class SARService {
 	constructor(
 		private http: Http,
 		private userService: UserService,
-		private exceptionService : ExceptionService
-		
+		private exceptionService: ExceptionService
+
 	) {
 
 	}
@@ -63,18 +63,18 @@ export class SARService {
 				// login successful if there's a token in the response
 				let res = response.json();
 
-				let isAdmin = (res.user.user.privileges & 256) == 256;
-
+				//	let isAdmin = (res.user.user.privileges & 256) == 256;
+				
 				if (
-					res.user.user
-					&& isAdmin
-					&& res.user.access_token
+					res.user
+					&& res.user.isAdmin
+					//	&& res.user.access_token
 				) {
 					// store user details and token in local storage to keep user logged in between page refreshes
 
 					console.log(res.user.user)
-					localStorage.setItem('currentUser', JSON.stringify(res.user.user));
-					this.userService.user = res.user.user;
+					localStorage.setItem('currentUser', JSON.stringify(res.user));
+					this.userService.user = res.user;
 
 					this.loggedIn = true;
 					this.isLoggedIn.next(this.loggedIn);
@@ -266,7 +266,7 @@ export class SARService {
 				return <MissionResponse[]>response.json()
 			})
 
-		.catch(this.exceptionService.catchBadResponse)
+			.catch(this.exceptionService.catchBadResponse)
 		//  .finally(() => this._spinnerService.hide());
 
 
