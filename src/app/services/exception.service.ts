@@ -18,9 +18,14 @@ export class ExceptionService {
         let emsg = err ?
             (err.error ? err.error.message : JSON.stringify(err)) :
             (res.statusText || 'Ukjent feil');
+        let statusCode;
+        if (err && err.status) {
+            statusCode = err.status;
+        } else {
+            statusCode = err ?
+                (err.error ? err.error.statusCode : '') : '';
+        }
 
-        let statusCode = err ?
-            (err.error ? err.error.statusCode : '') : '';
 
         if (statusCode == '401') {
             emsg = 'Ingen tilgang. Forsøk å logge inn på nytt'

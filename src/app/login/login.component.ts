@@ -33,6 +33,7 @@ export class LoginComponent implements OnInit {
         this.SARService.login(this.model.username, this.model.password)
             .subscribe(
             data => {
+                console.log(data)
                 this.router.navigate([this.returnUrl]);
                 this.toastService.activate(`Velkommen!`, true, true);
                 

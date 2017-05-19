@@ -11,6 +11,9 @@ import { SARUser } from '../models/models';
 import { UserService } from '../services/user.service';
 import { ExceptionService } from '../services/exception.service';
 import 'rxjs/add/operator/mergeMap';
+import 'rxjs/add/operator/concatMap';
+import 'rxjs/add/operator/do';
+
 let baseUrl = CONFIG.urls.baseUrl;
 let token = CONFIG.headers.token;
 
@@ -61,7 +64,7 @@ export class SARService {
 				//	let isAdmin = (res.user.user.privileges & 256) == 256;
 				if (
 					res.user
-					&& res.user.isAdmin
+					//&& res.user.isAdmin
 					&& res.user.access_token
 				) {
 					// store user details and token in local storage to keep user logged in between page refreshes					
@@ -72,7 +75,7 @@ export class SARService {
 					this.loggedIn = true;
 					this.isLoggedIn.next(this.loggedIn);
 				} else {
-					
+
 					return Observable.throw(new Error("error"))
 				}
 			})
@@ -125,26 +128,48 @@ export class SARService {
 
 
 
-
-
-
-
-
-
-
-	addMission(mission: Mission) {
+	/**
+	 * @param mission : The mission to add
+	 * @param alarm	  : An alarm for this mission
+	 * @param people  : Array of sarusers for this alarm
+	 */
+	addMission(mission: Mission, alarm: Alarm, people: SARUser[]) {
 
 		let options = new RequestOptions({ withCredentials: true })
 		this._configureOptions(options);
 
-		let body = JSON.stringify(mission, this._replacer);
+		let missionbody = JSON.stringify(mission, this._replacer);
+		let alarmbody = JSON.stringify(alarm, this._replacer)
+		let peoplebody = []
 
-		console.log(body);
 
-		return this.http
-			.post(baseUrl + '/missions', body, options)
-			.map(res => {
-				return res.json()
+
+		let url = baseUrl + '/missions';
+
+
+
+		return this.http.post(url, missionbody, options)
+			.do(res => console.log("Process mission: " + res.url))
+			.concatMap(res => {
+				console.log("Mission respons", res.url, ' poster alarm: ')
+				return this.http.post(url + '/' + res.json().id + '/alarms', alarmbody, options)
+			})
+			.concatMap(res => {
+				console.log("Alarm respons", res.url, ' poster alarmusers: ')
+				//return this.http.post(url + '/' + res.json().id + '/alarms', alarmbody, options)
+				let alarmId = res.json().id
+				people.forEach(u => {
+					let user = {
+						sarUserId: u.id,
+						alarmId: alarmId
+					}
+					peoplebody.push(user)
+				});
+				return this.http.post(baseUrl + '/alarmusers', peoplebody, options)
+			})
+			.do(res => {
+				console.log("AlarmUsers response:" + res.url)
+				console.log(res.json())
 			})
 			.catch(this.exceptionService.catchBadResponse)
 	}
@@ -281,7 +306,7 @@ export class SARService {
 			return mission
 		})
 			// Here we also map SAR-user of this mission to the reponse
-			.flatMap((mission) => this.http.get(baseUrl + '/missions/' + id + '/sARUser'))
+			.flatMap((mission) => this.http.get(baseUrl + '/missions/' + id + '/sARUser', options))
 			.map((saruser: Response) => {
 				mission.creator = saruser.json()
 				return mission

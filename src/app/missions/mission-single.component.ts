@@ -84,51 +84,13 @@ export class MissionSingleComponent implements OnInit {
     let mission = this.mission
     mission.isActive = true;
 
-
-
-    // Add new mission
-
-    console.log("-----------mission-----------")
-
-    // first add mission
-    this.SARService.addMission(mission)
+    // Add new mission. We pass in alarm and list of people as well
+    this.SARService.addMission(mission, this.alarm, this.peopleList.selectedPeople)
       .subscribe(miss => {
-        this.mission = miss;
-        mission = miss;
-
         // Route back to mission-list.
-        this.toastService.activate(`Opprettet aksjon: "${mission.title}"`, true, true);
-        //this.gotoMissions();
+        this.toastService.activate(`Opprettet aksjon: "${this.mission.title}"`, true, true);
+        this.gotoMissions();
       });
-
-
-    // This should be a promise; add new alarm when mission is added (200)
-    setTimeout(() => {
-
-      this.SARService.addAlarm(this.alarm, mission.id)
-        .subscribe(al => {
-          this.alarm = al;
-          this.toastService.activate(`Opprettet ny varsling for aksjonen`, true, true);
-          //this.gotoMissions();
-        });
-    }, 3000);
-
-
-    setTimeout(() => {
-
-
-
-      // POST an array of selected people to alarm.
-      this.SARService.addAlarmUsers(this.alarm.id, this.peopleList.selectedPeople)
-        .subscribe(al => {
-          //this.alarm = al;
-          this.toastService.activate(`Sendte ut varsling`, true, true);
-          this.gotoMissions();
-        });
-
-    }, 4000);
-
-
 
   }
 
