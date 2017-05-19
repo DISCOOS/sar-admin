@@ -35,7 +35,7 @@ export class LoginComponent implements OnInit {
             data => {
                 this.router.navigate([this.returnUrl]);
                 this.toastService.activate(`Velkommen!`, true, true);
-                console.log(data)
+                
             },
             error => {
 

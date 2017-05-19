@@ -37,10 +37,8 @@ export class SARService {
 
 
 	private _configureOptions(options: RequestOptions) {
-
 		let headers = new Headers();
-		//headers.append('Authorization', localStorage.getItem("token"));
-		//console.log(localStorage.getItem("token"))
+		headers.append('Authorization', 'Bearer ' + JSON.parse(localStorage.getItem("currentUser")).access_token);
 		headers.append('Content-Type', 'application/json');
 		options.headers = headers;
 	}
@@ -53,8 +51,6 @@ export class SARService {
 		data.append('password', password);
 
 
-
-
 		let options = new RequestOptions({ withCredentials: true })
 		return this.http
 			.post(baseUrl + '/sarusers/login', data, options)
@@ -62,24 +58,21 @@ export class SARService {
 
 				// login successful if there's a token in the response
 				let res = response.json();
-
 				//	let isAdmin = (res.user.user.privileges & 256) == 256;
-				
 				if (
 					res.user
 					&& res.user.isAdmin
-					//	&& res.user.access_token
+					&& res.user.access_token
 				) {
-					// store user details and token in local storage to keep user logged in between page refreshes
-
-					console.log(res.user.user)
+					// store user details and token in local storage to keep user logged in between page refreshes					
 					localStorage.setItem('currentUser', JSON.stringify(res.user));
+
 					this.userService.user = res.user;
 
 					this.loggedIn = true;
 					this.isLoggedIn.next(this.loggedIn);
 				} else {
-					console.log("Innlogging feilet")
+					
 					return Observable.throw(new Error("error"))
 				}
 			})
@@ -90,7 +83,6 @@ export class SARService {
 	logout() {
 		// remove user from local storage to log user out
 		localStorage.removeItem('currentUser');
-		//localStorage.removeItem('token');
 		this.loggedIn = false;
 		this.isLoggedIn.next(this.loggedIn);
 	}

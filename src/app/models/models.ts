@@ -18,7 +18,8 @@ export class SARUser {
 		public organization: string,
 		public isAvailable: boolean,
 		public isTrackable: boolean,
-		public checked : boolean // bool used for checking peoplelist (not persisted)
+		public checked : boolean, // bool used for checking peoplelist (not persisted)
+		public access_token : string
 	) { }
 
 }
