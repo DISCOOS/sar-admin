@@ -129,6 +129,11 @@ export class SARService {
 
 
 	/**
+	 * 
+	 * Uses concatmap for multiple post requests which depends on eachother. 
+	 * That means that each post-request must get an 
+	 * OK-response before the next one is executed.
+	 * 
 	 * @param mission : The mission to add
 	 * @param alarm	  : An alarm for this mission
 	 * @param people  : Array of sarusers for this alarm
@@ -142,11 +147,7 @@ export class SARService {
 		let alarmbody = JSON.stringify(alarm, this._replacer)
 		let peoplebody = []
 
-
-
 		let url = baseUrl + '/missions';
-
-
 
 		return this.http.post(url, missionbody, options)
 			.do(res => console.log("Process mission: " + res.url))
@@ -155,8 +156,8 @@ export class SARService {
 				return this.http.post(url + '/' + res.json().id + '/alarms', alarmbody, options)
 			})
 			.concatMap(res => {
-				console.log("Alarm respons", res.url, ' poster alarmusers: ')
-				//return this.http.post(url + '/' + res.json().id + '/alarms', alarmbody, options)
+				//console.log("Alarm respons", res.url, ' poster alarmusers: ')
+				
 				let alarmId = res.json().id
 				people.forEach(u => {
 					let user = {
@@ -168,8 +169,7 @@ export class SARService {
 				return this.http.post(baseUrl + '/alarmusers', peoplebody, options)
 			})
 			.do(res => {
-				console.log("AlarmUsers response:" + res.url)
-				console.log(res.json())
+			//	console.log("AlarmUsers response:" + res.url)
 			})
 			.catch(this.exceptionService.catchBadResponse)
 	}

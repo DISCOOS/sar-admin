@@ -88,7 +88,7 @@ export class MissionSingleComponent implements OnInit {
     this.SARService.addMission(mission, this.alarm, this.peopleList.selectedPeople)
       .subscribe(miss => {
         // Route back to mission-list.
-        this.toastService.activate(`Opprettet aksjon: "${this.mission.title}"`, true, true);
+        this.toastService.activate(`Alt OK! Opprettet aksjon: "${this.mission.title}"`, true, true);
         this.gotoMissions();
       });
 
