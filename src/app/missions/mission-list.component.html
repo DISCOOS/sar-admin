@@ -17,6 +17,7 @@
     <h3 *ngIf="1 == 2"><span class="pe-7s-user"></span>{{mission.creator.name}}</h3>
     <h3><span class="pe-7s-map-marker"></span>{{mission.meetingPointNicename}}</h3>
     
-    <h3><span class="pe-7s-date"></span>{{mission.dateStart | date: 'dd/MM/yyyy H:mm' }} - {{mission.dateEnd | date: 'dd/MM/yyyy H:mm' }} </h3>
+    <h3><span class="pe-7s-date"></span>Startet: {{mission.dateStart | date: 'dd/MM/yyyy H:mm' }}</h3>
+    <h3 *ngIf="mission.dateEnd"><span class="pe-7s-date"></span>Avsluttet: {{mission.dateEnd | date: 'dd/MM/yyyy H:mm' }} </h3>
     <p class="description">{{mission.description}}</p>
 </div>

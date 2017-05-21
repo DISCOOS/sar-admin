@@ -119,7 +119,7 @@ export class MissionSingleComponent implements OnInit {
       '', // title
       '', // desc 
       new Date(), // datestart
-      new Date(), // dateEnd
+      null, // dateEnd
       null, // Alarms[]
       '', // meetingPoint
       '', // meetingPointNicename

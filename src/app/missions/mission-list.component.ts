@@ -36,7 +36,7 @@ export class MissionListComponent implements OnInit {
 		) {
 		//
 		this.filteredMissions = this.missions;
-		//this.isLoading = true;
+		this.isLoading = true;
 	}
 
 

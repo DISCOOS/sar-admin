@@ -6,8 +6,11 @@
     <h3 *ngIf="mission.creator"><span class="helpertxt">Opprettet av:</span> {{mission.creator.name}}</h3><br>
     <h3 *ngIf="mission.meetingPoint"><span class="helpertxt">Oppmøtested:</span> <a href="http://maps.google.com/?q={{mission.meetingPoint.lat}},{{mission.meetingPoint.lng}}" target="_blank"> {{mission.meetingPointNicename}}</a></h3>
     
-    <h3><span class="helpertxt">Varighet:</span> {{mission.dateStart | date: 'dd/MM/yyyy H:mm' }} - {{mission.dateEnd | date: 'dd/MM/yyyy H:mm' }} </h3><br>
+    <h3><span class="helpertxt">Startet:</span> {{mission.dateStart | date: 'dd/MM/yyyy H:mm' }} - {{mission.dateEnd | date: 'dd/MM/yyyy H:mm' }} </h3><br>
+    <h3 *ngIf="mission.dateEnd"><span class="helpertxt">Avsluttet:</span> {{mission.dateEnd | date: 'dd/MM/yyyy H:mm' }} </h3><br>
     <p class="description">{{mission.description}}</p>
+
+<button *ngIf="mission.isActive" (click)="setInactive()" class="">Avslutt aksjonen</button>
 </div>
 
 <h2 style="margin-top: 2em; border-bottom: 2px solid #acacac">Varslinger</h2>
@@ -24,9 +27,13 @@
 
     </tbody>
 </table>
-<button>Lag en ny varsling</button>
+<button *ngIf="mission.isActive">Lag en ny varsling</button>
 
-<h2 style="margin-top: 2em; border-bottom: 2px solid #acacac">Status for varslet mannskap</h2>
+
+<section>
+<h2 style="margin-top: 2em; border-bottom: 2px solid #acacac">
+    Status for varslet mannskap
+</h2>
  
 <table>
     <thead>
@@ -36,7 +43,10 @@
         <th>Beskjed</th>
         <th>Lokaliserbar?</th>
     </thead>
-    <p *ngIf="missionResponses && missionResponses.length == 0" style="font-style:italic; padding: 1em 0;">Ingen har respondert på utkallingen enda</p>
+    <p *ngIf="missionResponses && missionResponses.length == 0" style="font-style:italic; padding: 1em 0;">
+   <span *ngIf="mission.isActive"> Ingen har respondert på utkallingen enda</span>
+   <span *ngIf="!mission.isActive"> Ingen respondenter</span>
+        </p>
     <tbody>
         <tr *ngFor="let response of (missionResponses)">
             <td>{{response.saruser.name}}</td>
@@ -48,5 +58,5 @@
 
     </tbody>
 </table>
-
-<button (click)="delete()" class="">Slett aksjon</button>
+</section>
+<button (click)="delete()" class="">Slett denne aksjon</button>

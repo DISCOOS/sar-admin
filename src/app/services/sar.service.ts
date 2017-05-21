@@ -157,7 +157,7 @@ export class SARService {
 			})
 			.concatMap(res => {
 				//console.log("Alarm respons", res.url, ' poster alarmusers: ')
-				
+
 				let alarmId = res.json().id
 				people.forEach(u => {
 					let user = {
@@ -169,7 +169,7 @@ export class SARService {
 				return this.http.post(baseUrl + '/alarmusers', peoplebody, options)
 			})
 			.do(res => {
-			//	console.log("AlarmUsers response:" + res.url)
+				//	console.log("AlarmUsers response:" + res.url)
 			})
 			.catch(this.exceptionService.catchBadResponse)
 	}
@@ -311,6 +311,7 @@ export class SARService {
 				mission.creator = saruser.json()
 				return mission
 			})
+			.catch(this.exceptionService.catchBadResponse)
 
 	}
 
@@ -340,6 +341,36 @@ export class SARService {
 			.delete(url, options)
 			.catch(this.exceptionService.catchBadResponse)
 
+	}
+
+	setMissionAsInactive(mission: Mission) {
+		// Check if user is same as the one who created this mission
+		let currentUser = JSON.parse(localStorage.getItem('currentUser'))
+
+		if (mission && currentUser && currentUser.id != mission.creator.id) {
+			console.log("error setting  mission as inactive. only the same user who created it can do that")
+			// throw error instead
+		}
+
+		const body = {
+			"isActive": false,
+			"isEmergency": mission.isEmergency,
+			"title": mission.title,
+			"description": mission.description,
+			"dateStart": mission.dateStart,
+			"dateEnd": new Date(),
+			"meetingPoint": mission.meetingPoint,
+			"meetingPointNicename": mission.meetingPointNicename,
+			"creator": mission.creator.id
+		}
+
+		let options = new RequestOptions({ withCredentials: true })
+		let url = baseUrl + '/missions/' + mission.id;
+		this._configureOptions(options);
+		return this.http
+			.put(url, body, options)
+			.do(res => console.log("Result of : " + res.json()))
+			.catch(this.exceptionService.catchBadResponse)
 	}
 
 

@@ -54,12 +54,16 @@ export class MissionActiveComponent implements OnInit {
 
             this.getMission();
         });
+        
+        // Only listen for responses if mission is indeed active 
+        if (this.mission.isActive) {
+            setTimeout(() => {
+                this.getMissionResponses()
+                let timer = Observable.timer(2000, 5000);
+                timer.subscribe(() => this.getMissionResponses());
+            }, 2000);
+        }
 
-        setTimeout(() => {
-            this.getMissionResponses()
-            let timer = Observable.timer(2000, 5000);
-            timer.subscribe(() => this.getMissionResponses());
-        }, 2000);
 
 
 
@@ -141,6 +145,12 @@ export class MissionActiveComponent implements OnInit {
             });
 
         this.gotoMissions();
+    }
+
+
+    // Ends mission. Put datestamp when ended, isActive: false
+    endMission() {
+        this.SARService.setMissionAsInactive(this.mission).subscribe();
     }
 
 }
