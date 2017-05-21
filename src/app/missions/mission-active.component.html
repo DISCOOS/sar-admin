@@ -1,6 +1,7 @@
 <h1>{{mission.title}}</h1>
 
 <div class="mission-active-info">
+    <h3><span class="helpertxt">Status:</span> {{mission.isActive ? 'Aktiv' : 'Avsluttet'}}</h3><br>
     <p *ngIf="mission.isEmergency"><span class="icon pe-7s-attention"></span> Nødsituasjon</p>
     
     <h3 *ngIf="mission.creator"><span class="helpertxt">Opprettet av:</span> {{mission.creator.name}}</h3><br>

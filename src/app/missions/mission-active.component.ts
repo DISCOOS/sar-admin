@@ -3,7 +3,7 @@ import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/switchMap';
 import 'rxjs/add/observable/timer';
 import { Observable } from 'rxjs/Observable';
-import { Component, Input, OnInit, ViewChild, NgZone } from '@angular/core';
+import { Component, Input, OnInit, OnDestroy, ViewChild, NgZone } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Mission, MissionResponse } from '../models/models';
 import { ModalComponent } from 'ng2-bs3-modal/ng2-bs3-modal';
@@ -21,7 +21,7 @@ import { MapComponent } from '../map/map.component';
     selector: 'mission-single',
     templateUrl: 'mission-active.component.html'
 })
-export class MissionActiveComponent implements OnInit {
+export class MissionActiveComponent implements OnInit, OnDestroy {
 
     //@Input() mission: Mission;
     @ViewChild(PeopleListComponent) peopleList: PeopleListComponent;
@@ -33,7 +33,7 @@ export class MissionActiveComponent implements OnInit {
     missionResponses: MissionResponse[];
     private id: any;
     private sub: any;
-
+    private timersub: any;
 
 
     constructor(
@@ -54,19 +54,22 @@ export class MissionActiveComponent implements OnInit {
 
             this.getMission();
         });
-        
-        // Only listen for responses if mission is indeed active 
-        if (this.mission.isActive) {
-            setTimeout(() => {
-                this.getMissionResponses()
-                let timer = Observable.timer(2000, 5000);
-                timer.subscribe(() => this.getMissionResponses());
-            }, 2000);
-        }
+        // Only listen for responses if mission is indeed active  
+
+        let timer = Observable.timer(2000, 5000);
+        setTimeout(() => {
+            this.getMissionResponses()
+            this.timersub = timer.subscribe(() => this.getMissionResponses())
+
+        }, 2000);
+
+    }
 
 
-
-
+    ngOnDestroy() {
+        // Unsubscribe from timer
+        if (this.timersub)
+            this.timersub.unsubscribe();
     }
 
     getMission() {
