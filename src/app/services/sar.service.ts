@@ -269,7 +269,6 @@ export class SARService {
 
 
 	getMissionResponses(missionId: number) {
-		// http://0.0.0.0:3000/api/MissionResponses?filter[where][missionId]=1&filter[include]=saruser
 
 		let options = new RequestOptions({ withCredentials: true })
 		this._configureOptions(options);

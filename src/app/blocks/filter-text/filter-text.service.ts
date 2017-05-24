@@ -5,7 +5,7 @@ export class FilterService {
   constructor() { }
   
 /**
- * 
+ * Filters on searchstring
  * @param data searchstring
  * @param props properties of object to filter on
  * @param originalList 
@@ -31,6 +31,43 @@ export class FilterService {
     }
     return filteredList;
   }
+
+
+/**
+ * Filters on searchstring
+ */
+  filterMissionStatus(filterStatus: boolean, originalList: Array<any>) {
+    
+    // this means we want all of the missions
+    if(typeof filterStatus == 'undefined') {
+      return originalList;
+    }
+    
+    let filteredList: any[];
+    if (filterStatus && originalList) {
+      
+      let filtered = originalList.filter(item => {
+        let match = false;
+          if (item.isActive == filterStatus) {
+            match = true;
+          }
+ 
+        return match;
+      });
+      filteredList = filtered;
+    }
+    else {
+      filteredList = originalList;
+    }
+    return filteredList;
+  }
+
+
+
+
+
+
+
 }
 
   

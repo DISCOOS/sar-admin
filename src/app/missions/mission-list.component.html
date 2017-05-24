@@ -3,7 +3,20 @@
 
 <h1>Aksjoner</h1>
 
-
+<div class="filter-buttons">
+    <div class="filter-button">
+        <input type="radio" name="filter-missions" value="all" id="all" (click)="changefilterWhichMissions('all')">
+        <label for="all">Vis alle</label>
+    </div>
+    <div class="filter-button">
+        <input type="radio" name="filter-missions" value="active" id="active" (click)="changefilterWhichMissions('active')" checked>
+        <label for="active">Vis aktive</label>
+    </div>
+    <div class="filter-button">
+        <input type="radio" name="filter-missions" value="ended" id="ended"  (click)="changefilterWhichMissions('ended')">
+        <label for="ended">Vis avsluttede</label>
+    </div>
+</div>
 
 <filter-text (changed)="filterChanged($event)">
 </filter-text>
@@ -14,9 +27,9 @@
 
     <div *ngIf="mission.isEmergency" class="emergency" title="Nødsituasjon"><span class="pe-7s-attention"></span></div>
     <h2>{{mission.title}}</h2>
-    <h3 *ngIf="1 == 2"><span class="pe-7s-user"></span>{{mission.creator.name}}</h3>
+    <p *ngIf="!mission.isActive" style="color: rgba(0,0,0,0.5); text-transform: uppercase;">Avsluttet</p>
     <h3><span class="pe-7s-map-marker"></span>{{mission.meetingPointNicename}}</h3>
-    
+
     <h3><span class="pe-7s-date"></span>Startet: {{mission.dateStart | date: 'dd/MM/yyyy H:mm' }}</h3>
     <h3 *ngIf="mission.dateEnd"><span class="pe-7s-date"></span>Avsluttet: {{mission.dateEnd | date: 'dd/MM/yyyy H:mm' }} </h3>
     <p class="description">{{mission.description}}</p>

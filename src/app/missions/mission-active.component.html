@@ -11,7 +11,7 @@
     <h3 *ngIf="mission.dateEnd"><span class="helpertxt">Avsluttet:</span> {{mission.dateEnd | date: 'dd/MM/yyyy H:mm' }} </h3><br>
     <p class="description">{{mission.description}}</p>
 
-<button *ngIf="mission.isActive" (click)="setInactive()" class="">Avslutt aksjonen</button>
+<button *ngIf="mission.isActive" (click)="endMission()" class="">Avslutt aksjonen</button>
 </div>
 
 <h2 style="margin-top: 2em; border-bottom: 2px solid #acacac">Varslinger</h2>

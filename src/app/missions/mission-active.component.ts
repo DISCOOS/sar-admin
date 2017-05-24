@@ -153,7 +153,11 @@ export class MissionActiveComponent implements OnInit, OnDestroy {
 
     // Ends mission. Put datestamp when ended, isActive: false
     endMission() {
-        this.SARService.setMissionAsInactive(this.mission).subscribe();
+        this.SARService.setMissionAsInactive(this.mission).subscribe(() => {
+            this.toastService.activate("Aksjonen ble avsluttet",true,true)
+            this.router.navigate(['missions'])
+        });
+        
     }
 
 }

@@ -1,9 +1,9 @@
-import { ViewChild, Component, OnInit } from '@angular/core';
+import { ViewChild, Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { Observable, Subscription } from 'rxjs/Rx';
 import { Mission } from '../models/models';
 import { FilterService, FilterTextComponent } from '../blocks/blocks';
 import { SARService } from '../services/sar.service';
-import { UserService} from '../services/user.service';
+import { UserService } from '../services/user.service';
 
 /**
  * 
@@ -28,15 +28,29 @@ export class MissionListComponent implements OnInit {
 	filteredMissions = this.missions;
 	@ViewChild(FilterTextComponent) filterComponent: FilterTextComponent;
 
+	@Input() filterWhichMissions: any;
+	@Output() filterWhichMissionsChanged = new EventEmitter();
 
-	constructor(
+		constructor(
 		private SARService: SARService,
 		private filterService: FilterService,
-		private userService : UserService
+		private userService: UserService
 		) {
 		//
 		this.filteredMissions = this.missions;
 		this.isLoading = true;
+	}
+
+	ngOnInit() {
+		this.getMissions();
+		this.filterWhichMissions = 'active'; // initially check options for displaying only active missions
+	}
+
+	changefilterWhichMissions(val) {
+		this.filterWhichMissions = val;
+		console.log(this.filterWhichMissions)
+		let status = (val == 'active') ? true : (val == 'ended') ? false : undefined;
+		this.filteredMissions = this.filterService.filterMissionStatus(status,this.missions);
 	}
 
 
@@ -76,7 +90,5 @@ export class MissionListComponent implements OnInit {
 		this.isLoading = false;
 	}
 
-	ngOnInit() {
-		this.getMissions();
-	}
+
 }
