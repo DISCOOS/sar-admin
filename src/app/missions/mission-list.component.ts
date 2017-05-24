@@ -43,7 +43,7 @@ export class MissionListComponent implements OnInit {
 
 	ngOnInit() {
 		this.getMissions();
-		this.filterWhichMissions = 'active'; // initially check options for displaying only active missions
+		this.filterWhichMissions = 'all';
 	}
 
 	changefilterWhichMissions(val) {
