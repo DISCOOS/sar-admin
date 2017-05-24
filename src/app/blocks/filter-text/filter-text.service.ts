@@ -34,7 +34,8 @@ export class FilterService {
 
 
 /**
- * Filters on searchstring
+ * Filters on isActive property
+ * @param filterStatus : Maps to isActive. filterStatus = true; pick missions where isActive = true etc
  */
   filterMissionStatus(filterStatus: boolean, originalList: Array<any>) {
     
@@ -42,7 +43,7 @@ export class FilterService {
     if(typeof filterStatus == 'undefined') {
       return originalList;
     }
-    
+
     let filteredList: any[];
     if (filterStatus && originalList) {
       
