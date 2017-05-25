@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 
 import { SARService } from '../services/sar.service';
-import { ToastService } from '../blocks/blocks';
+import { ToastService, SpinnerService } from '../blocks/blocks';
 
 @Component({
     moduleId: module.id,
@@ -18,7 +18,9 @@ export class LoginComponent implements OnInit {
         private route: ActivatedRoute,
         private router: Router,
         private toastService: ToastService,
-        private SARService: SARService) { }
+        private SARService: SARService,
+        private spinnerService : SpinnerService
+        ) { }
 
     ngOnInit() {
         // reset login status
@@ -39,8 +41,6 @@ export class LoginComponent implements OnInit {
                 
             },
             error => {
-
-
                 this.loading = false;
             });
     }

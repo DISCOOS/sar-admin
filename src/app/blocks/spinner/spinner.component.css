@@ -1,0 +1,14 @@
+.spinner-container {
+    display: none;
+  position: fixed;
+  left: 50%;
+  transform: translate(-50%,0);
+  top: 30%; 
+
+  padding: 3em 7em;
+  z-index: 2;
+  font-size: 1.2em;
+  border-radius: 4px;
+  z-index: 9999;
+  
+}

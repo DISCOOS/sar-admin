@@ -21,7 +21,7 @@ import { UserService } from '../services/user.service';
 export class MissionListComponent implements OnInit {
 	name: string;
 	errorMsg: string;
-	isLoading: boolean;
+
 
 	missions: Mission[];
 	//missions : Observable<Mission[]>;
@@ -31,14 +31,12 @@ export class MissionListComponent implements OnInit {
 	@Input() filterWhichMissions: any;
 	@Output() filterWhichMissionsChanged = new EventEmitter();
 
-		constructor(
+	constructor(
 		private SARService: SARService,
 		private filterService: FilterService,
 		private userService: UserService
-		) {
-		//
+	) {
 		this.filteredMissions = this.missions;
-		this.isLoading = true;
 	}
 
 	ngOnInit() {
@@ -48,9 +46,8 @@ export class MissionListComponent implements OnInit {
 
 	changefilterWhichMissions(val) {
 		this.filterWhichMissions = val;
-		console.log(this.filterWhichMissions)
 		let status = (val == 'active') ? true : (val == 'ended') ? false : undefined;
-		this.filteredMissions = this.filterService.filterMissionStatus(status,this.missions);
+		this.filteredMissions = this.filterService.filterMissionStatus(status, this.missions);
 	}
 
 
@@ -59,12 +56,7 @@ export class MissionListComponent implements OnInit {
 	}
 
 
-	/**
-	 *
-	 */
 	getMissions() {
-
-		this.isLoading = true;
 		this.SARService.getMissions()
 			.subscribe(
 			(missions) => {
@@ -72,23 +64,11 @@ export class MissionListComponent implements OnInit {
 				this.filterComponent.clear();
 
 			},
-			() => this.stopRefreshing(),
-			() => this.stopRefreshing());
+			(err) => { console.log("Failed getting missions" + err) },
+			() => { console.log("Ok,Got missions" ) });
 
 
 		//this.missions = this.SARService.getMissions();
-
-
-
 	}
-
-
-
-
-
-	private stopRefreshing() {
-		this.isLoading = false;
-	}
-
 
 }

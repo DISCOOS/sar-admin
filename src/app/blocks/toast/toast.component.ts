@@ -22,7 +22,7 @@ export class ToastComponent implements OnInit, OnDestroy {
 	constructor(private toastService: ToastService) {
 		console.log("constructing toast")
 		this._toastSubscription = this.toastService.toastState.subscribe((toastMessage) => {
-//			console.log(`activiting toast: ${toastMessage.message}`)
+			//			console.log(`activiting toast: ${toastMessage.message}`)
 			this.activate(toastMessage.message, toastMessage.success, toastMessage.autoHide);
 		});
 	}
@@ -31,7 +31,7 @@ export class ToastComponent implements OnInit, OnDestroy {
 	/**
 	@param success : Use true for successmessage and false for error message
 	**/
-	activate(message: string, success = true, autoHide = false) {	
+	activate(message: string, success = true, autoHide = false) {
 		this.message = message;
 		this.success = success;
 		this._show(autoHide);

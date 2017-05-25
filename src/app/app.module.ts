@@ -12,7 +12,7 @@ import { AuthGuard } from './blocks/guard/auth.gard';
 import { SARService } from './services/sar.service';
 import { AppRoutingModule, routableComponents } from './app-routing.module';
 import { PageNotFoundComponent } from './page-not-found.component';
-import { ToastComponent, ToastService, ModalService, ModalComponent } from './blocks/blocks';
+import { ToastComponent, ToastService, ModalService, ModalComponent, SpinnerComponent, SpinnerService } from './blocks/blocks';
 import { PeopleListComponent } from './people/people-list.component';
 import { MissionActiveComponent } from './missions/mission-active.component';
 import { MapComponent } from './map/map.component';
@@ -24,7 +24,7 @@ import { UserService } from './services/user.service';
 import { ExceptionService } from './services/exception.service';
 import { SortMissionsPipe} from './missions/sort-missions.pipe';
 
-import * as spinner from 'ng2-spin-kit/dist/spinners'
+import * as spinnerz from 'ng2-spin-kit/dist/spinners'
 
 @NgModule({
   imports: [
@@ -38,14 +38,15 @@ import * as spinner from 'ng2-spin-kit/dist/spinners'
   declarations: [AppComponent,
     routableComponents,
     FilterTextComponent,
-    spinner.ThreeBounceComponent,
+    spinnerz.ThreeBounceComponent,
     ToastComponent,
     LoginComponent,
     PeopleListComponent,
     MapComponent,
     MissionActiveComponent,
     ModalComponent,
-    SortMissionsPipe
+    SortMissionsPipe,
+    SpinnerComponent
   ],
   //globale providers
   providers: [
@@ -55,7 +56,8 @@ import * as spinner from 'ng2-spin-kit/dist/spinners'
   AuthGuard,
   UserService,
   ExceptionService,
-  ModalService
+  ModalService,
+  SpinnerService
   ],
   bootstrap: [AppComponent]
 

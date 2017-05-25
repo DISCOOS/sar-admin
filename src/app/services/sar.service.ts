@@ -10,9 +10,11 @@ import { User } from '../models/models';
 import { SARUser } from '../models/models';
 import { UserService } from '../services/user.service';
 import { ExceptionService } from '../services/exception.service';
+import { SpinnerService } from '../blocks/blocks';
 import 'rxjs/add/operator/mergeMap';
 import 'rxjs/add/operator/concatMap';
 import 'rxjs/add/operator/do';
+import 'rxjs/add/operator/finally';
 
 let baseUrl = CONFIG.urls.baseUrl;
 let token = CONFIG.headers.token;
@@ -32,7 +34,8 @@ export class SARService {
 	constructor(
 		private http: Http,
 		private userService: UserService,
-		private exceptionService: ExceptionService
+		private exceptionService: ExceptionService,
+		private spinnerService: SpinnerService
 
 	) {
 
@@ -55,6 +58,10 @@ export class SARService {
 
 
 		let options = new RequestOptions({ withCredentials: true })
+
+		this.spinnerService.show();
+
+		
 		return this.http
 			.post(baseUrl + '/sarusers/login', data, options)
 			.map((response: Response) => {
@@ -81,6 +88,7 @@ export class SARService {
 			})
 
 			.catch(this.exceptionService.catchBadResponse)
+			.finally(() => this.spinnerService.hide())
 	}
 
 	logout() {
@@ -233,39 +241,16 @@ export class SARService {
 
 		let url = baseUrl + '/missions';
 
-		let returnMissions: any;
-		//this._spinnerService.show();
+		this.spinnerService.show();
 
-		return this.http.get(url, options)
+		return this.http
+			.get(url, options)
 			.map((response: Response) => <Mission[]>response.json())
 			.catch(this.exceptionService.catchBadResponse)
-
-		//  .finally(() => this._spinnerService.hide());
-
-
-		/*
-				return this.http.get(url, options)
-					.map((res: Response) => {
-						returnMissions = res.json()
-						console.log(returnMissions)
-						return returnMissions
-					})
-					.flatMap((returnMissions) =>
-		
-		
-						this.http.get(url + '/1/sARUser'))
-					.map((saruser: Response) => {
-		
-		
-						returnMissions.forEach(miss => {
-							miss.creator = saruser.json()
-						});
-		
-						return returnMissions
-		
-					})
-					*/
+			.finally(() => this.spinnerService.hide());
 	}
+
+
 
 
 	getMissionResponses(missionId: number) {

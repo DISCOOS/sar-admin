@@ -27,7 +27,8 @@ body { background:#f7f7f7; font-family: "MyriadPro-Regular";}
 #top { background: #f1f2f3; height: 100px;}
 #logo { display: block; float: left; padding:2em 0; }
 #logo > img { width: 150px;}
-#maske {display: none; background-color: rgba(255,255,255, 0.85); left: 0; bottom: 0; right: 0; top: 0; margin: auto; overflow-y: scroll; position: fixed; z-index: 10; }
+.maske { background-color: rgba(255,255,255, 0.85); left: 0; bottom: 0; right: 0; top: 0; margin: auto; overflow-y: scroll; position: fixed; z-index: 10; }
+#menymaske, #loadingmask { display: none;}
 
 /* toast */
 .toast-container {display: none; cursor: pointer; opacity: 0; transition: opacity 400ms ease-in; width: 100%; position: fixed; left: 0; bottom: 0; right: 0; z-index: 9999; text-align: center; padding: 2em 0; font-size: 1.1em;}
@@ -120,6 +121,57 @@ table.missions th:nth-child(1), table.missions td:nth-child(1) { width: 10px;}
 .three-bounce-spinner {  padding: 2em 0; }
 .three-bounce-spinner::after {   content: "Laster..."; text-align: center; display: block; font-size: 1.2em; padding: 2em 0; }
 
+.is-active { display: block !important;}
+
+/* spinner */
+.sk-chasing-dots {
+  margin: 40px auto;
+  width: 40px;
+  height: 40px;
+  position: relative;
+  text-align: center;
+  -webkit-animation: sk-chasingDotsRotate 2s infinite linear;
+          animation: sk-chasingDotsRotate 2s infinite linear; }
+  .sk-chasing-dots .sk-child {
+    width: 60%;
+    height: 60%;
+    display: inline-block;
+    position: absolute;
+    top: 0;
+    background-color: #ed1c24;
+    border-radius: 100%;
+    -webkit-animation: sk-chasingDotsBounce 2s infinite ease-in-out;
+            animation: sk-chasingDotsBounce 2s infinite ease-in-out; }
+  .sk-chasing-dots .sk-dot2 {
+    top: auto;
+    bottom: 0;
+    -webkit-animation-delay: -1s;
+            animation-delay: -1s; }
+@-webkit-keyframes sk-chasingDotsRotate {
+  100% {
+    -webkit-transform: rotate(360deg);
+            transform: rotate(360deg); } }
+@keyframes sk-chasingDotsRotate {
+  100% {
+    -webkit-transform: rotate(360deg);
+            transform: rotate(360deg); } }
+@-webkit-keyframes sk-chasingDotsBounce {
+  0%, 100% {
+    -webkit-transform: scale(0);
+            transform: scale(0); }
+  50% {
+    -webkit-transform: scale(1);
+            transform: scale(1); } }
+@keyframes sk-chasingDotsBounce {
+  0%, 100% {
+    -webkit-transform: scale(0);
+            transform: scale(0); }
+  50% {
+    -webkit-transform: scale(1);
+            transform: scale(1); } }
+
+
+
 /* animations */
 .animated {-webkit-animation-duration: 0.5s; animation-duration: 0.5s; -webkit-animation-fill-mode: both; animation-fill-mode: both; }
 @keyframes fadeInDown {from {opacity: 0; -webkit-transform: translate3d(0, -100%, 0); transform: translate3d(0, -100%, 0); } to {opacity: 1; -webkit-transform: none; transform: none; } }
@@ -172,5 +224,5 @@ table.missions th:nth-child(1), table.missions td:nth-child(1) { width: 10px;}
 
 @media (min-width: 1025px) { 
 #menu { display: block !important;}
-#maske { display: none !important;}
+#menymaske { display: none !important;}
 }
