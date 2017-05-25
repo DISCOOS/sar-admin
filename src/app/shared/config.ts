@@ -3,6 +3,6 @@ export let CONFIG = {
         token: ''
     },
     urls: {
-    	baseUrl: 'https://sar-api.herokuapp.com/api'
+    	baseUrl: 'http://0.0.0.0:3000/api'
   }
 }
