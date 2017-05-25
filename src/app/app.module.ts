@@ -24,8 +24,6 @@ import { UserService } from './services/user.service';
 import { ExceptionService } from './services/exception.service';
 import { SortMissionsPipe} from './missions/sort-missions.pipe';
 
-import * as spinnerz from 'ng2-spin-kit/dist/spinners'
-
 @NgModule({
   imports: [
     BrowserModule,
@@ -38,7 +36,6 @@ import * as spinnerz from 'ng2-spin-kit/dist/spinners'
   declarations: [AppComponent,
     routableComponents,
     FilterTextComponent,
-    spinnerz.ThreeBounceComponent,
     ToastComponent,
     LoginComponent,
     PeopleListComponent,

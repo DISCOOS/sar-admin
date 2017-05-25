@@ -61,7 +61,7 @@ export class SARService {
 
 		this.spinnerService.show();
 
-		
+
 		return this.http
 			.post(baseUrl + '/sarusers/login', data, options)
 			.map((response: Response) => {
