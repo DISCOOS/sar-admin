@@ -3,13 +3,13 @@ import { Injectable } from '@angular/core';
 @Injectable()
 export class FilterService {
   constructor() { }
-  
-/**
- * Filters on searchstring
- * @param data searchstring
- * @param props properties of object to filter on
- * @param originalList 
- */
+
+  /**
+   * Filters on searchstring
+   * @param data searchstring
+   * @param props properties of object to filter on
+   * @param originalList 
+   */
   filter(data: string, props: Array<string>, originalList: Array<any>) {
     let filteredList: any[];
     if (data && props && originalList) {
@@ -33,26 +33,25 @@ export class FilterService {
   }
 
 
-/**
- * Filters on isActive property
- * @param filterStatus : Maps to isActive. filterStatus = true; pick missions where isActive = true etc
- */
+  /**
+   * Filters on isActive property
+   * @param filterStatus : Maps to isActive. filterStatus = true; pick missions where isActive = true etc
+   */
   filterMissionStatus(filterStatus: boolean, originalList: Array<any>) {
-    
+    console.log("filter mission status : " + filterStatus)
     // this means we want all of the missions
-    if(typeof filterStatus == 'undefined') {
+    if (typeof filterStatus == 'undefined') {
       return originalList;
     }
 
     let filteredList: any[];
-    if (filterStatus && originalList) {
-      
+    if (originalList) {
       let filtered = originalList.filter(item => {
         let match = false;
-          if (item.isActive == filterStatus) {
-            match = true;
-          }
- 
+        if (item.isActive == filterStatus) {
+          match = true;
+        }
+
         return match;
       });
       filteredList = filtered;
@@ -71,5 +70,5 @@ export class FilterService {
 
 }
 
-  
+
 
