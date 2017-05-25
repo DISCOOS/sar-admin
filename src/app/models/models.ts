@@ -33,8 +33,8 @@ export class Mission {
 		public isEmergency: boolean,
 		public title: string,
 		public description: string,
-		public dateStart: Date,
-		public dateEnd: Date,
+		public dateStart: Date, // manually set
+		public dateEnd: Date, // timestamp for ended mission
 		public alarms: Alarm[],
 		public meetingPoint: string, // geolocation { lat, lng }
 		public meetingPointNicename: string, // converted geolocation to nicename

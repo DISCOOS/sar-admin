@@ -6,8 +6,7 @@ import { Observable } from 'rxjs/Observable';
 import { Component, Input, OnInit, OnDestroy, ViewChild, NgZone } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Mission, MissionResponse } from '../models/models';
-import { ModalComponent } from 'ng2-bs3-modal/ng2-bs3-modal';
-import { ToastComponent, ToastService } from '../blocks/blocks';
+import { ToastService, ModalService, ModalComponent } from '../blocks/blocks';
 import { SARService } from '../services/sar.service';
 import { PeopleListComponent } from '../people/people-list.component';
 import { MapComponent } from '../map/map.component';
@@ -27,6 +26,8 @@ export class MissionActiveComponent implements OnInit, OnDestroy {
     @ViewChild(PeopleListComponent) peopleList: PeopleListComponent;
     @ViewChild(MapComponent) mapPicker: MapComponent;
 
+    @ViewChild(ModalComponent) modal: ModalComponent;
+
     @Input() mission: Mission = <Mission>{};
 
     //missionResponses: Observable<MissionResponse[]>;
@@ -41,7 +42,8 @@ export class MissionActiveComponent implements OnInit, OnDestroy {
         private router: Router,
         private toastService: ToastService,
         private SARService: SARService,
-        private zone: NgZone
+        private zone: NgZone,
+        private modalService: ModalService
     ) { }
 
 
@@ -91,9 +93,6 @@ export class MissionActiveComponent implements OnInit, OnDestroy {
     }
 
 
-
-
-
     /**
      * Routes back to mission-list
      */
@@ -136,28 +135,45 @@ export class MissionActiveComponent implements OnInit, OnDestroy {
     }
 
     /**
-     * TODO: Event-bind from DOM-button
-     * Deletes an mission.
+     * 
+     * Deletes a mission.
      */
+
     delete() {
-
-        //this.modal.close();
-        this.SARService.deleteMissionById(this.mission)
-            .subscribe(() => {
-                this.gotoMissions();
-            });
-
-        this.gotoMissions();
+        let msg = `Er du sikker på at vil slette ${this.mission.title}? Denne handlingen kan ikke reverseres`;
+        this.modalService.activate("Bekreft sletting", msg).then((responseOK) => {
+            if (responseOK) {
+                this.SARService.deleteMissionById(this.mission)
+                    .subscribe(
+                    () => { // Success path
+                        this.toastService.activate(`Slettet ${this.mission.title}`, true, true);
+                        this.gotoMissions();
+                    },
+                    (err) => console.log("Failed Delete"),
+                    () => console.log('Delete OK')
+                    );
+            }
+        });
     }
-
 
     // Ends mission. Put datestamp when ended, isActive: false
     endMission() {
-        this.SARService.setMissionAsInactive(this.mission).subscribe(() => {
-            this.toastService.activate("Aksjonen ble avsluttet",true,true)
-            this.router.navigate(['missions'])
+
+        let msg = `Er du sikker på at vil avslutte ${this.mission.title}? Aksjoner kan ikke startes på nytt etter at de er avsluttet`;
+        this.modalService.activate("Bekreft avslutting av aksjon", msg).then((responseOK) => {
+            if (responseOK) {
+                this.SARService.setMissionAsInactive(this.mission)
+                    .subscribe(
+                    () => { // Success path
+                        this.toastService.activate("Aksjonen ble avsluttet", true, true)
+                        this.gotoMissions();
+                    },
+                    (err) => console.log("Failed to set mission as inactive"),
+                    () => console.log('Success: Mission set as inactive')
+                    );
+            }
         });
-        
+
     }
 
 }

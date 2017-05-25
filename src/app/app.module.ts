@@ -12,18 +12,16 @@ import { AuthGuard } from './blocks/guard/auth.gard';
 import { SARService } from './services/sar.service';
 import { AppRoutingModule, routableComponents } from './app-routing.module';
 import { PageNotFoundComponent } from './page-not-found.component';
-import { ToastComponent, ToastService } from './blocks/blocks';
+import { ToastComponent, ToastService, ModalService, ModalComponent } from './blocks/blocks';
 import { PeopleListComponent } from './people/people-list.component';
 import { MissionActiveComponent } from './missions/mission-active.component';
 import { MapComponent } from './map/map.component';
 
-import { Ng2Bs3ModalModule } from 'ng2-bs3-modal/ng2-bs3-modal';
 import { FilterTextComponent } from './blocks/filter-text/filter-text.component';
 import { LoginComponent } from './login/login.component';
 import { MapService } from './services/map.service';
 import { UserService } from './services/user.service';
 import { ExceptionService } from './services/exception.service';
-
 
 
 import * as spinner from 'ng2-spin-kit/dist/spinners'
@@ -34,8 +32,7 @@ import * as spinner from 'ng2-spin-kit/dist/spinners'
     FormsModule,
     ReactiveFormsModule,
     HttpModule,
-    AppRoutingModule,
-    Ng2Bs3ModalModule,
+    AppRoutingModule
   ],
 
   declarations: [AppComponent,
@@ -46,7 +43,8 @@ import * as spinner from 'ng2-spin-kit/dist/spinners'
     LoginComponent,
     PeopleListComponent,
     MapComponent,
-    MissionActiveComponent
+    MissionActiveComponent,
+    ModalComponent
   ],
   //globale providers
   providers: [
@@ -55,7 +53,8 @@ import * as spinner from 'ng2-spin-kit/dist/spinners'
   ToastService,
   AuthGuard,
   UserService,
-  ExceptionService
+  ExceptionService,
+  ModalService
   ],
   bootstrap: [AppComponent]
 

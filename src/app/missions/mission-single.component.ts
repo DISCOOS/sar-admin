@@ -5,7 +5,6 @@ import 'rxjs/add/operator/switchMap';
 import { Component, Input, OnInit, ViewChild } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Mission, Alarm } from '../models/models';
-import { ModalComponent } from 'ng2-bs3-modal/ng2-bs3-modal';
 import { ToastComponent, ToastService } from '../blocks/blocks';
 import { SARService } from '../services/sar.service';
 import { PeopleListComponent } from '../people/people-list.component';
