@@ -102,38 +102,6 @@ export class SARService {
 
 
 
-	/**
-	 * Catches http errors
-	 * @param error 
-	 */
-	private handleError(error: Response) {
-		if (error.status == 401) {
-
-		}
-		let msg = `Status ${error.status}, url: ${error.url}`;
-		console.error(msg);
-		return Observable.throw(msg || 'Server error');
-	}
-
-
-
-
-
-
-
-
-	/**
-	 * Filter out ID from JSON-object. 
-	 * @param key 
-	 * @param value 
-	 */
-	private _replacer(key, value) {
-		if (key == "id") return undefined;
-		else return value;
-	}
-
-
-
 
 
 	/**
@@ -156,7 +124,7 @@ export class SARService {
 		let peoplebody = []
 
 		let url = baseUrl + '/missions';
-
+		this.spinnerService.show();
 		return this.http.post(url, missionbody, options)
 			.do(res => console.log("Process mission: " + res.url))
 			.concatMap(res => {
@@ -180,6 +148,8 @@ export class SARService {
 				//	console.log("AlarmUsers response:" + res.url)
 			})
 			.catch(this.exceptionService.catchBadResponse)
+			.finally(() => this.spinnerService.hide())
+
 	}
 
 
@@ -392,6 +362,31 @@ export class SARService {
 
 
 
+
+
+
+	/**
+	 * Catches http errors
+	 * @param error 
+	 */
+	private _handleError(error: Response) {
+		if (error.status == 401) {
+		}
+		let msg = `Status ${error.status}, url: ${error.url}`;
+		console.error(msg);
+		return Observable.throw(msg || 'Server error');
+	}
+
+
+	/**
+	 * Filter out ID from JSON-object. 
+	 * @param key 
+	 * @param value 
+	 */
+	private _replacer(key, value) {
+		if (key == "id") return undefined;
+		else return value;
+	}
 
 
 

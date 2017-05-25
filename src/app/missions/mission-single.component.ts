@@ -51,10 +51,6 @@ export class MissionSingleComponent implements OnInit {
   }
 
 
-
-
-
-
   /**
    * Routes back to mission-list
    */
@@ -88,9 +84,11 @@ export class MissionSingleComponent implements OnInit {
       .subscribe(miss => {
         // Route back to mission-list.
         this.toastService.activate(`Alt OK! Opprettet aksjon: "${this.mission.title}"`, true, true);
-        this.gotoMissions();
-      });
-
+      },
+      () => { this.toastService.activate(`Det skjedde en feil under opprettelse av aksjonen`, false, false); },
+      () => { this.toastService.activate(`Alt OK! Opprettet aksjon: "${this.mission.title}"`, true, true); }
+      );
+    this.gotoMissions();
   }
 
   private _createEmptyAlarm() {
