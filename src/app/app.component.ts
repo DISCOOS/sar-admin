@@ -2,30 +2,29 @@ import { Component, ViewChild, OnInit } from '@angular/core';
 import { ToastComponent, ToastService } from './blocks/blocks';
 import { User } from './models/models';
 import { SARService } from './services/sar.service';
-import {Subscription} from 'rxjs/Subscription';
+import { Subscription } from 'rxjs/Subscription';
 @Component({
-  selector: 'app',
-  templateUrl: './app.component.html',
-  providers: [ToastService]
-  
+	selector: 'app',
+	templateUrl: './app.component.html',
+	providers: [ToastService]
+
 })
-export class AppComponent  { 
+export class AppComponent {
 	// Only mobile nav
-	showMobileMenu : boolean;
-	
+	showMobileMenu: boolean;
+
 	// Toggles header after login
-	showNav : boolean;
+	showNav: boolean;
 
 	constructor(
-		private SARService : SARService,
-		private toastService : ToastService)
-	{
-	// Subscribes to Subject in UserService so we can update nav-view after login
-	this.SARService.isLoggedIn.subscribe((value) => {
-           //console.log("Show nav " + value); 
-           this.showNav = value;
-         });
-		
+		private SARService: SARService,
+		private toastService: ToastService) {
+		// Subscribes to Subject in UserService so we can update nav-view after login
+		this.SARService.isLoggedIn.subscribe((value) => {
+			//console.log("Show nav " + value); 
+			this.showNav = value;
+		});
+
 	}
 
 	/**
@@ -35,7 +34,7 @@ export class AppComponent  {
 		this.showMobileMenu = !this.showMobileMenu;
 	}
 
-	
+
 
 
 }

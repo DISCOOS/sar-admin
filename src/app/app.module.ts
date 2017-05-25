@@ -22,7 +22,7 @@ import { LoginComponent } from './login/login.component';
 import { MapService } from './services/map.service';
 import { UserService } from './services/user.service';
 import { ExceptionService } from './services/exception.service';
-
+import { SortMissionsPipe} from './missions/sort-missions.pipe';
 
 import * as spinner from 'ng2-spin-kit/dist/spinners'
 
@@ -44,7 +44,8 @@ import * as spinner from 'ng2-spin-kit/dist/spinners'
     PeopleListComponent,
     MapComponent,
     MissionActiveComponent,
-    ModalComponent
+    ModalComponent,
+    SortMissionsPipe
   ],
   //globale providers
   providers: [

@@ -22,7 +22,7 @@
 </filter-text>
 <sk-three-bounce [isRunning]="isLoading"></sk-three-bounce>
 
-<div *ngFor="let mission of filteredMissions" class="mission animated fadeInUp" [routerLink]="['/mission-active', mission.id]">
+<div *ngFor="let mission of filteredMissions | sortMissions" class="mission animated fadeInUp" [routerLink]="['/mission-active', mission.id]">
 
 
     <div *ngIf="mission.isEmergency" class="emergency" title="Nødsituasjon"><span class="pe-7s-attention"></span></div>

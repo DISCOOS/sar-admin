@@ -167,6 +167,7 @@ table.missions th:nth-child(1), table.missions td:nth-child(1) { width: 10px;}
 	#menu > li > a { border-bottom: 2px solid #fff; font-size: 2em; width: 100%; padding: 1em;}
 	#menu > li > a:hover { }
 	.mission { width: 100%}
+	.filter-button { min-width: 100px; }
 }
 
 @media (min-width: 1025px) { 
