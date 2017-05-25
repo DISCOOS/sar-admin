@@ -26,8 +26,6 @@ export class MissionActiveComponent implements OnInit, OnDestroy {
     @ViewChild(PeopleListComponent) peopleList: PeopleListComponent;
     @ViewChild(MapComponent) mapPicker: MapComponent;
 
-    @ViewChild(ModalComponent) modal: ModalComponent;
-
     @Input() mission: Mission = <Mission>{};
 
     //missionResponses: Observable<MissionResponse[]>;
