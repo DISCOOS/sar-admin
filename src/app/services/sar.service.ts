@@ -336,6 +336,23 @@ export class SARService {
 
 
 
+	getSARUser(id: number) {
+		let options = new RequestOptions({ withCredentials: true })
+		this._configureOptions(options);
+
+		let url = baseUrl + "/SARUsers/" + id;
+		this.spinnerService.show();
+		return this.http
+			.get(url, options).map((res: Response) => {
+				return res.json()
+			})
+			.catch(this.exceptionService.catchBadResponse)
+			.finally(() => this.spinnerService.hide());
+	}
+
+
+
+
 
 
 

@@ -12,8 +12,15 @@
                     <a id="close" (click)="toggleMobileMenu()"><span class="pe-7s-close-circle"></span></a>
                     <li>
                         <a (click)="unsubscribe()" [routerLink]="['/login']">
-                            <span class="pe-7s-user"></span>
+                            <span class="pe-7s-delete-user"></span>
                             <span>Logg ut</span>
+                        </a>
+
+                    </li>
+                    <li>
+                        <a [routerLink]="['/profile', 1]"routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}">
+                            <span class="pe-7s-user"></span>
+                            <span>Profil</span>
                         </a>
 
                     </li>

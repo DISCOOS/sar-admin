@@ -15,6 +15,7 @@ import { PageNotFoundComponent } from './page-not-found.component';
 import { ToastComponent, ToastService, ModalService, ModalComponent, SpinnerComponent, SpinnerService } from './blocks/blocks';
 import { PeopleListComponent } from './people/people-list.component';
 import { MissionActiveComponent } from './missions/mission-active.component';
+import { ProfileComponent } from './profile/profile.component';
 import { MapComponent } from './map/map.component';
 
 import { FilterTextComponent } from './blocks/filter-text/filter-text.component';
@@ -39,11 +40,12 @@ import { SortMissionsPipe} from './missions/sort-missions.pipe';
     ToastComponent,
     LoginComponent,
     PeopleListComponent,
+    ProfileComponent,
     MapComponent,
     MissionActiveComponent,
     ModalComponent,
     SortMissionsPipe,
-    SpinnerComponent
+    SpinnerComponent,
   ],
   //globale providers
   providers: [
