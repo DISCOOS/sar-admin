@@ -56,12 +56,9 @@ export class SARService {
 		data.append('username', username);
 		data.append('password', password);
 
-
 		let options = new RequestOptions({ withCredentials: true })
 
 		this.spinnerService.show();
-
-
 		return this.http
 			.post(baseUrl + '/sarusers/login', data, options)
 			.map((response: Response) => {
@@ -133,7 +130,6 @@ export class SARService {
 			})
 			.concatMap(res => {
 				//console.log("Alarm respons", res.url, ' poster alarmusers: ')
-
 				let alarmId = res.json().id
 				people.forEach(u => {
 					let user = {
@@ -148,34 +144,11 @@ export class SARService {
 				//	console.log("AlarmUsers response:" + res.url)
 			})
 			.catch(this.exceptionService.catchBadResponse)
-			.finally(() => this.spinnerService.hide())
+			.finally(() => this.spinnerService.hide());
 
 	}
 
 
-	/*
-	Add a new alarm
-	*/
-	addAlarm(alarm: Alarm, missionId: number) {
-
-		let options = new RequestOptions({ withCredentials: true })
-		this._configureOptions(options);
-
-		let body = {
-			"date": new Date(),
-			"message": alarm.message,
-			"missionId": missionId
-		}
-
-		//		let body = JSON.stringify(alarm, this._replacer);
-
-		console.log(body);
-
-		return this.http
-			.post(baseUrl + '/alarms', body, options)
-			.map(res => res.json())
-			.catch(this.exceptionService.catchBadResponse)
-	}
 	/**
 	
 	 * @param alarmId : which alarm to associate the sar-users with.
@@ -195,24 +168,25 @@ export class SARService {
 			body.push(user)
 		});
 
+		this.spinnerService.show();
 		return this.http
 			.post(baseUrl + '/AlarmUsers', body, options)
 			.map(res => res.json().data)
 			.catch(this.exceptionService.catchBadResponse)
+			.finally(() => this.spinnerService.hide());
 	}
 
 	/**
 	 * Get missions 
 	 */
 
-	getMissions(limit?: number) {
+	getMissions() {
 		let options = new RequestOptions({ withCredentials: true })
 		this._configureOptions(options);
 
 		let url = baseUrl + '/missions';
 
 		this.spinnerService.show();
-
 		return this.http
 			.get(url, options)
 			.map((response: Response) => <Mission[]>response.json())
@@ -229,8 +203,8 @@ export class SARService {
 		this._configureOptions(options);
 
 		let url = baseUrl + '/MissionResponses?filter[where][missionId]=' + missionId + '&filter[include]=saruser';
-		//this._spinnerService.show();
 
+		this.spinnerService.show();
 		return this.http.get(url, options)
 			.map((response: Response) => {
 				//				console.log(<SARUser[]>response.json().persons)
@@ -238,14 +212,13 @@ export class SARService {
 			})
 
 			.catch(this.exceptionService.catchBadResponse)
-		//  .finally(() => this._spinnerService.hide());
+			.finally(() => this.spinnerService.hide());
 
 
 	}
 	/*
 	Get single mission by Id.
 	Map SAR-user to this mission as well.
-
 	*/
 
 	getMission(id: number) {
@@ -255,6 +228,7 @@ export class SARService {
 		let url = baseUrl + "/missions/" + id + "?filter[include]=alarms"; // Also include alarms in response
 		let mission: any;
 
+		this.spinnerService.show();
 		return this.http.get(url, options).map((res: Response) => {
 			mission = res.json()
 			return mission
@@ -266,6 +240,7 @@ export class SARService {
 				return mission
 			})
 			.catch(this.exceptionService.catchBadResponse)
+			.finally(() => this.spinnerService.hide());
 
 	}
 
@@ -291,9 +266,13 @@ export class SARService {
 		let options = new RequestOptions({ withCredentials: true })
 		let url = baseUrl + '/missions/' + mission.id;
 		this._configureOptions(options);
+
+		this.spinnerService.show();
 		return this.http
 			.delete(url, options)
 			.catch(this.exceptionService.catchBadResponse)
+			.finally(() => this.spinnerService.hide());
+
 
 	}
 
@@ -321,10 +300,14 @@ export class SARService {
 		let options = new RequestOptions({ withCredentials: true })
 		let url = baseUrl + '/missions/' + mission.id;
 		this._configureOptions(options);
+
+		this.spinnerService.show();
 		return this.http
 			.put(url, body, options)
 			.do(res => console.log("Result of : " + res.json()))
 			.catch(this.exceptionService.catchBadResponse)
+			.finally(() => this.spinnerService.hide());
+
 	}
 
 
