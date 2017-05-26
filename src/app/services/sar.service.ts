@@ -21,17 +21,11 @@ let token = CONFIG.headers.token;
 @Injectable()
 export class SARService {
 
-	loggedIn: boolean;
-	token: string;
-
-	// Other components can subscribe to this 
-	public isLoggedIn: Subject<boolean> = new Subject();
-
 	constructor(
 		private http: Http,
 		private userService: UserService,
 		private exceptionService: ExceptionService,
-		private spinnerService: SpinnerService
+		private spinnerService: SpinnerService,
 
 	) {
 
@@ -70,12 +64,10 @@ export class SARService {
 					// store user details and token in local storage to keep user logged in between page refreshes					
 					localStorage.setItem('currentUser', JSON.stringify(res.user));
 
-					this.userService.user = res.user;
+					//	this.userService.user = res.user;
+					//	console.log("set user in userservice" + this.userService.user)
 
-					this.loggedIn = true;
-					this.isLoggedIn.next(this.loggedIn);
 				} else {
-
 					return Observable.throw(new Error("error"))
 				}
 			})
@@ -87,8 +79,6 @@ export class SARService {
 	logout() {
 		// remove user from local storage to log user out
 		localStorage.removeItem('currentUser');
-		this.loggedIn = false;
-		this.isLoggedIn.next(this.loggedIn);
 	}
 
 

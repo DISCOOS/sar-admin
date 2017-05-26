@@ -5,7 +5,6 @@ import { Mission } from '../models/models';
 @Pipe({ name: 'sortMissions' })
 export class SortMissionsPipe implements PipeTransform {
     transform(value: Mission[], args?: any[]) {
-        console.log("inside piep")
         if (!value || !value.sort) { return value; }
 
         // We sort the missions by date; newest first.

@@ -3,7 +3,7 @@
 <spinner></spinner>
 <div id="menymaske" class="maske animated fadeIn" [class.show]="showMobileMenu"></div>
 <div id="wrapper">
-    <header id="top">
+    <header id="top" *ngIf="user">
         <div class="container">
             <a class="col-xs-6 col-md-2" [routerLink]="['/missions']" id="logo"><img src="app/assets/img/logo.svg"></a>
             <div class="col-xs-6 col-md-10">
@@ -18,10 +18,12 @@
 
                     </li>
                     <li>
-                        <a [routerLink]="['/profile', 1]"routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}">
+                        <a [routerLink]="['/profile', user?.id]" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}">
                             <span class="pe-7s-user"></span>
                             <span>Profil</span>
                         </a>
+
+
 
                     </li>
                     <li>
