@@ -1,8 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs/Observable';
-import { Http, Response, RequestOptions } from '@angular/http';
-import { Headers } from '@angular/http';
-import { URLSearchParams } from "@angular/http"
+import { Http, Response, RequestOptions, Headers, URLSearchParams } from '@angular/http';
 import { CONFIG } from '../shared/config';
 import { Mission, Alarm, MissionResponse } from '../models/models';
 import { Subject } from 'rxjs/Subject';
