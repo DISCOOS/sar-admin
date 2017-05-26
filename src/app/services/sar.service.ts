@@ -112,7 +112,6 @@ export class SARService {
 	 * @param people  : Array of sarusers for this alarm
 	 */
 	addMission(mission: Mission, alarm: Alarm, people: SARUser[]) {
-
 		let options = new RequestOptions({ withCredentials: true })
 		this._configureOptions(options);
 
@@ -155,7 +154,6 @@ export class SARService {
 	 * @param users : Array of sar-users to be associated with this alarm
 	 */
 	addAlarmUsers(alarmId, users: SARUser[]) {
-
 		let options = new RequestOptions({ withCredentials: true })
 		this._configureOptions(options);
 
@@ -198,7 +196,6 @@ export class SARService {
 
 
 	getMissionResponses(missionId: number) {
-
 		let options = new RequestOptions({ withCredentials: true })
 		this._configureOptions(options);
 
@@ -255,6 +252,9 @@ export class SARService {
 	*/
 	deleteMissionById(mission: Mission) {
 
+		let options = new RequestOptions({ withCredentials: true })
+
+		this._configureOptions(options);
 		// Check if user is same as the one who created this mission
 		let currentUser = JSON.parse(localStorage.getItem('currentUser'))
 
@@ -263,10 +263,8 @@ export class SARService {
 			// throw error instead
 		}
 
-		let options = new RequestOptions({ withCredentials: true })
-		let url = baseUrl + '/missions/' + mission.id;
-		this._configureOptions(options);
 
+		let url = baseUrl + '/missions/' + mission.id;
 		this.spinnerService.show();
 		return this.http
 			.delete(url, options)
@@ -277,6 +275,9 @@ export class SARService {
 	}
 
 	setMissionAsInactive(mission: Mission) {
+
+		let options = new RequestOptions({ withCredentials: true })
+		this._configureOptions(options);
 		// Check if user is same as the one who created this mission
 		let currentUser = JSON.parse(localStorage.getItem('currentUser'))
 
@@ -297,10 +298,8 @@ export class SARService {
 			"creator": mission.creator.id
 		}
 
-		let options = new RequestOptions({ withCredentials: true })
-		let url = baseUrl + '/missions/' + mission.id;
-		this._configureOptions(options);
 
+		let url = baseUrl + '/missions/' + mission.id;
 		this.spinnerService.show();
 		return this.http
 			.put(url, body, options)
@@ -309,10 +308,6 @@ export class SARService {
 			.finally(() => this.spinnerService.hide());
 
 	}
-
-
-
-
 
 
 
@@ -328,8 +323,9 @@ export class SARService {
 		this._configureOptions(options);
 
 		let url = baseUrl + '/sarusers/persons';
-		//this._spinnerService.show();
 
+
+		this.spinnerService.show();
 		return this.http.get(url, options)
 			.map((response: Response) => {
 				//				console.log(<SARUser[]>response.json().persons)
@@ -337,7 +333,7 @@ export class SARService {
 			})
 
 			.catch(this.exceptionService.catchBadResponse)
-		//  .finally(() => this._spinnerService.hide());
+			.finally(() => this.spinnerService.hide());
 
 	}
 
@@ -347,7 +343,9 @@ export class SARService {
 
 
 
-
+	/**********************
+	 * Private methods
+	 ***********************/
 	/**
 	 * Catches http errors
 	 * @param error 
