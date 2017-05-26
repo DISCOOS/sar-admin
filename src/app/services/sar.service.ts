@@ -18,8 +18,6 @@ let baseUrl = CONFIG.urls.baseUrl;
 let token = CONFIG.headers.token;
 
 
-declare var google: any;
-
 @Injectable()
 export class SARService {
 
