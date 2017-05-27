@@ -56,10 +56,14 @@ export class MissionActiveComponent implements OnInit, OnDestroy {
         });
         // Only listen for responses if mission is indeed active  
 
-        let timer = Observable.timer(2000, 5000);
+        // Will query missionresponses every minute
+        let timer = Observable.timer(2000, 6000 * 10);
         setTimeout(() => {
-            this.getMissionResponses()
-            this.timersub = timer.subscribe(() => this.getMissionResponses())
+            if (this.mission.isActive) {
+                this.getMissionResponses()
+                this.timersub = timer.subscribe(() => this.getMissionResponses())
+            }
+
 
         }, 2000);
 

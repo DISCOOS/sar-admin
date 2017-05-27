@@ -36,7 +36,10 @@ export class MissionSingleComponent implements OnInit {
     private router: Router,
     private toastService: ToastService,
     private SARService: SARService
-  ) { }
+  ) {
+
+
+  }
 
   ngOnInit() {
     // Recreate component if we're allready in mission-single

@@ -26,16 +26,10 @@ export class AppComponent {
 		return this.userService.user;
 	}
 
-
-
 	/**
 	Toggle mobile menu
 	**/
 	toggleMobileMenu() {
 		this.showMobileMenu = !this.showMobileMenu;
 	}
-
-
-
-
 }

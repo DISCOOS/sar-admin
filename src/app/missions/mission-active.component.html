@@ -51,11 +51,11 @@
         </p>
         <tbody>
             <tr *ngFor="let response of (missionResponses)">
-                <td>{{response.saruser.name}}</td>
+                <td>{{response.saruser?.name}}</td>
                 <td>{{response.response ? 'Ja' : 'Nei'}}</td>
                 <td>{{response.date | date: 'dd/MM/yyyy H:mm' }}</td>
                 <td>{{response.comment}}</td>
-                <td>{{response.saruser.isTrackable ? 'Ja' : 'Nei'}}</td>
+                <td>{{response.saruser?.isTrackable ? 'Ja' : 'Nei'}}</td>
             </tr>
 
         </tbody>

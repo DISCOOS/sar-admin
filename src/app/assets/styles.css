@@ -222,6 +222,10 @@ table.missions th:nth-child(1), table.missions td:nth-child(1) { width: 10px;}
 	.filter-button { min-width: 100px; }
 }
 
+@media (max-width: 500px) {
+  #login-box { width: 100%;}
+}
+
 @media (min-width: 1025px) { 
 #menu { display: block !important;}
 #menymaske { display: none !important;}

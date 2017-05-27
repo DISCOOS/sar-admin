@@ -10,16 +10,16 @@ export class ExceptionService {
     constructor(
         private toastService: ToastService,
         private router: Router
-        ) { }
+    ) { }
 
     catchBadResponse: (errorResponse: any) => Observable<any> = (errorResponse: any) => {
         console.log(errorResponse)
-        if(errorResponse.status =='401' || errorResponse.statusCode == '401') {
+        if (errorResponse.status == '401' || errorResponse.statusCode == '401') {
             this.toastService.activate('Sesjonen er utløpt. Logg inn på nytt', false, true);
             let route = ['/login'];
             this.router.navigate(route);
         }
-    let res = <Response>errorResponse;
+        let res = <Response>errorResponse;
         let err = res.json();
 
         console.log(err)

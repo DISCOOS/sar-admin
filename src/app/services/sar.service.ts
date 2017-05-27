@@ -42,6 +42,7 @@ export class SARService {
 
 
 	login(username: string, password: string) {
+		console.log("URL : " + baseUrl)
 		let data = new URLSearchParams();
 		data.append('username', username);
 		data.append('password', password);
@@ -131,6 +132,23 @@ export class SARService {
 			.catch(this.exceptionService.catchBadResponse)
 			.finally(() => this.spinnerService.hide());
 
+	}
+	/**
+	 * Adds a new alarm for an existing mission
+	 * @param mission Mission to add alarm for
+	 */
+	addAlarm(mission: Mission, alarm: Alarm) {
+		let options = new RequestOptions({ withCredentials: true })
+		this._configureOptions(options);
+		let alarmbody = JSON.stringify(alarm, this._replacer)
+
+
+		this.spinnerService.show();
+		return this.http
+			.post(baseUrl + '/missions/' + mission.id + '/alarms', alarmbody, options)
+			.map((response: Response) => response.json())
+			.catch(this.exceptionService.catchBadResponse)
+			.finally(() => this.spinnerService.hide());
 	}
 
 

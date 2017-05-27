@@ -23,7 +23,7 @@ import { LoginComponent } from './login/login.component';
 import { MapService } from './services/map.service';
 import { UserService } from './services/user.service';
 import { ExceptionService } from './services/exception.service';
-import { SortMissionsPipe} from './missions/sort-missions.pipe';
+import { SortMissionsPipe } from './missions/sort-missions.pipe';
 
 @NgModule({
   imports: [
@@ -45,18 +45,18 @@ import { SortMissionsPipe} from './missions/sort-missions.pipe';
     MissionActiveComponent,
     ModalComponent,
     SortMissionsPipe,
-    SpinnerComponent,
+    SpinnerComponent
   ],
   //globale providers
   providers: [
-  SARService, 
-  MapService,
-  ToastService,
-  AuthGuard,
-  UserService,
-  ExceptionService,
-  ModalService,
-  SpinnerService
+    SARService,
+    MapService,
+    ToastService,
+    AuthGuard,
+    UserService,
+    ExceptionService,
+    ModalService,
+    SpinnerService
   ],
   bootstrap: [AppComponent]
 
