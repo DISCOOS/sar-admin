@@ -21,7 +21,7 @@ export class ExpenseListComponent implements OnInit {
 
     ngOnInit() {
         setTimeout(() => {
-            this.getExpenses();
+           // this.getExpenses();
         }, 3000)
 
 

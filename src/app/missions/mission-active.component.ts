@@ -11,6 +11,7 @@ import { SARService } from '../services/sar.service';
 import { PeopleListComponent } from '../people/people-list.component';
 import { MapComponent } from '../map/map.component';
 import { AlarmComponent } from '../alarms/alarm.component';
+import { MapService } from '../services/map.service';
 
 /**
  * Component for handling a single mission
@@ -44,7 +45,8 @@ export class MissionActiveComponent implements OnInit, OnDestroy {
         private toastService: ToastService,
         private SARService: SARService,
         private zone: NgZone,
-        private modalService: ModalService
+        private modalService: ModalService,
+        private mapService : MapService
     ) { }
 
 
@@ -95,6 +97,13 @@ export class MissionActiveComponent implements OnInit, OnDestroy {
                 })
             })
 
+    }
+
+    computeDistanceBetweenLocations(p1: any, p2: any) {
+
+        let res =  this.mapService.distanceBetweenTwoPoints(p1,p2);
+        console.log(res)
+        return res;
     }
 
 

@@ -1,12 +1,19 @@
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs/Observable';
+import { CONFIG } from '../shared/config';
+import { Http, Response, RequestOptions, Headers, URLSearchParams } from '@angular/http';
+import 'rxjs/add/operator/do';
+import 'rxjs/add/operator/finally';
 
 declare var google: any;
+let API_KEY = CONFIG.google.API_KEY;
 
 @Injectable()
 export class MapService {
 
-    constructor() {
+    constructor(
+        private http: Http
+    ) {
         //this.geocoder = new google.maps.Geocoder();
     }
 
@@ -34,7 +41,18 @@ export class MapService {
         })
     }
 
-    distanceBetweenTwoPoints(a : any, b : any) {
-        
+    distanceBetweenTwoPoints(a: any, b: any) {
+        let url = 'https://maps.googleapis.com/maps/api/distancematrix/json?units=imperial&origins=' + a.lat + ',' + a.lng + '&destinations=' + b.lat + ',' + b.lng + '&key=' + API_KEY;
+        console.log("URL: " + url)
+        return this.http.get(url)
+            .map((response: Response) => {
+                //console.log(<SARUser[]>response.json().persons)
+                //console.log(response.json())
+                return response.json()
+            })
+       // .do(res => console.log("Google sier : " + res.json().rows.elements.duration.text))
+        //.catch(this.exceptionService.catchBadResponse)
+        //.finally(() => this.spinnerService.hide());
+
     }
 }

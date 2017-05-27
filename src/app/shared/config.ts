@@ -1,4 +1,7 @@
 export let CONFIG = {
+    google : {
+        API_KEY : 'AIzaSyBYzGTxVG0t0RYu0-IFlqFbp9x4PjLUl_E'
+    },
     headers: {
         token: ''
     },

@@ -44,7 +44,7 @@
             <th>Stiller</th>
             <th>Dato besvart</th>
             <th>Beskjed</th>
-            <th>Lokaliserbar?</th>
+            <th>Lokasjon</th>
         </thead>
         <p *ngIf="missionResponses && missionResponses.length == 0" style="font-style:italic; padding: 1em 0;">
             <span *ngIf="mission.isActive"> Ingen har respondert på utkallingen enda</span>
@@ -56,7 +56,21 @@
                 <td>{{response.response ? 'Ja' : 'Nei'}}</td>
                 <td>{{response.date | date: 'dd/MM/yyyy H:mm' }}</td>
                 <td>{{response.comment}}</td>
-                <td>{{response.saruser?.isTrackable ? 'Ja' : 'Nei'}}</td>
+                <td>
+
+                    <span *ngIf="response.saruser?.isTrackable">
+
+                        
+                         <a *ngIf="response.tracking?.geopoint"href="http://maps.google.com/?q={{response.tracking.geopoint.lat}},{{response.tracking.geopoint.lng}}"
+            target="_blank">Åpne i kart</a>. <br>Registrert: {{response.tracking?.date | date: 'dd/MM/yyyy H:mm'}}
+<!--Distanse:
+ {{computeDistanceBetweenLocations(response.tracking.geopoint, mission.meetingPoint)}} -->
+                    </span>
+
+
+                    <span>{{!response.saruser?.isTrackable ? 'Ikke sporbar' : ''}}</span>
+
+                </td>
             </tr>
 
         </tbody>
@@ -67,12 +81,18 @@
 
 
 
-<section>
+<section *ngIf="!mission.isActive">
     <h2 style="margin-top: 2em; border-bottom: 2px solid #acacac">
         Registrerte utgifter for deltakere
     </h2>
 
-<expenses [mission]="mission"></expenses>
+    <expenses [mission]="mission"></expenses>
 </section>
+
+<!--
+<tracking *ngIf="mission.isActive">
+</tracking>
+
+-->
 
 <button (click)="delete()" class="">Slett denne aksjon</button>
