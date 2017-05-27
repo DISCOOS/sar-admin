@@ -18,6 +18,7 @@ import { MissionActiveComponent } from './missions/mission-active.component';
 import { ProfileComponent } from './profile/profile.component';
 import { MapComponent } from './map/map.component';
 import { AlarmComponent } from './alarms/alarm.component';
+import { ExpenseListComponent } from './expenses/expense-list.component';
 
 import { FilterTextComponent } from './blocks/filter-text/filter-text.component';
 import { LoginComponent } from './login/login.component';
@@ -45,6 +46,7 @@ import { SortMissionsPipe } from './missions/sort-missions.pipe';
     MapComponent,
     MissionActiveComponent,
     AlarmComponent,
+    ExpenseListComponent,
     ModalComponent,
     SortMissionsPipe,
     SpinnerComponent

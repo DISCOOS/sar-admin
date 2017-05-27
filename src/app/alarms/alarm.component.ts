@@ -18,9 +18,11 @@ import { SARService } from '../services/sar.service';
 export class AlarmComponent implements OnInit {
 
     @Input() alarm: Alarm = <Alarm>{};
-    @Input() mission: any;
+    @Input() mission: Mission;
 
     visible = false;
+
+    private sub: any;
 
     constructor(
         private route: ActivatedRoute,
@@ -59,7 +61,7 @@ export class AlarmComponent implements OnInit {
             .subscribe(
             (res) => { console.log(res) },
             (err) => { console.log(err) },
-            () => { 
+            () => {
                 this.visible = false;
                 this.ngOnInit()
             }

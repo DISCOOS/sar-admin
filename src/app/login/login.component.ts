@@ -19,8 +19,8 @@ export class LoginComponent implements OnInit {
         private router: Router,
         private toastService: ToastService,
         private SARService: SARService,
-        private spinnerService : SpinnerService
-        ) { }
+        private spinnerService: SpinnerService
+    ) { }
 
     ngOnInit() {
         // reset login status
@@ -35,12 +35,17 @@ export class LoginComponent implements OnInit {
         this.SARService.login(this.model.username, this.model.password)
             .subscribe(
             data => {
-                console.log(data)
-                this.router.navigate([this.returnUrl]);
-                this.toastService.activate(`Velkommen!`, true, true);
-                
+                if (data && data.error) {
+                    this.toastService.activate(`Du er ikke registert med admintilgang. Dette må settes opp i KOVA`, false, false);
+                } else {
+                    this.router.navigate([this.returnUrl]);
+                    this.toastService.activate(`Velkommen!`, true, true);
+                }
             },
-            error => {
+            (error) => {
+                this.loading = false;
+            },
+            () => {
                 this.loading = false;
             });
     }

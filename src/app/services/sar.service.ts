@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs/Observable';
 import { Http, Response, RequestOptions, Headers, URLSearchParams } from '@angular/http';
 import { CONFIG } from '../shared/config';
-import { Mission, Alarm, MissionResponse } from '../models/models';
+import { Mission, Alarm, MissionResponse, Expence } from '../models/models';
 import { Subject } from 'rxjs/Subject';
 import { User } from '../models/models';
 import { SARUser } from '../models/models';
@@ -42,7 +42,7 @@ export class SARService {
 
 
 	login(username: string, password: string) {
-		console.log("URL : " + baseUrl)
+
 		let data = new URLSearchParams();
 		data.append('username', username);
 		data.append('password', password);
@@ -56,18 +56,21 @@ export class SARService {
 
 				// login successful if there's a token in the response
 				let res = response.json();
-				//	let isAdmin = (res.user.user.privileges & 256) == 256;
 				if (
 					res.user
 					//&& res.user.isAdmin
 					&& res.user.access_token
 				) {
-					// store user details and token in local storage to keep user logged in between page refreshes					
-					localStorage.setItem('currentUser', JSON.stringify(res.user));
+					if (res.user.isAdmin) {
+						// store user details and token in local storage to keep user logged in between page refreshes					
+						localStorage.setItem('currentUser', JSON.stringify(res.user));
 
-					//	this.userService.user = res.user;
-					//	console.log("set user in userservice" + this.userService.user)
-
+						//	this.userService.user = res.user;
+						//	console.log("set user in userservice" + this.userService.user)
+					}
+					else {
+						return Observable.throw(new Error("Ingen admintilgang"))
+					}
 				} else {
 					return Observable.throw(new Error("error"))
 				}
@@ -142,8 +145,6 @@ export class SARService {
 		this._configureOptions(options);
 		let alarmbody = JSON.stringify(alarm, this._replacer)
 
-		console.log("sending: " + alarmbody)
-
 		this.spinnerService.show();
 		return this.http
 			.post(baseUrl + '/missions/' + mission.id + '/alarms', alarmbody, options)
@@ -193,6 +194,21 @@ export class SARService {
 		return this.http
 			.get(url, options)
 			.map((response: Response) => <Mission[]>response.json())
+			.catch(this.exceptionService.catchBadResponse)
+			.finally(() => this.spinnerService.hide());
+	}
+
+	getMissionExpences(mission: Mission) {
+		//GET /Missions/{id}/expenses
+		let options = new RequestOptions({ withCredentials: true })
+		this._configureOptions(options);
+
+		let url = baseUrl + '/missions/' + mission.id + '/expenses?filter=[include]=saruser';
+
+		this.spinnerService.show();
+		return this.http
+			.get(url, options)
+			.map((response: Response) => <Expence[]>response.json())
 			.catch(this.exceptionService.catchBadResponse)
 			.finally(() => this.spinnerService.hide());
 	}

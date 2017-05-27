@@ -50,7 +50,7 @@ export class MissionActiveComponent implements OnInit, OnDestroy {
 
 
     ngOnInit() {
-        // Recreate component if we're allready in contact-single
+        // Recreate component 
         this.sub = this.route.params.subscribe(params => {
             this.id = +params['id'];
 

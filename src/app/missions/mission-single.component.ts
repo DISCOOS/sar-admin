@@ -89,9 +89,9 @@ export class MissionSingleComponent implements OnInit {
         this.toastService.activate(`Alt OK! Opprettet aksjon: "${this.mission.title}"`, true, true);
       },
       () => { this.toastService.activate(`Det skjedde en feil under opprettelse av aksjonen`, false, false); },
-      () => { this.toastService.activate(`Alt OK! Opprettet aksjon: "${this.mission.title}"`, true, true); }
+      () => { this.toastService.activate(`Alt OK! Opprettet aksjon: "${this.mission.title}"`, true, true);  this.gotoMissions();}
       );
-    this.gotoMissions();
+    
   }
 
   private _createEmptyAlarm() {
