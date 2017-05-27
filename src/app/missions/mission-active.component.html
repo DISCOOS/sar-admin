@@ -29,7 +29,8 @@
 
     </tbody>
 </table>
-<button *ngIf="mission.isActive">Lag en ny varsling</button>
+<button *ngIf="mission.isActive" (click)="toggleAlarm()">Lag en ny varsling</button>
+<alarm [mission]="mission"></alarm>
 
 
 <section>

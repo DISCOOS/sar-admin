@@ -52,8 +52,7 @@ export class Alarm {
 		public id?: number,
 		public date?: Date, // datestamp at creation
 		public message?: string,
-		public mission?: Mission,
-		public persons?: SARUser[] // Persons to be alarmed
+		public mission?: Mission
 	) { }
 
 }

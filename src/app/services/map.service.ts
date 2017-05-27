@@ -33,4 +33,8 @@ export class MapService {
             });
         })
     }
+
+    distanceBetweenTwoPoints(a : any, b : any) {
+        
+    }
 }

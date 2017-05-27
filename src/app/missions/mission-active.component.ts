@@ -10,6 +10,7 @@ import { ToastService, ModalService, ModalComponent } from '../blocks/blocks';
 import { SARService } from '../services/sar.service';
 import { PeopleListComponent } from '../people/people-list.component';
 import { MapComponent } from '../map/map.component';
+import { AlarmComponent } from '../alarms/alarm.component';
 
 /**
  * Component for handling a single mission
@@ -17,7 +18,7 @@ import { MapComponent } from '../map/map.component';
  */
 @Component({
     moduleId: module.id,
-    selector: 'mission-single',
+    selector: 'mission-active',
     templateUrl: 'mission-active.component.html'
 })
 export class MissionActiveComponent implements OnInit, OnDestroy {
@@ -25,6 +26,8 @@ export class MissionActiveComponent implements OnInit, OnDestroy {
     //@Input() mission: Mission;
     @ViewChild(PeopleListComponent) peopleList: PeopleListComponent;
     @ViewChild(MapComponent) mapPicker: MapComponent;
+
+    @ViewChild(AlarmComponent) alarm : AlarmComponent;
 
     @Input() mission: Mission = <Mission>{};
 
@@ -176,6 +179,10 @@ export class MissionActiveComponent implements OnInit, OnDestroy {
             }
         });
 
+    }
+
+    toggleAlarm() {
+        this.alarm.visible = this.alarm.visible ? false : true;
     }
 
 }

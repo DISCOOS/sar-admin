@@ -17,6 +17,7 @@ import { PeopleListComponent } from './people/people-list.component';
 import { MissionActiveComponent } from './missions/mission-active.component';
 import { ProfileComponent } from './profile/profile.component';
 import { MapComponent } from './map/map.component';
+import { AlarmComponent } from './alarms/alarm.component';
 
 import { FilterTextComponent } from './blocks/filter-text/filter-text.component';
 import { LoginComponent } from './login/login.component';
@@ -43,6 +44,7 @@ import { SortMissionsPipe } from './missions/sort-missions.pipe';
     ProfileComponent,
     MapComponent,
     MissionActiveComponent,
+    AlarmComponent,
     ModalComponent,
     SortMissionsPipe,
     SpinnerComponent

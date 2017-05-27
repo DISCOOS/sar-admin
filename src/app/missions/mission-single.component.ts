@@ -100,8 +100,7 @@ export class MissionSingleComponent implements OnInit {
       null, //id
       new Date(), // date
       '', // message
-      this.mission, // mission
-      null//persons
+      this.mission
     )
     return alarm
   }

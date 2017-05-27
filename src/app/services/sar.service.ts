@@ -142,6 +142,7 @@ export class SARService {
 		this._configureOptions(options);
 		let alarmbody = JSON.stringify(alarm, this._replacer)
 
+		console.log("sending: " + alarmbody)
 
 		this.spinnerService.show();
 		return this.http
