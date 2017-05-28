@@ -274,6 +274,12 @@ table.missions th:nth-child(1), table.missions td:nth-child(1) { width: 10px;}
       border-right: solid 10px transparent;
       }
 
+      .label_content .small {
+        font-size: 60%;
+        clear: both;
+        display: block;
+      }
+
 
 
 

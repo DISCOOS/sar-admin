@@ -102,7 +102,6 @@ export class MissionActiveComponent implements OnInit, OnDestroy {
     computeDistanceBetweenLocations(p1: any, p2: any) {
 
         let res =  this.mapService.distanceBetweenTwoPoints(p1,p2);
-        console.log(res)
         return res;
     }
 
