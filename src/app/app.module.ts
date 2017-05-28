@@ -29,6 +29,10 @@ import { MapService } from './services/map.service';
 import { UserService } from './services/user.service';
 import { ExceptionService } from './services/exception.service';
 
+import { FLATPICKR_TOKEN } from './services/flatpickr.service';
+
+declare let flatpickr : any;
+
 @NgModule({
   imports: [
     BrowserModule,
@@ -63,7 +67,8 @@ import { ExceptionService } from './services/exception.service';
     UserService,
     ExceptionService,
     ModalService,
-    SpinnerService
+    SpinnerService,
+    { provide: FLATPICKR_TOKEN, useValue: flatpickr }
   ],
   bootstrap: [AppComponent]
 

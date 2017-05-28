@@ -1,4 +1,4 @@
-import { Component, Input, OnInit, ViewChild } from '@angular/core';
+import { Component, Input, OnInit, ViewChild, Inject, AfterViewInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Mission, Alarm } from '../models/models';
 import { ToastComponent, ToastService } from '../blocks/blocks';
@@ -6,7 +6,9 @@ import { SARService } from '../services/sar.service';
 import { PeopleListComponent } from '../people/people-list.component';
 import { MapComponent } from '../map/map.component';
 import { SARUser } from '../models/models';
+import { CONFIG } from '../shared/config';
 
+declare var flatpickr: any;
 /**
  * Component for handling a single mission
  * 
@@ -32,6 +34,7 @@ export class MissionSingleComponent implements OnInit {
     private router: Router,
     private toastService: ToastService,
     private SARService: SARService
+    //@Inject(FLATPICKR_TOKEN) private flatpickr
   ) {
 
 
@@ -41,14 +44,22 @@ export class MissionSingleComponent implements OnInit {
     // Recreate component if we're allready in mission-single
     this.sub = this.route.params.subscribe(params => {
       this.id = +params['id'];
-
-
     });
 
     this.mission = this._createEmptyMission();
     this.alarm = this._createEmptyAlarm();
+
   }
 
+  // Initialize flatpickr after DOM-content-loaded
+  ngAfterViewInit() {
+
+  
+
+
+
+    new flatpickr('.flatpickr', CONFIG.flatpickr)
+  }
 
   /**
    * Routes back to mission-list
@@ -85,9 +96,9 @@ export class MissionSingleComponent implements OnInit {
         this.toastService.activate(`Alt OK! Opprettet aksjon: "${this.mission.title}"`, true, true);
       },
       () => { this.toastService.activate(`Det skjedde en feil under opprettelse av aksjonen`, false, false); },
-      () => { this.toastService.activate(`Alt OK! Opprettet aksjon: "${this.mission.title}"`, true, true);  this.gotoMissions();}
+      () => { this.toastService.activate(`Alt OK! Opprettet aksjon: "${this.mission.title}"`, true, true); this.gotoMissions(); }
       );
-    
+
   }
 
   private _createEmptyAlarm() {

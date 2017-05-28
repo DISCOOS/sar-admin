@@ -21,6 +21,7 @@ export class MapComponent implements OnInit, OnChanges {
     ) { }
 
     ngOnInit() {
+        
 
         var mapOptions = {
             // How zoomed in you want the map to start at (always required)

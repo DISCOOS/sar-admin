@@ -24,7 +24,7 @@ export class AppComponent {
 	}
 
 	get user() {
-		console.log(this.userService.user)
+		//console.log(this.userService.user)
 		return this.userService.user;
 	}
 

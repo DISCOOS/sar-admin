@@ -1,6 +1,6 @@
 <div class="animated fadeIn" id="login-box">
     <img src="app/assets/img/logo.svg">
-    <form (ngSubmit)="f.form.valid && login()" #f="ngForm" novalidate>
+    <form method="post" (ngSubmit)="f.form.valid && login()" #f="ngForm" novalidate>
         <div class="form-group"  [ngClass]="{ 'has-error': f.submitted && !username.valid }">
             <label for="username" class="control-label">Brukernavn</label>
             <input class="formcontrol" type="text" id="username" name="username" [(ngModel)]="model.username" #username="ngModel" required />

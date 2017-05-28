@@ -15,11 +15,9 @@
                 <div *ngIf="f.submitted && !title.valid" class="help-block animated fadeIn">Tittel må fylles ut</div>
             </div>
 
-
-
             <div class="form-group" [ngClass]="{ 'has-error': f.submitted && !dateStart.valid }">
                 <label for="dateStart" class="control-label">Startdato</label>
-                <input [(ngModel)]="mission.dateStart" id="dateStart" name="dateStart" type="datetime-local" required #dateStart="ngModel">
+                <input [(ngModel)]="mission.dateStart" class="flatpickr" id="dateStart" name="dateStart" type="datetime-local" required #dateStart="ngModel">
                 <div *ngIf="f.submitted && !dateStart.valid" class="help-block animated fadeIn">Startdato/klokkeslett må fylles ut</div>
             </div>
 
