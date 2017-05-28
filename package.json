@@ -38,6 +38,7 @@
     "ng2-date-time-picker": "^4.0.0",
     "ng2-flatpickr": "^0.1.14",
     "ng2-toastr": "^4.0.1",
+    "rich-marker": "0.0.1",
     "rxjs": "5.0.1",
     "systemjs": "0.19.40",
     "zone.js": "^0.8.4"

@@ -8,6 +8,7 @@ import { PeopleListComponent } from '../people/people-list.component';
 import { MapComponent } from '../map/map.component';
 import { AlarmComponent } from '../alarms/alarm.component';
 import { MapService } from '../services/map.service';
+import { TrackingComponent } from '../tracking/tracking.component'
 
 /**
  * Component for handling a single mission
@@ -26,9 +27,12 @@ export class MissionActiveComponent implements OnInit, OnDestroy {
 
     @ViewChild(AlarmComponent) alarm : AlarmComponent;
 
+   // @ViewChild(TrackingComponent) trackings;
+
     @Input() mission: Mission = <Mission>{};
 
     //missionResponses: Observable<MissionResponse[]>;
+
     missionResponses: MissionResponse[];
     private id: any;
     private sub: any;
@@ -58,7 +62,8 @@ export class MissionActiveComponent implements OnInit, OnDestroy {
         // Only listen for responses if mission is indeed active  
 
         // Will query missionresponses every minute
-        let timer = Observable.timer(2000, 6000 * 10);
+        //let timer = Observable.timer(2000, 6000 * 10);
+        let timer = Observable.timer(2000, 5000);
         setTimeout(() => {
             if (this.mission.isActive) {
                 this.getMissionResponses()
