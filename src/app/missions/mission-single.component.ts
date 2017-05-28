@@ -51,13 +51,8 @@ export class MissionSingleComponent implements OnInit {
 
   }
 
-  // Initialize flatpickr after DOM-content-loaded
+  // Initialize flatpickr after DOM-content is loaded
   ngAfterViewInit() {
-
-  
-
-
-
     new flatpickr('.flatpickr', CONFIG.flatpickr)
   }
 
