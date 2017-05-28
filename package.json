@@ -14,7 +14,7 @@
     "test": "concurrently \"npm run build:watch\" \"karma start karma.conf.js\"",
     "lint": "tslint ./src/**/*.ts -t verbose",
     "preinstall": "npm install -g angular-cli",
-    "postinstall": "ng build --target=production -e ${NODE_ENV:-production} --aot"
+    "postinstall": "ng build --aot -prod"
   },
   "keywords": [],
   "author": "",
