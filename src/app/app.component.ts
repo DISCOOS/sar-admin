@@ -5,8 +5,9 @@ import { SARService } from './services/sar.service';
 import { UserService } from './services/user.service';
 import { Subscription } from 'rxjs/Subscription';
 @Component({
+	moduleId: module.id,
 	selector: 'app',
-	templateUrl: './app.component.html',
+	templateUrl: 'app.component.html',
 	providers: [ToastService]
 
 })

@@ -5,8 +5,9 @@ import { Subscription } from 'rxjs/Subscription'
 
 
 @Component({
+	moduleId: module.id,
 	selector: 'toast',
-	templateUrl: 'app/blocks/toast/toast.component.html'
+	templateUrl: 'toast.component.html'
 })
 export class ToastComponent implements OnInit, OnDestroy {
 	private defaults = {
