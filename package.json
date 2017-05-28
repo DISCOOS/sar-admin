@@ -2,7 +2,7 @@
   "name": "SAR-Admin",
   "version": "1.0.0",
   "description": "Admin webapp for SAR-Status",
-  "engines" {
+  "engines": {
     "node": "7.10.0"
   },
   "scripts": {
