@@ -2,9 +2,6 @@ import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs/Observable';
 import { CONFIG } from '../shared/config';
 import { Http, Response, RequestOptions, Headers, URLSearchParams } from '@angular/http';
-import 'rxjs/add/operator/do';
-import 'rxjs/add/operator/finally';
-
 declare var google: any;
 let API_KEY = CONFIG.google.API_KEY;
 

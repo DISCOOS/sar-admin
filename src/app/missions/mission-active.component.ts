@@ -1,7 +1,3 @@
-
-import 'rxjs/add/operator/map';
-import 'rxjs/add/operator/switchMap';
-import 'rxjs/add/observable/timer';
 import { Observable } from 'rxjs/Observable';
 import { Component, Input, OnInit, OnDestroy, ViewChild, NgZone } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';

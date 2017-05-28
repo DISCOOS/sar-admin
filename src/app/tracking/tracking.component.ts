@@ -91,7 +91,7 @@ export class TrackingComponent implements OnInit, OnChanges {
                 });
                 markers.push(marker);
 
-                markerLocation(false);
+                //markerLocation(false);
 
 
 

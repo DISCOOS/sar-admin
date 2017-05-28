@@ -9,10 +9,6 @@ import { SARUser } from '../models/models';
 import { UserService } from '../services/user.service';
 import { ExceptionService } from '../services/exception.service';
 import { SpinnerService } from '../blocks/blocks';
-import 'rxjs/add/operator/mergeMap';
-import 'rxjs/add/operator/concatMap';
-import 'rxjs/add/operator/do';
-import 'rxjs/add/operator/finally';
 
 let baseUrl = CONFIG.urls.baseUrl;
 let token = CONFIG.headers.token;
