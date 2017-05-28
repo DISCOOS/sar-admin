@@ -2,6 +2,9 @@
   "name": "SAR-Admin",
   "version": "1.0.0",
   "description": "Admin webapp for SAR-Status",
+  "engines" {
+    "node": "7.10.0"
+  },
   "scripts": {
     "build": "tsc -p src/",
     "build:watch": "tsc -p src/ -w",
@@ -10,6 +13,7 @@
     "serve:e2e": "lite-server -c=bs-config.e2e.json",
     "prestart": "npm run build",
     "start": "concurrently \"npm run build:watch\" \"npm run serve\"",
+    "start": "node server.js",
     "pree2e": "npm run build:e2e",
     "e2e": "concurrently \"npm run serve:e2e\" \"npm run protractor\" --kill-others --success first",
     "preprotractor": "webdriver-manager update",
@@ -18,7 +22,8 @@
     "test": "concurrently \"npm run build:watch\" \"karma start karma.conf.js\"",
     "pretest:once": "npm run build",
     "test:once": "karma start karma.conf.js --single-run",
-    "lint": "tslint ./src/**/*.ts -t verbose"
+    "lint": "tslint ./src/**/*.ts -t verbose",
+    "postinstall": "ng build --aot -prod"
   },
   "keywords": [],
   "author": "",
@@ -32,9 +37,11 @@
     "@angular/platform-browser": "~4.0.0",
     "@angular/platform-browser-dynamic": "~4.0.0",
     "@angular/router": "~4.0.0",
+    "angular-cli": "^1.0.0-beta.28.3",
     "angular-in-memory-web-api": "~0.3.0",
     "angular2-google-maps": "^0.17.0",
     "core-js": "^2.4.1",
+    "express": "^4.15.3",
     "ng2-date-time-picker": "^4.0.0",
     "ng2-flatpickr": "^0.1.14",
     "ng2-toastr": "^4.0.1",
