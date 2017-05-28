@@ -38,7 +38,7 @@ export class TrackingComponent implements OnInit, AfterViewInit {
         };
 
         // Get the HTML DOM element that will contain map
-        let mapElement = document.getElementById('map');
+        let mapElement = document.getElementById('trackingmap');
 
         // Create the Google Map using our element and options defined above
         this.map = new google.maps.Map(mapElement, mapOptions);
@@ -57,7 +57,7 @@ export class TrackingComponent implements OnInit, AfterViewInit {
      */
     pushMarkers() {
         this.missionResponses.forEach(mr => {
-            if (mr.tracking) {
+            if (mr.response && mr.tracking) {
                 let date = new Date(mr.tracking.date);
                 let marker = new RichMarker({
                     map: this.map,

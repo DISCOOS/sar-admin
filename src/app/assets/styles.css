@@ -245,7 +245,7 @@ table.missions th:nth-child(1), table.missions td:nth-child(1) { width: 10px;}
 /** map **/
 
 #map { height: 250px; border-radius:5px; border:2px solid #ccc; }
-
+#trackingmap { height: 400px; border-radius:5px; border:2px solid #ccc;}
 
 /** marker **/
 
