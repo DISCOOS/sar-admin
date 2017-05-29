@@ -16,6 +16,7 @@
 </div>
 
 <h2 style="margin-top: 2em; border-bottom: 2px solid #acacac">Varslinger</h2>
+<div style="overflow-x: auto">
 <table>
     <thead>
         <th>Utstedt</th>
@@ -29,6 +30,7 @@
 
     </tbody>
 </table>
+</div>
 <button *ngIf="mission.isActive" (click)="toggleAlarm()">Lag en ny varsling</button>
 <alarm [mission]="mission"></alarm>
 
@@ -37,7 +39,7 @@
     <h2 style="margin-top: 2em; border-bottom: 2px solid #acacac">
         Status for varslet mannskap
     </h2>
-
+<div style="overflow-x: auto">
     <table>
         <thead>
             <th>Navn</th>
@@ -61,6 +63,7 @@
             </tr>
         </tbody>
     </table>
+    </div>
 </section>
 
 
