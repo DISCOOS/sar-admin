@@ -3,34 +3,38 @@ const app = express();
 
 console.log("starting server....");
 
-// If an incoming request uses
-// a protocol other than HTTPS,
-// redirect that request to the
-// same url but with HTTPS
-const forceSSL = function() {
-  return function (req, res, next) {
-    if (req.headers['x-forwarded-proto'] !== 'https') {
-      return res.redirect(
-       ['https://', req.get('Host'), req.url].join('')
-      );
+// If an incoming request uses a protocol other than HTTPS,
+// redirect that request to the same url but with HTTPS
+const forceSSL = function () {
+    return function (req, res, next) {
+        if (req.headers['x-forwarded-proto'] !== 'https') {
+            return res.redirect(
+                ['https://', req.get('Host'), req.url].join('')
+            );
+        }
+        next();
     }
-    next();
-  }
 }
-// Instruct the app
-// to use the forceSSL
-// middleware
-app.use(forceSSL());
-// Run the app by serving the static files
-// in the dist directory
+// Instruct the app to use the forceSSL middleware for production
+if (process.env.NODE_ENV == 'production') {
+    app.use(forceSSL());
+}
+
+// Run the app by serving the static files in the dist directory
 app.use(express.static(__dirname + '/dist'));
-// Start the app by listening on the default
-// Heroku port
+
+// Start the app by listening on the default Heroku port
 app.listen(process.env.PORT || 8080);
 
 const path = require('path');
-// For all GET requests, send back index.html
-// so that PathLocationStrategy can be used
-app.get('/*', function(req, res) {
-  res.sendFile(path.join(__dirname + '/dist/index.html'));
+
+// Use Gzip compression 
+const compression = require('compression');
+app.use(compression());
+
+// For all GET requests, send back index.html so that PathLocationStrategy can be used
+
+app.get('*', function (req, res) {
+  const index = path.join(__dirname, 'dist', 'index.html');
+  res.sendFile(index);
 });

@@ -9,7 +9,7 @@ import './rxjs-extensions';
 import { AppComponent } from './app.component';
 import { AppRoutingModule, routableComponents } from './app-routing.module';
 import { AuthGuard } from './blocks/guard/auth.gard';
- 
+
 import { PageNotFoundComponent } from './page-not-found.component';
 import { PeopleListComponent } from './people/people-list.component';
 import { MissionActiveComponent } from './missions/mission-active.component';
@@ -20,16 +20,17 @@ import { ExpenseListComponent } from './expenses/expense-list.component';
 import { TrackingComponent } from './tracking/tracking.component';
 import { LoginComponent } from './login/login.component';
 
-import { ToastComponent, ToastService, ModalService, ModalComponent, SpinnerComponent, SpinnerService } from './blocks/blocks';
+import { ToastComponent, ToastService, ModalService, SpinnerService } from './blocks/blocks';
+import { ModalModule, SpinnerModule } from './blocks/blocks';
+
 import { FilterTextComponent } from './blocks/filter-text/filter-text.component';
 import { SortMissionsPipe } from './missions/sort-missions.pipe';
+
 
 import { SARService } from './services/sar.service';
 import { MapService } from './services/map.service';
 import { UserService } from './services/user.service';
 import { ExceptionService } from './services/exception.service';
-
-declare let flatpickr : any;
 
 @NgModule({
   imports: [
@@ -37,7 +38,13 @@ declare let flatpickr : any;
     FormsModule,
     ReactiveFormsModule,
     HttpModule,
-    AppRoutingModule
+    AppRoutingModule,
+    ModalModule,
+    SpinnerModule
+  ],
+  exports: [
+    ModalModule,
+    SpinnerModule
   ],
 
   declarations: [AppComponent,
@@ -52,9 +59,7 @@ declare let flatpickr : any;
     AlarmComponent,
     ExpenseListComponent,
     TrackingComponent,
-    ModalComponent,
-    SortMissionsPipe,
-    SpinnerComponent
+    SortMissionsPipe
   ],
   //globale providers
   providers: [

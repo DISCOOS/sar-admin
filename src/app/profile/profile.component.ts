@@ -13,7 +13,7 @@ import { SARUser } from '../models/models';
 })
 export class ProfileComponent implements OnInit {
 
-    private user: SARUser;
+    public user: SARUser;
     private id: any;
     private sub: any;
 
