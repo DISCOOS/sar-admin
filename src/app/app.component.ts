@@ -32,6 +32,8 @@ export class AppComponent {
 	Toggle mobile menu
 	**/
 	toggleMobileMenu() {
+		if(window.innerWidth > 1024) return;
+
 		this.showMobileMenu = !this.showMobileMenu;
 	}
 }

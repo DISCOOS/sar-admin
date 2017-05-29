@@ -18,18 +18,18 @@
 
                     </li>
                     <li>
-                        <a [routerLink]="['/profile', user?.id]" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}">
+                        <a (click)="toggleMobileMenu()" [routerLink]="['/profile', user?.id]" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}">
                             <span class="pe-7s-user"></span>
                             <span>Profil</span>
                         </a>
                     </li>
                     <li>
-                        <a [routerLink]="['/missions']" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}">
+                        <a (click)="toggleMobileMenu()" [routerLink]="['/missions']" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}">
                             <span class="pe-7s-map"></span>
                             <span>Aksjoner</span></a>
                     </li>
                     <li>
-                        <a [routerLink]="['/missions', 'add']" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}">
+                        <a (click)="toggleMobileMenu()" [routerLink]="['/missions', 'add']" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}">
                             <span class="pe-7s-bell"></span>
                             <span>Opprett aksjon</span></a>
                     </li>
