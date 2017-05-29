@@ -293,10 +293,10 @@ table.missions th:nth-child(1), table.missions td:nth-child(1) { width: 10px;}
 	#menu #close { display: block;}
 	#menu { display: none; bottom: 0; display: none; height: 100%; left: 0; position: fixed; right: 0; top: 0; width: 100%; padding: 3em 0; z-index:9999;} #menu-toggle { display:block;}
 	#menu > li { width: 100%;}
-	#menu > li > a { border-bottom: 2px solid #fff; font-size: 2em; width: 100%; padding: 1em;}
+	#menu > li > a { border-bottom: 2px solid #fff; font-size: 2em; width: 100%; padding: 1em 0.4em; font-size: 0.8em;}
 	#menu > li > a:hover { }
 	.mission { width: 100%}
-	.filter-button { min-width: 100px; }
+	.filter-button { min-width: 75px; margin-right:0.2em; }
 }
 
 @media (max-width: 500px) {
