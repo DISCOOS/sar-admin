@@ -52,4 +52,13 @@ export class ExceptionService {
     }
 
 
+ catchBadResponseFromLogin: (errorResponse: any) => Observable<any> = (errorResponse: any) => {
+        if (errorResponse.status == '401') {
+            this.toastService.activate('Brukernavn og / eller passord er feil', false, true);
+        }
+     else {
+            this.toastService.activate(`Det oppstod en feil under innloggingen`, false, false);
+        }
+        return Observable.of(false);
+    }
 }

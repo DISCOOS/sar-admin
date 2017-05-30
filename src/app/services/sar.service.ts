@@ -72,7 +72,7 @@ export class SARService {
 				}
 			})
 
-			.catch(this.exceptionService.catchBadResponse)
+			.catch(this.exceptionService.catchBadResponseFromLogin)
 			.finally(() => this.spinnerService.hide())
 	}
 
