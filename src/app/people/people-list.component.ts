@@ -4,6 +4,7 @@ import { Subscription } from 'rxjs/Subscription';
 import { SARUser } from '../models/models';
 import { FilterService, FilterTextComponent } from '../blocks/blocks';
 import { SARService } from '../services/sar.service';
+import { ToastService } from '../blocks/blocks';
 /**
  * 
  * Component for handling list of people
@@ -19,7 +20,6 @@ import { SARService } from '../services/sar.service';
 })
 export class PeopleListComponent implements OnInit {
 	name: string;
-	errorMsg: string;
 	
 	//@Input() 
 	people: SARUser[];
@@ -29,7 +29,9 @@ export class PeopleListComponent implements OnInit {
 
 	constructor(
 		private SARService: SARService,
-		private filterService: FilterService) 
+		private filterService: FilterService,
+		private toastService: ToastService
+	)
 		{
 		this.people = [];
 		this.filteredPeople = this.people;
@@ -62,7 +64,7 @@ export class PeopleListComponent implements OnInit {
 				this.people = this.filteredPeople = people;
 				this.filterComponent.clear();
 			},
-			(err) => {console.log("error getting people.." + err) },
+			(err) => { this.toastService.activate(`Klarte ikke å hente liste med personer. Forsøk å logge inn på nytt`, false, false); },
 			() => {  console.log('ok, got people..')});
 	}
 
