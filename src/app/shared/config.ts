@@ -13,7 +13,7 @@ export let CONFIG = {
         enableTime: true,
         defaultDate : "today",
         altInput: true,
-        altFormat: "j. F Y, H:m",
+        altFormat: "j. F Y, H:i",
         time_24hr: true,
         defaultHour : "12",
         defaultMinute : "00",
