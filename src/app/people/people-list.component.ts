@@ -20,19 +20,23 @@ import { SARService } from '../services/sar.service';
 export class PeopleListComponent implements OnInit {
 	name: string;
 	errorMsg: string;
-	isLoading: boolean;
+	
 	//@Input() 
 	people: SARUser[];
 	filteredPeople = this.people;
 	//selectedPeople: SARUser[];
 	@ViewChild(FilterTextComponent) filterComponent: FilterTextComponent;
 
-
-	constructor(private SARService: SARService,
-		private filterService: FilterService) {
+	constructor(
+		private SARService: SARService,
+		private filterService: FilterService) 
+		{
 		this.people = [];
 		this.filteredPeople = this.people;
-		//this.isLoading = true;
+	}
+
+		ngOnInit() {
+		this.getPeople();
 
 	}
 
@@ -51,30 +55,15 @@ export class PeopleListComponent implements OnInit {
 	 *
 	 */
 	getPeople() {
-		this.isLoading = true;
-
-
+	
 		this.SARService.getPeople()
 			.subscribe(
 			(people) => {
 				this.people = this.filteredPeople = people;
-				console.log(this.people)
 				this.filterComponent.clear();
 			},
-			() => this.stopRefreshing(),
-			() => this.stopRefreshing());
-
-
+			(err) => {console.log("error getting people.." + err) },
+			() => {  console.log('ok, got people..')});
 	}
 
-
-	private stopRefreshing() {
-		this.isLoading = false;
-	}
-	ngOnInit() {
-
-
-		this.getPeople();
-
-	}
 }
