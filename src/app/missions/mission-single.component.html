@@ -61,8 +61,8 @@
 
             <div class="form-group">
                 <!--<button type="submit" (click)="save()">Opprett aksjon</button> -->
-                <button type="submit" name="save">Opprett aksjon</button>
-                <button (click)="cancel()">Avbryt</button>
+                <button type="submit" name="save"><i class="fa fa-plus"></i>Opprett aksjon</button>
+                <button (click)="cancel()"><i class="fa fa-delete"></i>Avbryt</button>
             </div>
 
             <div *ngIf="f.submitted && (!title.valid || !dateStart.valid || !meetingPoint.valid || !description.valid || !message.valid || peopleList.selectedPeople.length == 0)" class="form-group error" [ngClass]="{ 'has-error': f.submitted }" style="font-size: 1.2em; padding: 1em; background: rgba(237, 28, 36,0.8); color: #fff; border-radius: 3px;">

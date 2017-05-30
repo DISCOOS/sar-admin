@@ -12,7 +12,7 @@
     <h3 *ngIf="mission.dateEnd"><span class="helpertxt">Avsluttet:</span> {{mission.dateEnd | date: 'dd/MM/yyyy H:mm' }} </h3>
     <p class="description">{{mission.description}}</p>
 
-    <button *ngIf="mission.isActive" (click)="endMission()" class="">Avslutt aksjonen</button>
+    <button *ngIf="mission.isActive" (click)="endMission()" class=""><i class="fa fa-remove"></i>Avslutt aksjonen</button>
 </div>
 
 <h2 style="margin-top: 2em; border-bottom: 2px solid #acacac">Varslinger</h2>
@@ -31,7 +31,7 @@
     </tbody>
 </table>
 </div>
-<button *ngIf="mission.isActive" (click)="toggleAlarm()">Lag en ny varsling</button>
+<button *ngIf="mission.isActive" (click)="toggleAlarm()"><i class="fa fa-bell"></i>Lag en ny varsling</button>
 <alarm [mission]="mission"></alarm>
 
 
@@ -83,4 +83,4 @@
 </tracking>
 
 
-<button (click)="delete()" class="">Slett denne aksjon</button>
+<button (click)="delete()" class=""><i class="fa fa-trash"></i>Slett denne aksjon</button>
