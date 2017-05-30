@@ -32,6 +32,9 @@ import { MapService } from './services/map.service';
 import { UserService } from './services/user.service';
 import { ExceptionService } from './services/exception.service';
 
+import {MomentModule} from 'angular2-moment';
+
+
 @NgModule({
   imports: [
     BrowserModule,
@@ -40,7 +43,8 @@ import { ExceptionService } from './services/exception.service';
     HttpModule,
     AppRoutingModule,
     ModalModule,
-    SpinnerModule
+    SpinnerModule,
+    MomentModule
   ],
   exports: [
     ModalModule,

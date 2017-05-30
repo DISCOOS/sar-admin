@@ -8,8 +8,8 @@
     <h3 *ngIf="mission.meetingPoint"><span class="helpertxt">Oppmøtested:</span> <a href="http://maps.google.com/?q={{mission.meetingPoint.lat}},{{mission.meetingPoint.lng}}"
             target="_blank"> {{mission.meetingPointNicename}}</a></h3>
 
-    <h3><span class="helpertxt">Startet:</span> {{mission.dateStart | date: 'dd/MM/yyyy H:mm' }}</h3>
-    <h3 *ngIf="mission.dateEnd"><span class="helpertxt">Avsluttet:</span> {{mission.dateEnd | date: 'dd/MM/yyyy H:mm' }} </h3>
+    <h3><span class="helpertxt">Startet:</span> {{mission.dateStart  | amUtc | amDateFormat:'DD/MM/YYYY, H:mm' }}</h3>
+    <h3 *ngIf="mission.dateEnd"><span class="helpertxt">Avsluttet:</span> {{mission.dateEnd  | amUtc | amDateFormat:'DD/MM/YYYY, H:mm' }} </h3>
     <p class="description">{{mission.description}}</p>
 
     <button *ngIf="mission.isActive" (click)="endMission()"><i class="fa fa-remove"></i>Avslutt aksjonen</button>
@@ -24,7 +24,7 @@
     </thead>
     <tbody>
         <tr *ngFor="let alarm of mission.alarms">
-            <td>{{alarm.date | date: 'dd/MM/yyyy H:mm' }}</td>
+            <td>{{alarm.date | amUtc | amDateFormat:'DD/MM/YYYY, H:mm' }}</td>
             <td>{{alarm.message}}</td>
         </tr>
 
@@ -56,7 +56,7 @@
             <tr *ngFor="let response of (missionResponses)">
                 <td>{{response.saruser?.name}}</td>
                 <td>{{response.response ? 'Ja' : 'Nei'}}</td>
-                <td>{{response.date | date: 'dd/MM/yyyy H:mm' }}</td>
+                <td>{{response.date | amUtc | amDateFormat:'DD/MM/YYYY, H:mm'}}</td>
                 <td>{{response.comment}}</td>
                 <td>{{!response.saruser?.isTrackable ? 'Nei' : 'Ja (se kart)'}}
                 </td>
