@@ -316,6 +316,7 @@ table.missions th:nth-child(1), table.missions td:nth-child(1) { width: 10px;}
 
 @media (max-width: 500px) {
   #login-box { width: 100%;}
+  .spinner-container { top: 20%; }
 }
 
 @media (min-width: 1025px) { 

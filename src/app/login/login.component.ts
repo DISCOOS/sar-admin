@@ -36,7 +36,6 @@ export class LoginComponent implements OnInit {
             .subscribe(
             data => {
                 if (data && data.error) {
-                    console.log(data)
                     this.toastService.activate(`Du er ikke registert med admintilgang. Dette må settes opp i KOVA`, false, false);
                 } else {
                     this.router.navigate([this.returnUrl]);
