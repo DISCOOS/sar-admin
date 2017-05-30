@@ -1,15 +1,15 @@
 <h1>{{mission.title}}</h1>
 
 <div class="mission-active-info">
-    <h3><span class="helpertxt">Status:</span> {{mission.isActive ? 'Aktiv' : 'Avsluttet'}}</h3><br>
-    <h3 *ngIf="mission.isEmergency"><span class="helpertxt">Nødsituasjon:</span> Ja</h3><br>
+    <h3><span class="helpertxt">Status:</span> {{mission.isActive ? 'Aktiv' : 'Avsluttet'}}</h3>
+    <h3 *ngIf="mission.isEmergency"><span class="helpertxt">Nødsituasjon:</span> Ja</h3>
 
-    <h3 *ngIf="mission.creator"><span class="helpertxt">Opprettet av:</span> {{mission.creator.name}}</h3><br>
+    <h3 *ngIf="mission.creator"><span class="helpertxt">Opprettet av:</span> {{mission.creator.name}}</h3>
     <h3 *ngIf="mission.meetingPoint"><span class="helpertxt">Oppmøtested:</span> <a href="http://maps.google.com/?q={{mission.meetingPoint.lat}},{{mission.meetingPoint.lng}}"
             target="_blank"> {{mission.meetingPointNicename}}</a></h3>
 
-    <h3><span class="helpertxt">Startet:</span> {{mission.dateStart | date: 'dd/MM/yyyy H:mm' }}</h3><br>
-    <h3 *ngIf="mission.dateEnd"><span class="helpertxt">Avsluttet:</span> {{mission.dateEnd | date: 'dd/MM/yyyy H:mm' }} </h3><br>
+    <h3><span class="helpertxt">Startet:</span> {{mission.dateStart | date: 'dd/MM/yyyy H:mm' }}</h3>
+    <h3 *ngIf="mission.dateEnd"><span class="helpertxt">Avsluttet:</span> {{mission.dateEnd | date: 'dd/MM/yyyy H:mm' }} </h3>
     <p class="description">{{mission.description}}</p>
 
     <button *ngIf="mission.isActive" (click)="endMission()" class="">Avslutt aksjonen</button>

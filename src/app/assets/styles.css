@@ -238,7 +238,7 @@ table.missions th:nth-child(1), table.missions td:nth-child(1) { width: 10px;}
 /* Active mission */
 .mission-active-info h3 { font-size: 1.3em; }
 .mission-active-info h3 > span.icon {   font-size: 1.7em; margin-right: .5em; }
-.mission-active-info h3 > span.helpertxt { text-transform: uppercase; font-size: .75em; margin-right: 1em; color: #333; width: 200px; display: inline-block; }
+.mission-active-info h3 > span.helpertxt { text-transform: uppercase; font-size: .75em; margin-right: 1em; color: #333; width: 100px; display: inline-block; }
 .mission-active-info p.description { font-size: 1.2em; font-style:italic; padding-top:1em;	}
 
 
