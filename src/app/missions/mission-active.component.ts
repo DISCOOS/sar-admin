@@ -68,8 +68,6 @@ export class MissionActiveComponent implements OnInit, OnDestroy {
                 this.getMissionResponses()
                 this.timersub = timer.subscribe(() => this.getMissionResponses())
             }
-
-
         }, 2000);
 
     }

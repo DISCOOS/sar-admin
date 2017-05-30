@@ -45,6 +45,13 @@
                 <h3>Varsling</h3>
             </div>
 
+            <div class="form-group" [ngClass]="{ 'has-error': f.submitted && !message.valid }">
+                <div class="helper-text">Denne beskjeden blir sendt ut som push-varsling til de som har app</div>
+                <label for="message" class="control-label">Beskjed</label>
+                <textarea [(ngModel)]="alarm.message" class="form-control" name="message" required #message="ngModel"></textarea>
+                <div *ngIf="f.submitted && !message.valid" class="help-block animated fadeIn">Varslingsmelding må fylles ut</div>
+            </div>
+
             <h3>Velg medlemmer som skal varsles</h3>
             <p>Bare medlemmer som har SAR-Status kan varsles.</p>
 
@@ -56,7 +63,7 @@
                 <button (click)="cancel()">Avbryt</button>
             </div>
 
-              <div *ngIf="f.submitted" class="form-group error" [ngClass]="{ 'has-error': f.submitted }">
+            <div *ngIf="f.submitted" class="form-group error" [ngClass]="{ 'has-error': f.submitted }">
                 Noen av feltene er ikke riktig fylt ut. Se gjennom skjemaet
 
             </div>
