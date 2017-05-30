@@ -65,8 +65,8 @@
                 <button (click)="cancel()">Avbryt</button>
             </div>
 
-            <div *ngIf="f.submitted" class="form-group error" [ngClass]="{ 'has-error': f.submitted }">
-                Noen av feltene er ikke riktig fylt ut. Se gjennom skjemaet
+            <div *ngIf="f.submitted && (!title.valid || !dateStart.valid || !meetingPoint.valid || !description.valid || !message.valid || peopleList.selectedPeople.length == 0)" class="form-group error" [ngClass]="{ 'has-error': f.submitted }" style="font-size: 1.2em; padding: 1em; background: rgba(237, 28, 36,0.8); color: #fff; border-radius: 3px;">
+                Noen av feltene er ikke riktig fylt ut. Vennligst se gjennom skjemaet på nytt.
 
             </div>
         </form>
