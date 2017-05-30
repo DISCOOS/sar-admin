@@ -116,7 +116,7 @@ export class MissionSingleComponent implements OnInit {
     let miss = new Mission(
       null, // id
       true,  // isActive 
-      null, // isEmergency
+      false, // isEmergency
       '', // title
       '', // desc 
       new Date(), // datestart
