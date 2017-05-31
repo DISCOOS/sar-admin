@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ModalService } from './modal.service';
-import { Subscription } from 'rxjs/Subscription'
+import { Subscription } from 'rxjs/Subscription';
 
 
 const KEY_ESC = 27;
@@ -31,7 +31,7 @@ export class ModalComponent implements OnInit {
 
 	constructor(modalService: ModalService) {
 
-		console.log("Constructing modal")
+		console.log('Constructing modal');
 
 		modalService.activate = this.activate.bind(this);
 	}
@@ -42,9 +42,7 @@ export class ModalComponent implements OnInit {
 		this.okText = this.defaults.okText;
 		this.cancelText = this.defaults.cancelText;
 
-
-
-		let promise = new Promise<boolean>((resolve, reject) => {
+		const promise = new Promise<boolean>((resolve, reject) => {
 			this.negativeOnClick = (e: any) => resolve(false);
 			this.positiveOnClick = (e: any) => resolve(true);
 			this.show();
@@ -102,7 +100,7 @@ export class ModalComponent implements OnInit {
 		document.onkeyup = null;
 		this.modalElement.style.opacity = 0;
 		window.setTimeout(() => {
-			this.modalElement.style.zIndex = 0
+			this.modalElement.style.zIndex = 0;
 			this.modalElement.style.display = 'none';
 		}, 200);
 	}

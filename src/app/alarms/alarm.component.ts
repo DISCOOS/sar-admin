@@ -39,14 +39,14 @@ export class AlarmComponent implements OnInit {
 
     private _createEmptyAlarm() {
         //       let alarms = [];
-        let alarm = new Alarm(
-            null, //id
+        const alarm = new Alarm(
+            null, // id
             new Date(), // date
             '', // message
             this.mission // mission
 
-        )
-        return alarm
+        );
+        return alarm;
     }
 
 
@@ -59,11 +59,11 @@ export class AlarmComponent implements OnInit {
     save() {
         this.SARService.addAlarm(this.mission, this.alarm)
             .subscribe(
-            (res) => { console.log(res) },
-            (err) => { console.log(err) },
+            (res) => { console.log(res); },
+            (err) => { console.log(err); },
             () => {
                 this.visible = false;
-                this.ngOnInit()
+                this.ngOnInit();
             }
             );
     }

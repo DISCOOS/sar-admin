@@ -23,7 +23,7 @@ export class ExpenseListComponent implements OnInit {
     ngOnInit() {
         setTimeout(() => {
            // this.getExpenses();
-        }, 3000)
+        }, 3000);
 
 
     }
@@ -34,7 +34,7 @@ export class ExpenseListComponent implements OnInit {
             (expenses) => {
                 this.expenses = expenses;
             },
-            (err) => { console.log("Failed getting expenses for mission" + err) },
-            () => { console.log("Ok,Got expenses"); console.log(this.expenses)});
+            (err) => { console.log('Failed getting expenses for mission' + err); },
+            () => { console.log('Ok,Got expenses'); console.log(this.expenses); });
     }
 }

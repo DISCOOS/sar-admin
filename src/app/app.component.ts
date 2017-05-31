@@ -24,7 +24,6 @@ export class AppComponent {
 	}
 
 	get user() {
-		//console.log(this.userService.user)
 		return this.userService.user;
 	}
 
@@ -32,7 +31,9 @@ export class AppComponent {
 	Toggle mobile menu
 	**/
 	toggleMobileMenu() {
-		if(window.innerWidth > 1024) return;
+		if (window.innerWidth > 1024) {
+			return;
+		}
 
 		this.showMobileMenu = !this.showMobileMenu;
 	}

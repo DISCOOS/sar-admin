@@ -1,6 +1,6 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { ToastService } from './toast.service';
-import { Subscription } from 'rxjs/Subscription'
+import { Subscription } from 'rxjs/Subscription';
 
 
 
@@ -21,9 +21,8 @@ export class ToastComponent implements OnInit, OnDestroy {
 	private _toastSubscription: Subscription;
 
 	constructor(private toastService: ToastService) {
-		console.log("constructing toast")
+		console.log('constructing toast');
 		this._toastSubscription = this.toastService.toastState.subscribe((toastMessage) => {
-			//			console.log(`activiting toast: ${toastMessage.message}`)
 			this.activate(toastMessage.message, toastMessage.success, toastMessage.autoHide);
 		});
 	}
@@ -48,23 +47,25 @@ export class ToastComponent implements OnInit, OnDestroy {
 	}
 
 	private _show(autoHide?: boolean) {
-		this._toastElement.style.display = 'block'
+		this._toastElement.style.display = 'block';
 		this._toastElement.style.opacity = 1;
 		this._toastElement.style.zIndex = 9000;
-		if (autoHide)
+		if (autoHide) {
 			window.setTimeout(() => this._hide(), 2500);
+		}
+
 	}
 
 
 	private _hide() {
 		this._toastElement.style.opacity = 0;
-		window.setTimeout(() => this._toastElement.style.zIndex = 0, 400)
+		window.setTimeout(() => this._toastElement.style.zIndex = 0, 400);
 		this.delay(400).then(() => this._toastElement.style.display = 'none');
 
 	}
 
 	private delay(ms) {
-		var ctr, rej, p = new Promise(function (resolve, reject) {
+		let ctr, rej, p = new Promise(function (resolve, reject) {
 			ctr = setTimeout(resolve, ms);
 			rej = reject;
 		});

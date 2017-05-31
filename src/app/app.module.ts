@@ -65,7 +65,7 @@ import {MomentModule} from 'angular2-moment';
     TrackingComponent,
     SortMissionsPipe
   ],
-  //globale providers
+  // globale providers
   providers: [
     SARService,
     MapService,

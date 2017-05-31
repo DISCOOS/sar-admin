@@ -19,7 +19,7 @@ export class FilterTextComponent {
 
   filterChanged(event: any) {
     event.preventDefault();
-    //console.log(`${this.filter}`);
+    // console.log(`${this.filter}`);
     this.changed.emit(this.filter);
   }
 }

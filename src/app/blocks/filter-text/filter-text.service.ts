@@ -8,7 +8,7 @@ export class FilterService {
    * Filters on searchstring
    * @param data searchstring
    * @param props properties of object to filter on
-   * @param originalList 
+   * @param originalList
    */
   filter(data: string, props: Array<string>, originalList: Array<any>) {
     let filteredList: any[];
@@ -25,8 +25,7 @@ export class FilterService {
         return match;
       });
       filteredList = filtered;
-    }
-    else {
+    } else {
       filteredList = originalList;
     }
     return filteredList;
@@ -38,9 +37,9 @@ export class FilterService {
    * @param filterStatus : Maps to isActive. filterStatus = true; pick missions where isActive = true etc
    */
   filterMissionStatus(filterStatus: boolean, originalList: Array<any>) {
-    console.log("filter mission status : " + filterStatus)
+    console.log('filter mission status : ' + filterStatus);
     // this means we want all of the missions
-    if (typeof filterStatus == 'undefined') {
+    if (typeof filterStatus === 'undefined') {
       return originalList;
     }
 
@@ -48,27 +47,16 @@ export class FilterService {
     if (originalList) {
       let filtered = originalList.filter(item => {
         let match = false;
-        if (item.isActive == filterStatus) {
+        if (item.isActive === filterStatus) {
           match = true;
         }
 
         return match;
       });
       filteredList = filtered;
-    }
-    else {
+    } else {
       filteredList = originalList;
     }
     return filteredList;
   }
-
-
-
-
-
-
-
 }
-
-
-
