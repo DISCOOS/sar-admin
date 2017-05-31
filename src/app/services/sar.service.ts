@@ -34,6 +34,8 @@ export class SARService {
 		console.log("token: " + JSON.parse(localStorage.getItem("currentUser")).access_token);
 		headers.append('Content-Type', 'application/json; charset=utf-8');
 		options.headers = headers;
+		console.log("OPTIONS:")
+		console.log(options)
 	}
 
 
