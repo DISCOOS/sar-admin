@@ -30,7 +30,7 @@ const path = require('path');
 
 // Use Gzip compression 
 const compression = require('compression');
-//app.use(compression());
+app.use(compression());
 
 // For all GET requests, send back index.html so that PathLocationStrategy can be used
 
