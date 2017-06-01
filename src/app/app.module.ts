@@ -31,6 +31,7 @@ import { SARService } from './services/sar.service';
 import { MapService } from './services/map.service';
 import { UserService } from './services/user.service';
 import { ExceptionService } from './services/exception.service';
+import { NotificationService } from './services/notification.service';
 
 import {MomentModule} from 'angular2-moment';
 
@@ -74,7 +75,8 @@ import {MomentModule} from 'angular2-moment';
     UserService,
     ExceptionService,
     ModalService,
-    SpinnerService
+    SpinnerService,
+    NotificationService
   ],
   bootstrap: [AppComponent]
 

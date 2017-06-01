@@ -11,7 +11,6 @@ import { ExceptionService } from '../services/exception.service';
 import { SpinnerService } from '../blocks/blocks';
 
 let baseUrl = CONFIG.urls.baseUrl;
-let token = CONFIG.headers.token;
 
 
 @Injectable()
@@ -139,6 +138,10 @@ export class SARService {
 	addAlarm(mission: Mission, alarm: Alarm) {
 		let options = new RequestOptions({ withCredentials: true })
 		this._configureOptions(options);
+
+
+		// Todo: Get list of users for this misson and post alarmusers
+
 		let alarmbody = JSON.stringify(alarm, this._replacer)
 
 		this.spinnerService.show();
