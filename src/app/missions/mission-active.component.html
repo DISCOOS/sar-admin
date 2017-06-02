@@ -23,7 +23,7 @@
         <th>Beskjed</th>
     </thead>
     <tbody>
-        <tr *ngFor="let alarm of mission.alarms">
+        <tr *ngFor="let alarm of alarms">
             <td>{{alarm.date | amDateFormat:'DD/MM/YYYY, H:mm' }}</td>
             <td>{{alarm.message}}</td>
         </tr>
@@ -32,7 +32,7 @@
 </table>
 </div>
 <button *ngIf="mission.isActive" (click)="toggleAlarm()"><i class="fa fa-bell"></i>Lag en ny varsling</button>
-<alarm [mission]="mission"></alarm>
+<alarm [mission]="mission" [alarms]="alarms"></alarm>
 
 
 <section>

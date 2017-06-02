@@ -311,7 +311,7 @@ table.missions th:nth-child(1), table.missions td:nth-child(1) { width: 10px;}
 	#menu > li > a { border-bottom: 2px solid #fff; width: 100%; padding: 1em 0.4em; font-size: 1.65em;}
 	#menu > li > a:hover { }
 	.mission { width: 100%}
-	.filter-button { min-width: 100px; margin-right:0.4em; }
+	.filter-button { min-width: 115px; margin-right:0.4em; }
 }
 
 @media (max-width: 500px) {

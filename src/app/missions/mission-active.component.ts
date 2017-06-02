@@ -1,7 +1,7 @@
 import { Observable } from 'rxjs/Observable';
 import { Component, Input, OnInit, OnDestroy, ViewChild, NgZone } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { Mission, MissionResponse } from '../models/models';
+import { Mission, MissionResponse, Alarm } from '../models/models';
 import { ToastService, ModalService, ModalComponent } from '../blocks/blocks';
 import { SARService } from '../services/sar.service';
 import { PeopleListComponent } from '../people/people-list.component';
@@ -25,15 +25,17 @@ export class MissionActiveComponent implements OnInit, OnDestroy {
     @ViewChild(PeopleListComponent) peopleList: PeopleListComponent;
     @ViewChild(MapComponent) mapPicker: MapComponent;
 
-    @ViewChild(AlarmComponent) alarm : AlarmComponent;
+    @ViewChild(AlarmComponent) alarm: AlarmComponent;
 
-   // @ViewChild(TrackingComponent) trackings;
+    // @ViewChild(TrackingComponent) trackings;
 
     @Input() mission: Mission = <Mission>{};
+    
 
     //missionResponses: Observable<MissionResponse[]>;
 
     missionResponses: MissionResponse[];
+    alarms: Alarm[];
     private id: any;
     private sub: any;
     private timersub: any;
@@ -46,7 +48,7 @@ export class MissionActiveComponent implements OnInit, OnDestroy {
         private SARService: SARService,
         private zone: NgZone,
         private modalService: ModalService,
-        private mapService : MapService
+        private mapService: MapService
     ) { }
 
 
@@ -82,7 +84,11 @@ export class MissionActiveComponent implements OnInit, OnDestroy {
     getMission() {
 
         this.SARService.getMission(this.id)
-            .subscribe(mission => this.mission = mission);
+            .subscribe((mission) =>
+            {
+                this.mission = mission;
+                this.alarms = mission.alarms;
+            });
     }
 
     getMissionResponses() {
@@ -95,12 +101,6 @@ export class MissionActiveComponent implements OnInit, OnDestroy {
                 })
             })
 
-    }
-
-    computeDistanceBetweenLocations(p1: any, p2: any) {
-
-        let res =  this.mapService.distanceBetweenTwoPoints(p1,p2);
-        return res;
     }
 
 

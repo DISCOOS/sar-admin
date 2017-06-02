@@ -138,10 +138,6 @@ export class SARService {
 			.finally(() => this.spinnerService.hide());
 
 	}
-
-	sendNotifications(mission: Mission, alarm: Alarm, usersToNotify: SARUser[]) {
-		this.notificationService.sendPushNotifications(mission.isEmergency, mission, alarm.message, usersToNotify);
-	}
 	/**
 	 * Adds a new alarm for an existing mission + add notifications
 	 * @param mission Mission to add alarm for
@@ -153,16 +149,9 @@ export class SARService {
 		const alarmbody = JSON.stringify(alarm, this._replacer);
 
 		let persons: SARUser[];
-		let alarmuserbody = []
+		let alarmuserbody = [];
 		let alarmId;
-		/*
-		
-		1. post alarm
-		2. get list of persons to be alarmed
-		3. post alarmusers for each person
-		4. send notifaction with list of persons as argument
-		
-		*/
+
 		this.spinnerService.show();
 		return this.http
 			.post(BASE_URL + '/missions/' + mission.id + '/alarms', alarmbody, options)
