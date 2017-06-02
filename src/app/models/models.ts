@@ -1,13 +1,4 @@
-export class User {
-	id: number;
-	email: string;
-	name: string;
-	organization: string;
-}
-
-
 export class SARUser {
-
 	constructor(
 		public id: number,
 		public hasApp: boolean,
@@ -18,12 +9,12 @@ export class SARUser {
 		public organization: string,
 		public isAvailable: boolean,
 		public isTrackable: boolean,
-		public checked : boolean, // bool used for checking peoplelist (not persisted)
-		public access_token : string
+		public checked: boolean, // bool used for checking peoplelist (not persisted)
+		public access_token: string,
+		public deviceToken: string
 	) { }
 
 }
-
 
 
 export class Mission {
@@ -40,7 +31,7 @@ export class Mission {
 		public meetingPointNicename: string, // converted geolocation to nicename
 		public creator: SARUser,
 		public expences: Expence[],
-		public missionResponses : MissionResponse[]
+		public missionResponses: MissionResponse[]
 	) { }
 
 }
@@ -72,7 +63,7 @@ export class MissionResponse {
 export class Tracking {
 	constructor(
 		public missionresponse: MissionResponse,
-		public geopoint : string,
+		public geopoint: string,
 		public date: number
 	) { }
 }

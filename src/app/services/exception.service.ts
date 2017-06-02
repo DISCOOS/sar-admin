@@ -13,14 +13,15 @@ export class ExceptionService {
     ) { }
 
     catchBadResponse: (errorResponse: any) => Observable<any> = (errorResponse: any) => {
-        console.log(errorResponse)
+        console.log(errorResponse);
+        // tslint:disable-next-line:triple-equals
         if (errorResponse.status == '401' || errorResponse.statusCode == '401') {
             this.toastService.activate('Sesjonen er utløpt. Logg inn på nytt', false, true);
-            let route = ['/login'];
+            const route = ['/login'];
             this.router.navigate(route);
         }
-        let res = <Response>errorResponse;
-        let err = res.json();
+        const res = <Response>errorResponse;
+        const err = res.json();
 
         console.log(err)
         let emsg = err ?
@@ -35,16 +36,14 @@ export class ExceptionService {
         }
 
 
-        if (statusCode == '401') {
-            emsg = 'Ingen tilgang. Forsøk å logge inn på nytt'
-        }
-        else if (statusCode == '404') {
-            emsg = 'Denne ressursen finnes ikke'
-        }
-        else if (statusCode == '500') {
-            emsg = 'Intern serverfeil i SAR-API '
+        if (statusCode === '401') {
+            emsg = 'Ingen tilgang. Forsøk å logge inn på nytt';
+        } else if (statusCode === '404') {
+            emsg = 'Denne ressursen finnes ikke';
+        } else if (statusCode === '500') {
+            emsg = 'Intern serverfeil i SAR-API';
         } else {
-            emsg = ""
+            emsg = '';
         }
 
         this.toastService.activate(`Error ${statusCode} : ${emsg}`, false, true);
@@ -52,12 +51,22 @@ export class ExceptionService {
     }
 
 
- catchBadResponseFromLogin: (errorResponse: any) => Observable<any> = (errorResponse: any) => {
-        if (errorResponse.status == '401') {
+    catchBadResponseFromLogin: (errorResponse: any) => Observable<any> = (errorResponse: any) => {
+        if (errorResponse.status === '401') {
             this.toastService.activate('Brukernavn og / eller passord er feil', false, true);
         } else {
             this.toastService.activate(`Det oppstod en feil under innloggingen`, false, false);
         }
         return Observable.throw(errorResponse);
+    }
+
+    /**
+     * Catches errors from sending pushnotifications
+     */
+    catchBadPushResponse: (errorResponse: any) => Observable<any> = (errorResponse: any) => {
+        if (errorResponse.meta.status > 400) {
+            this.toastService.activate('Det oppstod en feil under utsendingsending av pushvarslinger til de som har app.', false, true);
+        }
+        return Observable.of(false);
     }
 }

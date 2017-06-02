@@ -24,7 +24,7 @@
     </thead>
     <tbody>
         <tr *ngFor="let alarm of mission.alarms">
-            <td>{{alarm.date | amUtc | amDateFormat:'DD/MM/YYYY, H:mm' }}</td>
+            <td>{{alarm.date | amDateFormat:'DD/MM/YYYY, H:mm' }}</td>
             <td>{{alarm.message}}</td>
         </tr>
 

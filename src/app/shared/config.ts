@@ -6,23 +6,24 @@ export let CONFIG = {
     // Used for push notifications
     ionic: {
         API_URL: 'https://api.ionic.io',
-        API_TOKEN:  'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJqdGkiOiIzN2FjZmZmZS00OWEwLTQxYTctOTc2YS00MTRiZDI3MmM1NjkifQ.ugeTWngk5wfI_If0zvqfXw-Kvrk3_-dNbNeXklOulks'
+        API_TOKEN:  'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJqdGkiOiIzN2FjZmZmZS00OWEwLTQxYTctOTc2YS00MTRiZDI3MmM1NjkifQ.ugeTWngk5wfI_If0zvqfXw-Kvrk3_-dNbNeXklOulks',
+        API_PROFILE: 'sar_ionic_services'
     },
     // Used for SAR-API
-    urls: {
-        baseUrl: 'https://sar-api.herokuapp.com/api',
-        missionsUrl: 'https://sar-api.herokuapp.com/api/missions'
+    sar_api: {
+        BASE_URL: 'https://sar-api.herokuapp.com/api',
+        MISSION_URL: 'https://sar-api.herokuapp.com/api/missions'
     },
     // Used for calendar settings frontend
     flatpickr: {
         enableTime: true,
-        defaultDate: "today",
+        defaultDate: 'today',
         altInput: true,
-        altFormat: "j. F Y, H:i",
+        altFormat: 'j. F Y, H:i',
         time_24hr: true,
-        defaultHour: "12",
-        defaultMinute: "00",
-        minDate: "today",
+        defaultHour: '12',
+        defaultMinute: '00',
+        minDate: 'today',
         locale: {
             firstDayOfWeek: 1,
             weekdays: {

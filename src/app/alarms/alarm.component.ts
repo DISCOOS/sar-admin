@@ -32,7 +32,6 @@ export class AlarmComponent implements OnInit {
     ) { }
 
 
-
     ngOnInit() {
         this.alarm = this._createEmptyAlarm();
     }
@@ -54,14 +53,14 @@ export class AlarmComponent implements OnInit {
         this.visible = false;
     }
 
-
     /* Save this alarm */
     save() {
-        this.SARService.addAlarm(this.mission, this.alarm)
+        this.SARService.addAlarm(this.mission, this.alarm, null)
             .subscribe(
             (res) => { console.log(res); },
-            (err) => { console.log(err); },
+            (err) => { this.toastService.activate(`Det skjedde en feil under opprettelse av varslingen. Den ble ikke sendt`, false, false); },
             () => {
+                this.toastService.activate(`Alt OK! Sendte ut ny varsling`, true, true);
                 this.visible = false;
                 this.ngOnInit();
             }

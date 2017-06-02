@@ -4,13 +4,13 @@ import { Http, Response, RequestOptions, Headers, URLSearchParams } from '@angul
 import { CONFIG } from '../shared/config';
 import { Mission, Alarm, MissionResponse, Expence } from '../models/models';
 import { Subject } from 'rxjs/Subject';
-import { User } from '../models/models';
 import { SARUser } from '../models/models';
 import { UserService } from '../services/user.service';
 import { ExceptionService } from '../services/exception.service';
 import { SpinnerService } from '../blocks/blocks';
+import { NotificationService } from '../services/notification.service';
 
-let baseUrl = CONFIG.urls.baseUrl;
+const BASE_URL = CONFIG.sar_api.BASE_URL;
 
 
 @Injectable()
@@ -21,6 +21,7 @@ export class SARService {
 		private userService: UserService,
 		private exceptionService: ExceptionService,
 		private spinnerService: SpinnerService,
+		private notificationService: NotificationService
 
 	) {
 
@@ -28,7 +29,7 @@ export class SARService {
 
 
 	private _configureOptions(options: RequestOptions) {
-		let headers = new Headers();
+		const headers = new Headers();
 		headers.append('Authorization', 'Bearer ' + JSON.parse(localStorage.getItem("currentUser")).access_token);
 		headers.append('Content-Type', 'application/json; charset=utf-8');
 		options.headers = headers;
@@ -38,22 +39,22 @@ export class SARService {
 
 	login(username: string, password: string) {
 
-		let data = new URLSearchParams();
+		const data = new URLSearchParams();
 		data.append('username', username);
 		data.append('password', password);
 
-		let options = new RequestOptions({ withCredentials: true })
+		const options = new RequestOptions({ withCredentials: true })
 
 		this.spinnerService.show();
 		return this.http
-			.post(baseUrl + '/sarusers/login', data, options)
+			.post(BASE_URL + '/sarusers/login', data, options)
 			.map((response: Response) => {
 
 				// login successful if there's a token in the response
 				let res = response.json();
 				if (
 					res.user
-					//&& res.user.isAdmin
+					// && res.user.isAdmin
 					&& res.user.access_token
 				) {
 					if (res.user.isAdmin) {
@@ -61,7 +62,7 @@ export class SARService {
 						localStorage.setItem('currentUser', JSON.stringify(res.user));
 
 						//	this.userService.user = res.user;
-						//	console.log("set user in userservice" + this.userService.user)
+						// 	console.log("set user in userservice" + this.userService.user)
 					}
 					else {
 						return Observable.throw(new Error("Ingen admintilgang"))
@@ -97,57 +98,98 @@ export class SARService {
 	 * @param people  : Array of sarusers for this alarm
 	 */
 	addMission(mission: Mission, alarm: Alarm, people: SARUser[]) {
-		let options = new RequestOptions({ withCredentials: true })
+
+		const options = new RequestOptions({ withCredentials: true })
 		this._configureOptions(options);
 
 		let missionbody = JSON.stringify(mission, this._replacer);
-		let alarmbody = JSON.stringify(alarm, this._replacer)
-		let peoplebody = []
+		let alarmbody = JSON.stringify(alarm, this._replacer);
+		let alarmuserbody = []
 
-		let url = baseUrl + '/missions';
+		const url = BASE_URL + '/missions';
 		this.spinnerService.show();
 		return this.http.post(url, missionbody, options)
-			.do(res => console.log("Process mission: " + res.url))
+			.do(res => console.log('Process mission: ' + res.url))
 			.concatMap(res => {
-				console.log("Mission respons", res.url, ' poster alarm: ')
+				console.log('Mission respons', res.url, ' poster alarm: ')
 				return this.http.post(url + '/' + res.json().id + '/alarms', alarmbody, options)
 			})
 			.concatMap(res => {
-				//console.log("Alarm respons", res.url, ' poster alarmusers: ')
-				let alarmId = res.json().id
+				// console.log("Alarm respons", res.url, ' poster alarmusers: ')
+				const alarmId = res.json().id;
 				people.forEach(u => {
 					let user = {
 						sarUserId: u.id,
 						alarmId: alarmId
-					}
-					peoplebody.push(user)
+					};
+					alarmuserbody.push(user);
 				});
-				return this.http.post(baseUrl + '/alarmusers', peoplebody, options)
+				console.log("pbody " + JSON.stringify(alarmuserbody))
+				return this.http.post(BASE_URL + '/alarmusers', alarmuserbody, options)
 			})
 			.do(res => {
-				//	console.log("AlarmUsers response:" + res.url)
+				// console.log("AlarmUsers response:" + res.url)
 			})
+			.concatMap((res: Response) => {
+				return this.notificationService.sendPushNotifications(mission.isEmergency, mission, alarm.message, people);
+			})
+			.do(res => console.log('Posted notifications'))
 			.catch(this.exceptionService.catchBadResponse)
 			.finally(() => this.spinnerService.hide());
 
 	}
+
+	sendNotifications(mission: Mission, alarm: Alarm, usersToNotify: SARUser[]) {
+		this.notificationService.sendPushNotifications(mission.isEmergency, mission, alarm.message, usersToNotify);
+	}
 	/**
-	 * Adds a new alarm for an existing mission
+	 * Adds a new alarm for an existing mission + add notifications
 	 * @param mission Mission to add alarm for
 	 */
-	addAlarm(mission: Mission, alarm: Alarm) {
-		let options = new RequestOptions({ withCredentials: true })
+	addAlarm(mission: Mission, alarm: Alarm, usersToNotify: SARUser[]) {
+		const options = new RequestOptions({ withCredentials: true });
 		this._configureOptions(options);
 
+		const alarmbody = JSON.stringify(alarm, this._replacer);
 
-		// Todo: Get list of users for this misson and post alarmusers
-
-		let alarmbody = JSON.stringify(alarm, this._replacer)
-
+		let persons: SARUser[];
+		let alarmuserbody = []
+		let alarmId;
+		/*
+		
+		1. post alarm
+		2. get list of persons to be alarmed
+		3. post alarmusers for each person
+		4. send notifaction with list of persons as argument
+		
+		*/
 		this.spinnerService.show();
 		return this.http
-			.post(baseUrl + '/missions/' + mission.id + '/alarms', alarmbody, options)
-			.map((response: Response) => response.json())
+			.post(BASE_URL + '/missions/' + mission.id + '/alarms', alarmbody, options)
+
+			.do(res => { alarmId = res.json().id; console.log('Post alarm for mission: ' + res.url)})
+			// get list of persons to be alarmed
+			.concatMap(res => {
+				return this.http.get(BASE_URL + '/alarms/' + mission.alarms[0].id + '/persons', options)
+			})
+			.do(res => console.log('Got list of people for alarm' + res.url))
+			.concatMap((res: Response) => {
+				persons = <SARUser[]>res.json()
+				persons.forEach(u => {
+					let user = {
+						sarUserId: u.id,
+						alarmId: alarmId
+					};
+					alarmuserbody.push(user);
+				});
+				console.log("pbody " + JSON.stringify(alarmuserbody))
+				return this.http.post(BASE_URL + '/alarmusers', alarmuserbody, options)
+			})
+			.do(res => console.log("Posted alarmusers" + persons))
+			.concatMap(res => {
+				return this.notificationService.sendPushNotifications(mission.isEmergency, mission, alarm.message, persons);
+			})
+			.do(res => console.log('Posted notifications'))
 			.catch(this.exceptionService.catchBadResponse)
 			.finally(() => this.spinnerService.hide());
 	}
@@ -159,7 +201,7 @@ export class SARService {
 	 * @param users : Array of sar-users to be associated with this alarm
 	 */
 	addAlarmUsers(alarmId, users: SARUser[]) {
-		let options = new RequestOptions({ withCredentials: true })
+		const options = new RequestOptions({ withCredentials: true })
 		this._configureOptions(options);
 
 		let body = [];
@@ -173,7 +215,7 @@ export class SARService {
 
 		this.spinnerService.show();
 		return this.http
-			.post(baseUrl + '/AlarmUsers', body, options)
+			.post(BASE_URL + '/AlarmUsers', body, options)
 			.map(res => res.json().data)
 			.catch(this.exceptionService.catchBadResponse)
 			.finally(() => this.spinnerService.hide());
@@ -184,10 +226,10 @@ export class SARService {
 	 */
 
 	getMissions() {
-		let options = new RequestOptions({ withCredentials: true })
+		const options = new RequestOptions({ withCredentials: true })
 		this._configureOptions(options);
 
-		let url = baseUrl + '/missions';
+		let url = BASE_URL + '/missions';
 
 		this.spinnerService.show();
 		return this.http
@@ -198,12 +240,12 @@ export class SARService {
 	}
 
 	getMissionExpences(mission: Mission) {
-		//GET /Missions/{id}/expenses
-		let options = new RequestOptions({ withCredentials: true })
+		// GET /Missions/{id}/expenses
+		const options = new RequestOptions({ withCredentials: true })
 		this._configureOptions(options);
 
-		//let url = baseUrl + '/missions/' + mission.id + '/expenses?filter=[include]=saruser';
-		let url = baseUrl + '/missions/' + mission.id + '/expenses';
+		// let url = BASE_URL + '/missions/' + mission.id + '/expenses?filter=[include]=saruser';
+		let url = BASE_URL + '/missions/' + mission.id + '/expenses';
 
 		this.spinnerService.show();
 		return this.http
@@ -217,18 +259,18 @@ export class SARService {
 
 
 	getMissionResponses(missionId: number) {
-		let options = new RequestOptions({ withCredentials: true })
+		const options = new RequestOptions({ withCredentials: true })
 		this._configureOptions(options);
 
-		let url = baseUrl + '/MissionResponses?filter[where][missionId]=' + missionId + '&filter[include]=saruser&filter[include]=tracking';
+		let url = BASE_URL + '/MissionResponses?filter[where][missionId]=' + missionId + '&filter[include]=saruser&filter[include]=tracking';
 
 		this.spinnerService.show();
 		return this.http.get(url, options)
 			.map((response: Response) => {
-				//				console.log(<SARUser[]>response.json().persons)
+				// 				console.log(<SARUser[]>response.json().persons)
 				return <MissionResponse[]>response.json()
 			})
-			//.do(res => console.log("Result of : " + res))
+			// .do(res => console.log("Result of : " + res))
 			.catch(this.exceptionService.catchBadResponse)
 			.finally(() => this.spinnerService.hide());
 
@@ -240,10 +282,10 @@ export class SARService {
 	*/
 
 	getMission(id: number) {
-		let options = new RequestOptions({ withCredentials: true })
+		const options = new RequestOptions({ withCredentials: true })
 		this._configureOptions(options);
 
-		let url = baseUrl + "/missions/" + id + "?filter[include]=alarms"; // Also include alarms in response
+		let url = BASE_URL + "/missions/" + id + "?filter[include]=alarms"; // Also include alarms in response
 		let mission: any;
 
 		this.spinnerService.show();
@@ -252,7 +294,7 @@ export class SARService {
 			return mission
 		})
 			// Here we also map SAR-user of this mission to the reponse
-			.flatMap((mission) => this.http.get(baseUrl + '/missions/' + id + '/sARUser', options))
+			.flatMap((mission) => this.http.get(BASE_URL + '/missions/' + id + '/sARUser', options))
 			.map((saruser: Response) => {
 				mission.creator = saruser.json()
 				return mission
@@ -273,7 +315,7 @@ export class SARService {
 	*/
 	deleteMissionById(mission: Mission) {
 
-		let options = new RequestOptions({ withCredentials: true })
+		const options = new RequestOptions({ withCredentials: true })
 
 		this._configureOptions(options);
 		// Check if user is same as the one who created this mission
@@ -285,7 +327,7 @@ export class SARService {
 		}
 
 
-		let url = baseUrl + '/missions/' + mission.id;
+		let url = BASE_URL + '/missions/' + mission.id;
 		this.spinnerService.show();
 		return this.http
 			.delete(url, options)
@@ -297,7 +339,7 @@ export class SARService {
 
 	setMissionAsInactive(mission: Mission) {
 
-		let options = new RequestOptions({ withCredentials: true })
+		const options = new RequestOptions({ withCredentials: true })
 		this._configureOptions(options);
 		// Check if user is same as the one who created this mission
 		let currentUser = JSON.parse(localStorage.getItem('currentUser'))
@@ -310,21 +352,21 @@ export class SARService {
 		const body = {
 			"isActive": false,
 			"isEmergency": mission.isEmergency,
-			"title": mission.title,
+			'title': mission.title,
 			"description": mission.description,
-			"dateStart": mission.dateStart,
-			"dateEnd": new Date(),
-			"meetingPoint": mission.meetingPoint,
-			"meetingPointNicename": mission.meetingPointNicename,
-			"creator": mission.creator.id
+			'dateStart': mission.dateStart,
+			'dateEnd': new Date(),
+			'meetingPoint': mission.meetingPoint,
+			'meetingPointNicename': mission.meetingPointNicename,
+			'creator': mission.creator.id
 		}
 
 
-		let url = baseUrl + '/missions/' + mission.id;
+		let url = BASE_URL + '/missions/' + mission.id;
 		this.spinnerService.show();
 		return this.http
 			.put(url, body, options)
-			.do(res => console.log("Result of : " + res.json()))
+			.do(res => console.log('Result of : ' + res.json()))
 			.catch(this.exceptionService.catchBadResponse)
 			.finally(() => this.spinnerService.hide());
 
@@ -337,19 +379,19 @@ export class SARService {
 	 * Gets people associated with this user (people who this SAR-user can send alarms to)
 	 */
 	getPeople(limit?: number) {
-		console.log("----get people-----")
+		console.log('----get people-----')
 		// COOKIE NOT SENT IF THIS IS NOT SET
-		let options = new RequestOptions({ withCredentials: true })
+		const options = new RequestOptions({ withCredentials: true })
 
 		this._configureOptions(options);
 
-		let url = baseUrl + '/sarusers/persons';
+		let url = BASE_URL + '/sarusers/persons';
 
 
 		this.spinnerService.show();
 		return this.http.get(url, options)
 			.map((response: Response) => {
-				//				console.log(<SARUser[]>response.json().persons)
+				// 				console.log(<SARUser[]>response.json().persons)
 				return <SARUser[]>response.json().persons
 			})
 
@@ -362,10 +404,10 @@ export class SARService {
 
 
 	getSARUser(id: number) {
-		let options = new RequestOptions({ withCredentials: true })
+		const options = new RequestOptions({ withCredentials: true })
 		this._configureOptions(options);
 
-		let url = baseUrl + "/SARUsers/" + id;
+		let url = BASE_URL + '/SARUsers/' + id;
 		this.spinnerService.show();
 		return this.http
 			.get(url, options).map((res: Response) => {
@@ -386,7 +428,7 @@ export class SARService {
 	 ***********************/
 	/**
 	 * Catches http errors
-	 * @param error 
+	 * @param error
 	 */
 	private _handleError(error: Response) {
 		if (error.status == 401) {
@@ -398,12 +440,12 @@ export class SARService {
 
 
 	/**
-	 * Filter out ID from JSON-object. 
-	 * @param key 
-	 * @param value 
+	 * Filter out ID from JSON-object.
+	 * @param key
+	 * @param value
 	 */
 	private _replacer(key, value) {
-		if (key == "id") return undefined;
+		if (key === 'id') return undefined;
 		else return value;
 	}
 
