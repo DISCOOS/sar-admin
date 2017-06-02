@@ -1,5 +1,7 @@
 <filter-text (changed)="filterChanged($event)">
 </filter-text>
+
+<div class="selected-people" *ngFor="let selectedUser of selectedPeople">{{selectedUser.Name}} </div>
 <div style="overflow-x: auto">
 <table>
     <thead>

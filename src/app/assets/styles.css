@@ -255,7 +255,7 @@ table.missions th:nth-child(1), table.missions td:nth-child(1) { width: 10px;}
 .mission-active-info h3 > span.icon {   font-size: 1.7em; margin-right: .5em; }
 .mission-active-info h3 > span.helpertxt { text-transform: uppercase; font-size: .75em; margin-right: 1em; color: #333; width: 100px; display: inline-block; }
 .mission-active-info p.description { font-size: 1.2em; font-style:italic; padding-top:1em;	}
-
+.selected-people { border-radius: 3px; background: #ed1d25; color: #fff; font-size: 1.1em; display: inline-block; padding: 0.5em 1em; margin-right: 6px; }
 
 /** map **/
 
