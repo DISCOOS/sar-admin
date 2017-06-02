@@ -227,14 +227,14 @@ export class SARService {
 			.catch(this.exceptionService.catchBadResponse)
 			.finally(() => this.spinnerService.hide());
 	}
-
+	// CONCAT SARUSER TO RESPONSE
 	getMissionExpences(mission: Mission) {
 		// GET /Missions/{id}/expenses
 		const options = new RequestOptions({ withCredentials: true })
 		this._configureOptions(options);
 
 		// let url = BASE_URL + '/missions/' + mission.id + '/expenses?filter=[include]=saruser';
-		let url = BASE_URL + '/missions/' + mission.id + '/expenses';
+		const url = BASE_URL + '/missions/' + mission.id + '/expenses';
 
 		this.spinnerService.show();
 		return this.http
