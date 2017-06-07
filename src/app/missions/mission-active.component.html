@@ -75,7 +75,28 @@
         Registrerte utgifter for deltakere
     </h2>
 
-<expenses [mission]="mission"></expenses>
+<div style="overflow-x: auto">
+<table>
+    <thead>
+        <th>Navn</th>
+        <th>Utgiftsnavn</th>
+        <th>Beskrivelse</th>
+        <th>Sum</th>
+     
+    </thead>
+
+    <tbody>
+        
+        <tr *ngFor="let expense of mission.expenses">
+            <td>{{expense.saruser?.name}}</td>
+            <td>{{expense.title}}</td>
+            <td>{{expense.description}}</td>
+            <td>{{expense.amount}}</td>
+        </tr>
+
+    </tbody>
+</table>
+</div>
 </section>
 
 

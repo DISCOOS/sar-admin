@@ -84,9 +84,19 @@ export class SARService {
 
 
 
+	getSaruserFromId(id: number) {
+		const options = new RequestOptions({ withCredentials: true })
+		this._configureOptions(options);
 
 
+		return this.http.get(BASE_URL + '/sarusers/' + id, options)
+			.map((response: Response) => {
 
+				return response.json();
+			})
+			.catch(this.exceptionService.catchBadResponse)
+			.finally(() => this.spinnerService.hide())
+	}
 	/**
 	 * 
 	 * Uses concatmap for multiple post requests which depends on eachother. 
@@ -104,31 +114,32 @@ export class SARService {
 
 		let missionbody = JSON.stringify(mission, this._replacer);
 		let alarmbody = JSON.stringify(alarm, this._replacer);
-		let alarmuserbody = []
+		let attendantsbody = []
+		let missionId;
 
 		const url = BASE_URL + '/missions';
 		this.spinnerService.show();
 		return this.http.post(url, missionbody, options)
-			.do(res => console.log('Process mission: ' + res.url))
+			.do(res => { missionId = res.json().id; console.log('Process mission: ' + res.url) })
 			.concatMap(res => {
-				console.log('Mission respons', res.url, ' poster alarm: ')
+				console.log('Posted mission ' + res.url)
 				return this.http.post(url + '/' + res.json().id + '/alarms', alarmbody, options)
 			})
+			.do(res => console.log('Posted alarms: ' + res.url))
 			.concatMap(res => {
-				// console.log("Alarm respons", res.url, ' poster alarmusers: ')
-				const alarmId = res.json().id;
-				people.forEach(u => {
-					let user = {
-						sarUserId: u.id,
-						alarmId: alarmId
+				people.forEach(a => {
+					const attendant = {
+						sarUserId: a.id,
+						missionId: missionId
 					};
-					alarmuserbody.push(user);
+					attendantsbody.push(attendant);
 				});
-				console.log("pbody " + JSON.stringify(alarmuserbody))
-				return this.http.post(BASE_URL + '/alarmusers', alarmuserbody, options)
+				console.log("attendantsbody " + JSON.stringify(attendantsbody))
+				return this.http.post(BASE_URL + '/attendants', attendantsbody, options)
 			})
+
 			.do(res => {
-				// console.log("AlarmUsers response:" + res.url)
+				 console.log("Posted attendants " + res.url)
 			})
 			.concatMap((res: Response) => {
 				return this.notificationService.sendPushNotifications(mission.isEmergency, mission, alarm.message, people);
@@ -149,32 +160,13 @@ export class SARService {
 		const alarmbody = JSON.stringify(alarm, this._replacer);
 
 		let persons: SARUser[];
-		let alarmuserbody = [];
+		let attendantsbody = []
 		let alarmId;
 
 		this.spinnerService.show();
 		return this.http
 			.post(BASE_URL + '/missions/' + mission.id + '/alarms', alarmbody, options)
-
-			.do(res => { alarmId = res.json().id; console.log('Post alarm for mission: ' + res.url)})
-			// get list of persons to be alarmed
-			.concatMap(res => {
-				return this.http.get(BASE_URL + '/alarms/' + mission.alarms[0].id + '/persons', options)
-			})
-			.do(res => console.log('Got list of people for alarm' + res.url))
-			.concatMap((res: Response) => {
-				persons = <SARUser[]>res.json()
-				persons.forEach(u => {
-					let user = {
-						sarUserId: u.id,
-						alarmId: alarmId
-					};
-					alarmuserbody.push(user);
-				});
-				console.log("pbody " + JSON.stringify(alarmuserbody))
-				return this.http.post(BASE_URL + '/alarmusers', alarmuserbody, options)
-			})
-			.do(res => console.log("Posted alarmusers" + persons))
+			.do(res => { alarmId = res.json().id; console.log('Posted alarm for mission: ' + res.url) })
 			.concatMap(res => {
 				return this.notificationService.sendPushNotifications(mission.isEmergency, mission, alarm.message, persons);
 			})
@@ -183,9 +175,7 @@ export class SARService {
 			.finally(() => this.spinnerService.hide());
 	}
 
-
 	/**
-	
 	 * @param alarmId : which alarm to associate the sar-users with.
 	 * @param users : Array of sar-users to be associated with this alarm
 	 */
@@ -282,10 +272,18 @@ export class SARService {
 			mission = res.json()
 			return mission
 		})
-			// Here we also map SAR-user of this mission to the reponse
+			// Here we also map creator of this mission to the reponse
 			.flatMap((mission) => this.http.get(BASE_URL + '/missions/' + id + '/sARUser', options))
-			.map((saruser: Response) => {
+			.map((saruser) => {
 				mission.creator = saruser.json()
+				return mission
+			})
+			.flatMap((mission) => this.http.get(BASE_URL + '/missions/' + id + '/expenses', options))
+			.map((expenses) => {
+				if (!mission.isActive) {
+					mission.expenses = expenses.json()
+				}
+				console.log(mission)
 				return mission
 			})
 			.catch(this.exceptionService.catchBadResponse)

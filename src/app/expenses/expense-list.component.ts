@@ -21,20 +21,21 @@ export class ExpenseListComponent implements OnInit {
     ) { }
 
     ngOnInit() {
-        setTimeout(() => {
-        //    this.getExpenses();
-        }, 3000);
+        //setTimeout(() => {
+           this.getExpenses();
+        //}, 8000);
 
 
     }
 
     getExpenses() {
-        this.SARService.getMissionExpences(this.mission)
+        console.log(this.mission.id)
+/*        this.SARService.getMissionExpences(this.mission)
             .subscribe(
             (expenses) => {
                 this.expenses = expenses;
             },
             (err) => { console.log('Failed getting expenses for mission' + err); },
-            () => { console.log('Ok,Got expenses'); console.log(this.expenses); });
+            () => { console.log('Ok,Got expenses'); console.log(this.expenses); });*/
     }
 }
