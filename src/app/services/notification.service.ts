@@ -29,7 +29,7 @@ export class NotificationService {
      * 
      * @param isEmergency : If this is true, everyone will receive push notification
      */
-    sendPushNotifications(sendToAll: boolean, mission: Mission, message: string) {
+    sendPushNotifications(sendToAll: boolean, missionId: number, title: string, message: string) {
 
         const options = new RequestOptions();
         this._configureOptions(options);
@@ -45,11 +45,11 @@ export class NotificationService {
         //const topic = '/topics/emergency';
         const body = {
             "notification": {
-                "title": mission.title,
+                "title": title,
                 "text": message
             },
             'data': {
-                'missionId': mission.id
+                'missionId': missionId
             },
             'to': topic
         }

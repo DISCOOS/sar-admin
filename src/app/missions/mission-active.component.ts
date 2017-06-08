@@ -98,6 +98,7 @@ export class MissionActiveComponent implements OnInit, OnDestroy {
             .subscribe(mr => {
                 this.zone.run(() => {
                     this.missionResponses = mr;
+                    console.log(this.missionResponses)
                 })
             })
     }
