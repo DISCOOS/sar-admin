@@ -40,6 +40,8 @@ export class NotificationService {
         so send to that if emergency. If not send only to available.
         */
         const topic = sendToAll ? '/topics/emergency' : '/topics/available';
+
+        console.log("TOPIC + " + topic)
         //const topic = '/topics/emergency';
         const body = {
             "notification": {
