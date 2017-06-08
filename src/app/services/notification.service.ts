@@ -21,7 +21,7 @@ export class NotificationService {
 
     private _configureOptions(options: RequestOptions) {
         const headers = new Headers();
-        headers.append('Authorization', 'Bearer ' + CONFIG.ionic.API_TOKEN);
+        headers.append('Authorization', 'key=' + CONFIG.firebase.API_KEY);
         headers.append('Content-Type', 'application/json');
         options.headers = headers;
     }
@@ -29,39 +29,35 @@ export class NotificationService {
      * 
      * @param isEmergency : If this is true, everyone will receive push notification
      */
-    sendPushNotifications(sendToAll: boolean, mission: Mission, message: string, usersToNotify?: SARUser[]) {
+    sendPushNotifications(sendToAll: boolean, mission: Mission, message: string) {
 
         const options = new RequestOptions();
         this._configureOptions(options);
 
-        const tokens = this._makeDeviceTokenArrayFromUsers(usersToNotify);
-        const body = {
-            'tokens': tokens,
-            'profile': CONFIG.ionic.API_PROFILE,
-            'send_to_all': sendToAll, // Send notification to all if emergency
-            'notification': {
-                'title': mission.title,
-                'message': message
-            }
-        };
 
+
+        /* Firebase has to topics users can subscribe to. Everyone subscribes to emergency topic,
+        so send to that if emergency. If not send only to available.
+        */
+        const topic = sendToAll ? '/topics/emergency' : '/topics/available';
+        //const topic = '/topics/emergency';
+        const body = {
+            "notification": {
+                "title": mission.title,
+                "text": message
+            },
+            'data': {
+                'missionId': mission.id
+            },
+            'to': topic
+        }
         this.spinnerService.show();
         return this.http
-            .post(CONFIG.ionic.API_URL + '/push/notifications', body, options)
+            .post(CONFIG.firebase.URL, body, options)
             .map(res => res.json().data)
             .catch(this.exceptionService.catchBadPushResponse)
             .finally(() => this.spinnerService.hide());
     }
 
-    private _makeDeviceTokenArrayFromUsers(users: SARUser[]) {
-        const tokens = [];
-
-        users.forEach(u => {
-            if (u.deviceToken) {
-                tokens.push(u.deviceToken);
-            }
-        });
-        return tokens;
-    }
 }
 

@@ -19,7 +19,7 @@ export class AlarmComponent implements OnInit {
 
     @Input() alarm: Alarm = <Alarm>{};
     @Input() mission: Mission;
-    @Input() alarms : Alarm[];
+    @Input() alarms: Alarm[];
     visible = false;
 
     private sub: any;
@@ -37,7 +37,6 @@ export class AlarmComponent implements OnInit {
     }
 
     private _createEmptyAlarm() {
-        //       let alarms = [];
         const alarm = new Alarm(
             null, // id
             new Date(), // date
@@ -54,10 +53,13 @@ export class AlarmComponent implements OnInit {
     }
 
     /* Save this alarm */
-    save() {
-        this.SARService.addAlarm(this.mission, this.alarm, null)
+    saveAlarm() {
+        this.SARService.addAlarm(this.mission, this.alarm)
             .subscribe(
-            (res) => { this.alarms.push(this.alarm)},
+            (res) => {
+                this.alarms.push(this.alarm)
+                this._createEmptyAlarm();
+            },
             (err) => { this.toastService.activate(`Det skjedde en feil under opprettelse av varslingen. Den ble ikke sendt`, false, false); },
             () => {
                 this.toastService.activate(`Alt OK! Sendte ut ny varsling`, true, true);

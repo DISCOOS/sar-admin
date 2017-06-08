@@ -3,11 +3,16 @@ export let CONFIG = {
     google: {
         API_KEY: 'AIzaSyBYzGTxVG0t0RYu0-IFlqFbp9x4PjLUl_E'
     },
-    // Used for push notifications
+    // Currently not in use
     ionic: {
         API_URL: 'https://api.ionic.io',
         API_TOKEN:  'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJqdGkiOiIzN2FjZmZmZS00OWEwLTQxYTctOTc2YS00MTRiZDI3MmM1NjkifQ.ugeTWngk5wfI_If0zvqfXw-Kvrk3_-dNbNeXklOulks',
         API_PROFILE: 'sar_ionic_services'
+    },
+    // Used for push notifications
+    firebase: {
+        URL: 'https://fcm.googleapis.com/fcm/send',
+        API_KEY: 'AAAA0yMxNS4:APA91bHsbIIiGpre3JS0KWzvoPgbGw5ztUguylTgkG5qSHeWxMKtiqbqebmWSfsp41INj5ncBDj8cB7zUvE-PosUHGr-WO3Pc8bAipWzVl5nlR4WBvjOG3ytc9kI8QD01G6FJ2A-CbrV'
     },
     // Used for SAR-API
     sar_api: {

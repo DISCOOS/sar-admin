@@ -1,7 +1,7 @@
 
     <div *ngIf="alarm" class="animated fadeIn" style="display:none;"  [class.is-active]="visible">
         <h2 style="margin-top: 2em; border-bottom: 2px solid #acacac">Lag en ny varsling for denne aksjonen</h2>
-        <form (ngSubmit)="f.form.valid && save()"  #f="ngForm" novalidate>
+        <form (ngSubmit)="f.form.valid && saveAlarm()"  #f="ngForm" novalidate>
             <div class="form-group" [ngClass]="{ 'has-error': f.submitted && !message.valid }">
                 <label for="message" class="control-label">Beskjed</label>
                 
