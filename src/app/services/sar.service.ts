@@ -170,7 +170,7 @@ export class SARService {
 			.post(BASE_URL + '/missions/' + mission.id + '/alarms', alarmbody, options)
 			.do(res => { alarmId = res.json().id; console.log('Posted alarm for mission: ' + res.url) })
 			.concatMap(res => {
-				return this.notificationService.sendPushNotifications(mission.isEmergency, alarm.mission.id,alarm.mission.title, alarm.message);
+				return this.notificationService.sendPushNotifications(mission.isEmergency, mission.id, alarm.mission.title, alarm.message);
 			})
 			.do(res => console.log('Posted notifications'))
 			.catch(this.exceptionService.catchBadResponse)
