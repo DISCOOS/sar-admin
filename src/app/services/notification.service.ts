@@ -52,6 +52,8 @@ export class NotificationService {
             },
             'to': topic
         }
+
+        console.log(body)
         this.spinnerService.show();
         return this.http
             .post(CONFIG.firebase.URL, body, options)
