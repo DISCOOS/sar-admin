@@ -37,7 +37,7 @@
 
 <section>
     <h2 style="margin-top: 2em; border-bottom: 2px solid #acacac">
-        Status for varslet mannskap
+       {{ mission.isActive ? 'Status for varslet mannskap' : 'Deltakere'}} 
     </h2>
 <div style="overflow-x: auto">
     <table>
@@ -70,7 +70,7 @@
 
 
 
-<section *ngIf="!mission.isActive">
+<section *ngIf="!mission.isActive && expenses">
     <h2 style="margin-top: 2em; border-bottom: 2px solid #acacac">
         Registrerte utgifter for deltakere
     </h2>
@@ -87,8 +87,8 @@
 
     <tbody>
         
-        <tr *ngFor="let expense of mission.expenses">
-            <td>{{expense.saruser?.name}}</td>
+        <tr *ngFor="let expense of expenses">
+            <td>{{expense.sarUser?.name}}</td>
             <td>{{expense.title}}</td>
             <td>{{expense.description}}</td>
             <td>{{expense.amount}}</td>

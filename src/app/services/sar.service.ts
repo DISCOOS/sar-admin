@@ -178,31 +178,6 @@ export class SARService {
 	}
 
 	/**
-	 * @param alarmId : which alarm to associate the sar-users with.
-	 * @param users : Array of sar-users to be associated with this alarm
-	 */
-	addAlarmUsers(alarmId, users: SARUser[]) {
-		const options = new RequestOptions({ withCredentials: true })
-		this._configureOptions(options);
-
-		let body = [];
-		users.forEach(u => {
-			let user = {
-				sarUserId: u.id,
-				alarmId: alarmId
-			}
-			body.push(user)
-		});
-
-		this.spinnerService.show();
-		return this.http
-			.post(BASE_URL + '/AlarmUsers', body, options)
-			.map(res => res.json().data)
-			.catch(this.exceptionService.catchBadResponse)
-			.finally(() => this.spinnerService.hide());
-	}
-
-	/**
 	 * Get missions 
 	 */
 
@@ -219,15 +194,11 @@ export class SARService {
 			.catch(this.exceptionService.catchBadResponse)
 			.finally(() => this.spinnerService.hide());
 	}
-	// CONCAT SARUSER TO RESPONSE
+
 	getMissionExpences(mission: Mission) {
-		// GET /Missions/{id}/expenses
 		const options = new RequestOptions({ withCredentials: true })
 		this._configureOptions(options);
-
-		// let url = BASE_URL + '/missions/' + mission.id + '/expenses?filter=[include]=saruser';
-		const url = BASE_URL + '/missions/' + mission.id + '/expenses';
-
+		const url = BASE_URL + '/expences?filter[where][missionId]=' + mission.id;
 		this.spinnerService.show();
 		return this.http
 			.get(url, options)

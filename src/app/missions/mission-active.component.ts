@@ -1,7 +1,7 @@
 import { Observable } from 'rxjs/Observable';
 import { Component, Input, OnInit, OnDestroy, ViewChild, NgZone } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { Mission, MissionResponse, Alarm } from '../models/models';
+import { Mission, MissionResponse, Alarm, Expence } from '../models/models';
 import { ToastService, ModalService, ModalComponent } from '../blocks/blocks';
 import { SARService } from '../services/sar.service';
 import { PeopleListComponent } from '../people/people-list.component';
@@ -27,15 +27,12 @@ export class MissionActiveComponent implements OnInit, OnDestroy {
 
     @ViewChild(AlarmComponent) alarm: AlarmComponent;
 
-    // @ViewChild(TrackingComponent) trackings;
 
     @Input() mission: Mission = <Mission>{};
 
-
-    //missionResponses: Observable<MissionResponse[]>;
-
     missionResponses: MissionResponse[];
     alarms: Alarm[];
+    expenses: Expence[];
     private id: any;
     private sub: any;
     private timersub: any;
@@ -69,8 +66,9 @@ export class MissionActiveComponent implements OnInit, OnDestroy {
 
     ngOnDestroy() {
         // Unsubscribe from timer
-        if (this.timersub)
+        if (this.timersub) {
             this.timersub.unsubscribe();
+        }
     }
 
     getMission() {
@@ -86,6 +84,10 @@ export class MissionActiveComponent implements OnInit, OnDestroy {
                 if (this.mission.isActive) {
                     this.getMissionResponses()
                     this.timersub = this.timer.subscribe(() => this.getMissionResponses());
+                    // Mission is inactive; get expenses
+                } else {
+                    this.getExpenses();
+                    console.log(this.expenses)
                 }
             });
     }
@@ -100,6 +102,16 @@ export class MissionActiveComponent implements OnInit, OnDestroy {
                     console.log(this.missionResponses)
                 })
             })
+    }
+
+    getExpenses() {
+        this.SARService.getMissionExpences(this.mission)
+            .subscribe(
+            (expenses) => {
+                this.expenses = expenses;
+            },
+            (err) => { console.log('Failed getting expenses for mission' + err); },
+            () => { console.log('Ok,Got expenses'); console.log(this.expenses); });
     }
 
 

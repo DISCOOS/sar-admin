@@ -13,29 +13,14 @@ import { SARService } from '../services/sar.service';
 })
 export class ExpenseListComponent implements OnInit {
 
-    @Input() mission: Mission;
-    expenses: Expence[];
+    //@Input() mission: Mission;
+    
+    @Input() expenses: Expence[];
 
     constructor(
         private SARService: SARService
     ) { }
 
     ngOnInit() {
-        //setTimeout(() => {
-           this.getExpenses();
-        //}, 8000);
-
-
-    }
-
-    getExpenses() {
-        console.log(this.mission.id)
-/*        this.SARService.getMissionExpences(this.mission)
-            .subscribe(
-            (expenses) => {
-                this.expenses = expenses;
-            },
-            (err) => { console.log('Failed getting expenses for mission' + err); },
-            () => { console.log('Ok,Got expenses'); console.log(this.expenses); });*/
     }
 }
