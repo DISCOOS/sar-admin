@@ -30,7 +30,7 @@ export class MissionActiveComponent implements OnInit, OnDestroy {
     // @ViewChild(TrackingComponent) trackings;
 
     @Input() mission: Mission = <Mission>{};
-    
+
 
     //missionResponses: Observable<MissionResponse[]>;
 
@@ -39,6 +39,7 @@ export class MissionActiveComponent implements OnInit, OnDestroy {
     private id: any;
     private sub: any;
     private timersub: any;
+    private timer;
 
 
     constructor(
@@ -58,19 +59,10 @@ export class MissionActiveComponent implements OnInit, OnDestroy {
         this.sub = this.route.params.subscribe(params => {
             this.id = +params['id'];
 
+            this.timer = Observable.timer(2000, 1000 * 10);
 
             this.getMission();
         });
-        // Only listen for responses if mission is indeed active  
-
-        // Will query missionresponses every minute
-        let timer = Observable.timer(2000, 1000 * 10);
-        setTimeout(() => {
-            if (this.mission.isActive) {
-                this.getMissionResponses()
-                this.timersub = timer.subscribe(() => this.getMissionResponses())
-            }
-        }, 2000);
 
     }
 
@@ -84,10 +76,17 @@ export class MissionActiveComponent implements OnInit, OnDestroy {
     getMission() {
 
         this.SARService.getMission(this.id)
-            .subscribe((mission) =>
-            {
+            .subscribe((mission) => {
                 this.mission = mission;
                 this.alarms = mission.alarms;
+            },
+            (err) => console.log("error getting mission"),
+            () => {
+                // Ok, got mission: Find missionresponses if mission is active
+                if (this.mission.isActive) {
+                    this.getMissionResponses()
+                    this.timersub = this.timer.subscribe(() => this.getMissionResponses());
+                }
             });
     }
 
