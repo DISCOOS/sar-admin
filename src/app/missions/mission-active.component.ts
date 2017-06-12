@@ -162,7 +162,7 @@ export class MissionActiveComponent implements OnInit, OnDestroy {
      */
 
     delete() {
-        let msg = `Er du sikker på at vil slette denne aksjonen? Denne handlingen kan ikke reverseres`;
+        let msg = `Er du sikker på at vil slette denne aksjonen? All info tilhørende denne aksjonen vil bli SLETTET. Denne handlingen kan ikke reverseres`;
         this.modalService.activate("Bekreft sletting", msg).then((responseOK) => {
             if (responseOK) {
                 this.SARService.deleteMissionById(this.mission)
