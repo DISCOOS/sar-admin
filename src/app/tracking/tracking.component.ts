@@ -1,4 +1,4 @@
-import { Component, OnInit, Input, AfterViewInit } from '@angular/core';
+import { Component, OnInit, Input, AfterViewInit, OnChanges } from '@angular/core';
 import { MapService } from '../services/map.service';
 import { MissionResponse } from '../models/models';
 
@@ -14,7 +14,7 @@ marker = false;
     templateUrl: 'tracking.component.html'
 })
 
-export class TrackingComponent implements OnInit, AfterViewInit {
+export class TrackingComponent implements OnInit, AfterViewInit, OnChanges {
 
     @Input() missionResponses: any;
 
@@ -48,6 +48,13 @@ export class TrackingComponent implements OnInit, AfterViewInit {
         }
 
     } // onInit()
+
+    ngOnChanges() {
+        console.log("--tracking onchanges triggered----")
+        if (this.missionResponses) {
+            this.pushMarkers();
+        }
+    }
 
     ngAfterViewInit() {
     }
