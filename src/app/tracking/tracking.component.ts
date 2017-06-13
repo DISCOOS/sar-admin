@@ -63,6 +63,7 @@ export class TrackingComponent implements OnInit, AfterViewInit, OnChanges {
      * Iterates each missionresponse for tracking data
      */
     pushMarkers() {
+        this.removeMarkers();
         this.missionResponses.forEach(mr => {
             if (mr.response && mr.tracking) {
                 let date = new Date(mr.tracking.date);
@@ -76,6 +77,12 @@ export class TrackingComponent implements OnInit, AfterViewInit, OnChanges {
                 this.markers.push(marker);
             }
         })
+    }
+
+    removeMarkers() {
+        for (let i = 0; i < this.markers.length; i++) {
+            this.markers[i].setMap(null);
+        }
     }
 }
 
