@@ -37,11 +37,8 @@ export class NotificationService {
         /* Firebase has to topics users can subscribe to. Everyone subscribes to emergency topic,
         so send to that if emergency. If not send only to available.
         */
-        //const topic = sendToAll ? '/topics/emergency' : '/topics/available';
-        const topic = '/topics/emergency';
-
-        console.log("TOPIC + " + topic)
-        //const topic = '/topics/emergency';
+        const topic = sendToAll ? '/topics/emergency' : '/topics/available';
+        // const topic = '/topics/emergency';
         const body = {
             "notification": {
                 "title": title,
@@ -51,7 +48,7 @@ export class NotificationService {
                 'missionId': missionId
             },
             'to': topic
-        }
+        };
 
         console.log(body)
         this.spinnerService.show();
