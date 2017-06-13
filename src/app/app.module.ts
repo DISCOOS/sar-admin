@@ -24,7 +24,9 @@ import { ToastComponent, ToastService, ModalService, SpinnerService } from './bl
 import { ModalModule, SpinnerModule } from './blocks/blocks';
 
 import { FilterTextComponent } from './blocks/filter-text/filter-text.component';
+
 import { SortMissionsPipe } from './missions/sort-missions.pipe';
+import { TruncatePipe } from './blocks/pipes/truncate.pipe';
 
 
 import { SARService } from './services/sar.service';
@@ -64,7 +66,8 @@ import {MomentModule} from 'angular2-moment';
     AlarmComponent,
     ExpenseListComponent,
     TrackingComponent,
-    SortMissionsPipe
+    SortMissionsPipe,
+    TruncatePipe
   ],
   // globale providers
   providers: [

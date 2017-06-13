@@ -29,5 +29,5 @@
 
     <h3><span class="pe-7s-date"></span>Startdato: {{mission.dateStart | amUtc | amDateFormat:'DD/MM/YYYY, H:mm'  }}</h3>
     <h3 *ngIf="mission.dateEnd"><span class="pe-7s-date"></span>Avsluttet: {{mission.dateEnd | amUtc | amDateFormat:'DD/MM/YYYY, H:mm' }} </h3>
-    <p class="description">{{mission.description}}</p>
+    <p class="description">{{mission.description | truncate: 140}}</p>
 </div>
