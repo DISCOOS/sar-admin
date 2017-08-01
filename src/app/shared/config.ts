@@ -1,7 +1,7 @@
 export let CONFIG = {
     // Used for google maps
     google: {
-        API_KEY: 'AIzaSyBYzGTxVG0t0RYu0-IFlqFbp9x4PjLUl_E'
+        API_KEY: process.env.GOOGLE_API_KEY || 'AIzaSyBYzGTxVG0t0RYu0-IFlqFbp9x4PjLUl_E'
     },
     // Currently not in use
     ionic: {
@@ -14,10 +14,9 @@ export let CONFIG = {
         URL: 'https://fcm.googleapis.com/fcm/send',
         API_KEY: 'AAAA0yMxNS4:APA91bHsbIIiGpre3JS0KWzvoPgbGw5ztUguylTgkG5qSHeWxMKtiqbqebmWSfsp41INj5ncBDj8cB7zUvE-PosUHGr-WO3Pc8bAipWzVl5nlR4WBvjOG3ytc9kI8QD01G6FJ2A-CbrV'
     },
-    // Used for SAR-API
+    // Used for SAR-Status API
     sar_api: {
-        BASE_URL: 'https://sar-api.herokuapp.com/api',
-        MISSION_URL: 'https://sar-api.herokuapp.com/api/missions'
+        BASE_URL: (process.env.API_HOST || 'https://sar-status-api.herokuapp.com') + '/api',
     },
     // Used for calendar settings frontend
     flatpickr: {
