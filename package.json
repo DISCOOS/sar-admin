@@ -1,8 +1,8 @@
 {
-  "name": "SAR-Admin",
+  "name": "sar-status-admin",
   "version": "1.0.0",
-  "description": "Admin webapp for SAR-Status",
-  "license": "BSD",
+  "description": "Admin webapp for SAR Status Administration",
+  "license": "BSD 2-clause",
   "scripts": {
     "ng": "ng",
     "start": "node server.js",
