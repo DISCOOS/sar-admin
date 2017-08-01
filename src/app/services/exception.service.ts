@@ -41,7 +41,7 @@ export class ExceptionService {
         } else if (statusCode === '404') {
             emsg = 'Denne ressursen finnes ikke';
         } else if (statusCode === '500') {
-            emsg = 'Intern serverfeil i SAR-API';
+            emsg = 'Intern serverfeil i SAR Status API';
         } else {
             emsg = '';
         }
