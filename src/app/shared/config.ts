@@ -1,20 +1,28 @@
 export let CONFIG = {
-    // Used for google maps
+    // ---------------------------------------------
+    // Used for google maps api
+    // ---------------------------------------------
+    //
+    // Pre-requisites: Google project and api key created with https://console.developers.google.com
+    //
     google: {
-        API_KEY: process.env.GOOGLE_API_KEY || 'AIzaSyBYzGTxVG0t0RYu0-IFlqFbp9x4PjLUl_E'
+        API_KEY: process.env.GOOGLE_API_KEY
     },
-    // Currently not in use
-    ionic: {
-        API_URL: 'https://api.ionic.io',
-        API_TOKEN:  'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJqdGkiOiIzN2FjZmZmZS00OWEwLTQxYTctOTc2YS00MTRiZDI3MmM1NjkifQ.ugeTWngk5wfI_If0zvqfXw-Kvrk3_-dNbNeXklOulks',
-        API_PROFILE: 'sar_ionic_services'
-    },
+    // ---------------------------------------------
     // Used for push notifications
+    // ---------------------------------------------
+    //
+    // Pre-requisites: Firebase project and server key created with https://console.firebase.google.com
+    //
+    // See https://github.com/firebase/quickstart-js/tree/master/messaging
+    //
     firebase: {
         URL: 'https://fcm.googleapis.com/fcm/send',
-        API_KEY: 'AAAA0yMxNS4:APA91bHsbIIiGpre3JS0KWzvoPgbGw5ztUguylTgkG5qSHeWxMKtiqbqebmWSfsp41INj5ncBDj8cB7zUvE-PosUHGr-WO3Pc8bAipWzVl5nlR4WBvjOG3ytc9kI8QD01G6FJ2A-CbrV'
+        API_KEY: process.env.GOOGLE_FIREBASE_SERVER_KEY
     },
+    // ---------------------------------------------
     // Used for SAR-Status API
+    // ---------------------------------------------
     sar_api: {
         BASE_URL: (process.env.API_HOST || 'https://sar-status-api.herokuapp.com') + '/api',
     },
