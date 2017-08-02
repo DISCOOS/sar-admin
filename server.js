@@ -20,6 +20,13 @@ if (process.env.NODE_ENV == 'production') {
     app.use(forceSSL());
 }
 
+// Configure gulp 'config' task
+const gulp = require('gulpfile');
+
+
+// Kick of gulp 'config' task, which generates angular const configuration
+gulp.start('config'); 
+
 // Run the app by serving the static files in the dist directory
 app.use(express.static(__dirname + '/dist'));
 
@@ -33,7 +40,6 @@ const compression = require('compression');
 app.use(compression());
 
 // For all GET requests, send back index.html so that PathLocationStrategy can be used
-
 app.get('*', function (req, res) {
   const index = path.join(__dirname, 'dist', 'index.html');
   res.sendFile(index);

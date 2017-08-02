@@ -33,7 +33,9 @@
     "rich-marker": "0.0.1",
     "rxjs": "^5.1.0",
     "typescript": "^2.4.2",
-    "zone.js": "^0.8.4"
+    "zone.js": "^0.8.4",
+    "gulp": "^3.9.0",
+    "gulp-ng-config": "^1.2.1"
   },
   "devDependencies": {
     "@types/jasmine": "2.5.38",
