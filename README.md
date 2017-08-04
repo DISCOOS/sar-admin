@@ -6,5 +6,5 @@ Use Angular CLI (https://cli.angular.io/) to run locally
 
 ```
 > npm install -g @angular/cli
-> ng server
+> ng serve
 ```
