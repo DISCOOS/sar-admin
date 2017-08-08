@@ -3,8 +3,6 @@ import { Router, ActivatedRoute } from '@angular/router';
 
 import { SARService } from '../services/sar.service';
 import { ToastService, SpinnerService } from '../blocks/blocks';
-import { CONFIG } from '../shared/config';
-import { environment } from '../../environments/environment';
 
 @Component({
     moduleId: module.id,
@@ -15,8 +13,6 @@ export class LoginComponent implements OnInit {
     model: any = {};
     loading = false;
     returnUrl: string;
-    CONFIG: any = CONFIG;
-    environment: any = environment;
 
     constructor(
         private route: ActivatedRoute,

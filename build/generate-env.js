@@ -3,10 +3,8 @@ const fse = require('fs-extra');
 const path = require('path');
 const util = require('util');
 
-require('env2')('.env');
-
 let env = {};
-const config = require('./env.json');
+const config = require(path.join(__dirname, 'generate-env.json'));
 
 Object.keys(config).map(function(key) {
     key = config[key];
@@ -14,11 +12,15 @@ Object.keys(config).map(function(key) {
 });
 
 // Write config file
-const dst = path.join('dist', 'assets', 'js');
+const dst = path.join(__dirname, '..', 'dist', 'assets', 'js');
+
 const json = 'var env = ' + util.inspect(env, false, null, false) + ';';
 
 fse.mkdirsSync(dst);
 
 fs.writeFile(path.join(dst, 'env.js'), json, function() {
+    console.log('Configuration');
     console.log(json);
+    console.log('Generated to ' + dst);
 });
+
