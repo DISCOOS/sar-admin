@@ -1,5 +1,5 @@
 <div class="animated fadeIn" id="login-box">
-    <img src="app/assets/img/logo.svg">
+    <img src="./assets/img/logo.svg">
     <form method="post" (ngSubmit)="f.form.valid && login()" #f="ngForm" novalidate>
         <div class="form-group"  [ngClass]="{ 'has-error': f.submitted && !username.valid }">
             <label for="username" class="control-label">Brukernavn</label>
@@ -15,7 +15,7 @@
         </div>
         <div class="form-group">
             <button [disabled]="loading" name="login">Logg inn</button>
-            
+            <span>CONFIG.google.maps.API_KEY=</span>{{CONFIG.google.maps.API_KEY}}
         </div>
     </form>
 </div>

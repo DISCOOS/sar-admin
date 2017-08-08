@@ -1,7 +1,7 @@
 {
   "$schema": "./node_modules/@angular/cli/lib/config/schema.json",
   "project": {
-    "name": "helloworld"
+    "name": "sar-status-personnel"
   },
   "apps": [
     {
@@ -9,8 +9,7 @@
       "outDir": "dist",
       "assets": [
         "assets",
-        "favicon.ico",
-        "app/assets"
+        "favicon.ico"
       ],
       "index": "index.html",
       "main": "main.ts",
@@ -19,16 +18,17 @@
       "tsconfig": "tsconfig.json",
       "prefix": "app",
       "styles": [
-        "app/assets/styles.css"
+        "assets/styles.css"
       ],
       "scripts": [
-        "app/assets/js/scripts.js"
+        "assets/js/env.js",
+        "assets/js/scripts.js"
       ],
-      "environmentSource": "environments/environment.ts",
       "environments": {
         "dev": "environments/environment.ts",
         "prod": "environments/environment.prod.ts"
-      }
+      },
+      "environmentSource": "environments/environment.ts"
     }
   ],
   "e2e": {

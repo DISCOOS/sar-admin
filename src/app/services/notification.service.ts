@@ -21,7 +21,7 @@ export class NotificationService {
 
     private _configureOptions(options: RequestOptions) {
         const headers = new Headers();
-        headers.append('Authorization', 'key=' + CONFIG.firebase.API_KEY);
+        headers.append('Authorization', 'key=' + CONFIG.google.firebase.API_KEY);
         headers.append('Content-Type', 'application/json');
         options.headers = headers;
     }
@@ -53,7 +53,7 @@ export class NotificationService {
         console.log(body)
         this.spinnerService.show();
         return this.http
-            .post(CONFIG.firebase.URL, body, options)
+            .post(CONFIG.google.firebase.URL, body, options)
             .map(res => res.json().data)
             .catch(this.exceptionService.catchBadPushResponse)
             .finally(() => this.spinnerService.hide());
