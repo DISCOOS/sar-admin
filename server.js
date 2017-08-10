@@ -1,10 +1,10 @@
+const path = require('path');
 const express = require('express');
 const app = express();
 
-console.log("starting server....");
+console.log("Configuring server....");
 
-// If an incoming request uses a protocol other than HTTPS,
-// redirect that request to the same url but with HTTPS
+// If an incoming request uses a protocol other than HTTPS, redirect that request to the same url but with HTTPS
 const forceSSL = function () {
     return function (req, res, next) {
         if (req.headers['x-forwarded-proto'] !== 'https') {
@@ -24,18 +24,26 @@ if (process.env.NODE_ENV === 'production') {
 // Run the app by serving the static files in the dist directory
 app.use(express.static(__dirname + '/dist'));
 
-// Start the app by listening on the default Heroku port
-app.listen(process.env.PORT || 8080);
+// Inject config variables from runtime environment
+require(path.join(__dirname, 'build', 'generate.js'))(function() {
 
-const path = require('path');
+    console.log("Starting server....");
 
-// Use Gzip compression
-const compression = require('compression');
-app.use(compression());
+    // Start the app by listening on the default Heroku port
+    app.listen(process.env.PORT || 8080);
 
-// For all GET requests, send back index.html so that PathLocationStrategy can be used
-app.get('*', function (req, res) {
-    const index = path.join(__dirname, 'dist', 'index.html');
-    res.sendFile(index);
+    // Use Gzip compression
+    const compression = require('compression');
+    app.use(compression());
+
+    // For all GET requests, send back index.html so that PathLocationStrategy can be used
+    app.get('*', function (req, res) {
+        const index = path.join(__dirname, 'dist', 'index.html');
+        res.sendFile(index);
+    });
+
+    console.log("Server started!");
+
 });
+
 
