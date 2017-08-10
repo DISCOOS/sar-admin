@@ -3,7 +3,7 @@ import { Observable } from 'rxjs/Observable';
 import { CONFIG } from '../shared/config';
 import { Http, Response, RequestOptions, Headers, URLSearchParams } from '@angular/http';
 declare var google: any;
-let API_KEY = CONFIG.google.API_KEY;
+let API_KEY = CONFIG.google.maps.API_KEY;
 
 @Injectable()
 export class MapService {

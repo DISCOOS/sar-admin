@@ -1,31 +1,27 @@
+import {extend} from 'lodash';
+import {environment} from '../../environments/environment';
+
 export let CONFIG = {
     // ---------------------------------------------
-    // Used for google maps api
+    // Google api configuration
     // ---------------------------------------------
-    //
-    // Pre-requisites: Google project and api key created with https://console.developers.google.com
-    //
     google: {
-        API_KEY: process.env.GOOGLE_API_KEY
+        maps: {
+            API_KEY: environment.GOOGLE_MAPS_API_KEY
+        },
+        firebase: {
+            URL: environment.GOOGLE_FIREBASE_SERVER_URL,
+            API_KEY: environment.GOOGLE_FIREBASE_SERVER_KEY
+        }
     },
-    // ---------------------------------------------
-    // Used for push notifications
-    // ---------------------------------------------
-    //
-    // Pre-requisites: Firebase project and server key created with https://console.firebase.google.com
-    //
-    // See https://github.com/firebase/quickstart-js/tree/master/messaging
-    //
-    firebase: {
-        URL: 'https://fcm.googleapis.com/fcm/send',
-        API_KEY: process.env.GOOGLE_FIREBASE_SERVER_KEY
-    },
+
     // ---------------------------------------------
     // Used for SAR-Status API
     // ---------------------------------------------
     sar_api: {
-        BASE_URL: (process.env.API_HOST || 'https://sar-status-api.herokuapp.com') + '/api',
+        BASE_URL: environment.SAR_STATUS_API_HOST + '/api'
     },
+
     // Used for calendar settings frontend
     flatpickr: {
         enableTime: true,
@@ -48,4 +44,4 @@ export let CONFIG = {
             },
         },
     }
-}
+};

@@ -14,9 +14,10 @@ const forceSSL = function () {
         }
         next();
     }
-}
+};
+
 // Instruct the app to use the forceSSL middleware for production
-if (process.env.NODE_ENV == 'production') {
+if (process.env.NODE_ENV === 'production') {
     app.use(forceSSL());
 }
 
@@ -28,13 +29,13 @@ app.listen(process.env.PORT || 8080);
 
 const path = require('path');
 
-// Use Gzip compression 
+// Use Gzip compression
 const compression = require('compression');
 app.use(compression());
 
 // For all GET requests, send back index.html so that PathLocationStrategy can be used
-
 app.get('*', function (req, res) {
-  const index = path.join(__dirname, 'dist', 'index.html');
-  res.sendFile(index);
+    const index = path.join(__dirname, 'dist', 'index.html');
+    res.sendFile(index);
 });
+
