@@ -5,7 +5,7 @@
     <h3 *ngIf="mission.isEmergency"><span class="helpertxt">Nødsituasjon:</span> Ja</h3>
 
     <h3 *ngIf="mission.creator"><span class="helpertxt">Opprettet av:</span> {{mission.creator.name}}</h3>
-    <h3 *ngIf="mission.meetingPoint"><span class="helpertxt">Oppmøtested:</span> <a href="http://maps.google.com/?q={{mission.meetingPoint.lat}},{{mission.meetingPoint.lng}}"
+    <h3 *ngIf="mission.meetingPoint"><span class="helpertxt">Oppmøtested:</span> <a href="https://maps.google.com/?q={{mission.meetingPoint.lat}},{{mission.meetingPoint.lng}}"
             target="_blank"> {{mission.meetingPointNicename}}</a></h3>
 
     <h3><span class="helpertxt">Startet:</span> {{mission.dateStart  | amUtc | amDateFormat:'DD/MM/YYYY, H:mm' }}</h3>
