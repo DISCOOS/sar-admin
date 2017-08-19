@@ -71,7 +71,8 @@ body { background:#f7f7f7; font-family: 'Open Sans', sans-serif;}
 
 /* top */
 #top { background: #f1f2f3; height: 100px;}
-#logo { display: block; float: left; padding:2em 0;}
+#splash { display: block; float: left; }
+#logo { display: block; float: left; padding: 2em 0; height: 200% }
 .maske { background-color: rgba(255,255,255, 0.85); left: 0; bottom: 0; right: 0; top: 0; margin: auto; overflow-y: scroll; position: fixed; z-index: 10; }
 #menymaske, #loadingmask { display: none;}
 
