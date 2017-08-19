@@ -25,7 +25,7 @@ if (process.env.NODE_ENV === 'production') {
 app.use(express.static(__dirname + '/dist'));
 
 // Inject config variables from runtime environment
-require(path.join(__dirname, 'build', 'generate.js'))(function() {
+require(path.join(__dirname, 'scripts', 'generate.js'))(function() {
 
     console.log("Starting server....");
 
