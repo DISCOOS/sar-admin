@@ -11,8 +11,8 @@
     "test": "ng test",
     "lint": "ng lint",
     "e2e": "ng e2e",
-    "postinstall": "ng build --prod --env=prod && node ./build/generate-env.js",
-    "heroku-prebuild": "./build/export_env_dir.sh"
+    "postinstall": "ng build --prod --env=prod && node ./scripts/generate-env.js",
+    "heroku-prebuild": "./scripts/export_env_dir.sh"
   },
   "private": true,
   "dependencies": {
