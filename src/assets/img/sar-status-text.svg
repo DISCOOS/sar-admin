@@ -40,15 +40,15 @@
      inkscape:pageopacity="0.0"
      inkscape:pageshadow="2"
      inkscape:zoom="5.713423"
-     inkscape:cx="60.395078"
-     inkscape:cy="21.983707"
-     inkscape:current-layer="layer1"
+     inkscape:cx="174.28446"
+     inkscape:cy="57.64057"
+     inkscape:current-layer="g3038"
      showgrid="true"
      inkscape:document-units="px"
      inkscape:grid-bbox="true"
      inkscape:window-width="1855"
      inkscape:window-height="1176"
-     inkscape:window-x="65"
+     inkscape:window-x="1985"
      inkscape:window-y="24"
      inkscape:window-maximized="1"
      fit-margin-top="0"
@@ -160,7 +160,8 @@
            y="62.754375"
            x="92.283546"
            id="tspan3036"
-           sodipodi:role="line">STATUS</tspan></text>
+           sodipodi:role="line"
+           style="-inkscape-font-specification:Open Sans;font-family:Open Sans;font-weight:normal;font-style:normal;font-stretch:normal;font-variant:normal;font-size:28.21934181px">STATUS</tspan></text>
     </g>
   </g>
 </svg>
